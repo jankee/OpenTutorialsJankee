@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.FarmDefence.CSharp", "UnityVS.FarmDefence.CSharp.csproj", "{45DF6716-1BB4-31FF-E9BC-CA43A45AA977}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.FarmDefence.CSharp.Editor", "UnityVS.FarmDefence.CSharp.Editor.csproj", "{4889EB05-6DD3-88FA-121E-FDCAEE2A074A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45DF6716-1BB4-31FF-E9BC-CA43A45AA977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45DF6716-1BB4-31FF-E9BC-CA43A45AA977}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45DF6716-1BB4-31FF-E9BC-CA43A45AA977}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45DF6716-1BB4-31FF-E9BC-CA43A45AA977}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4889EB05-6DD3-88FA-121E-FDCAEE2A074A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4889EB05-6DD3-88FA-121E-FDCAEE2A074A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4889EB05-6DD3-88FA-121E-FDCAEE2A074A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4889EB05-6DD3-88FA-121E-FDCAEE2A074A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
