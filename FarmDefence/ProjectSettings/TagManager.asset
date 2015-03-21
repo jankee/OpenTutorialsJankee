@@ -43,3 +43,15 @@ TagManager:
     userID: 0
     uniqueID: 0
     locked: 0
+  - name: BackGround
+    userID: 1
+    uniqueID: 502607883
+    locked: 0
+  - name: Charaters
+    userID: 2
+    uniqueID: 360407981
+    locked: 0
+  - name: ForeGround
+    userID: 3
+    uniqueID: 271631913
+    locked: 0
