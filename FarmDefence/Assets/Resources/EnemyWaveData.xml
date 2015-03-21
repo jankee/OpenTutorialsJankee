@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<EnemyWaveDatas>
+	<EnemyWaveData waveNo = "1">
+		<type>Pig</type>
+		<spawnPosition>4</spawnPosition>
+		<tagName>enemy</tagName>
+		<amount>1</amount>
+		<MS>3</MS>
+		<AD>1</AD>
+		<HP>2</HP>
+	</EnemyWaveData>
+	<EnemyWaveData waveNo = "1">
+		<type>Pig</type>
+		<spawnPosition>4</spawnPosition>
+		<tagName>enemy</tagName>
+		<amount>1</amount>
+		<MS>3</MS>
+		<AD>1</AD>
+		<HP>2</HP>
+	</EnemyWaveData>
+	<EnemyWaveData waveNo = "1">
+		<type>Pig</type>
+		<spawnPosition>4</spawnPosition>
+		<tagName>enemy</tagName>
+		<amount>1</amount>
+		<MS>3</MS>
+		<AD>1</AD>
+		<HP>2</HP>
+	</EnemyWaveData>
+	<EnemyWaveData waveNo = "1">
+		<type>Pig</type>
+		<spawnPosition>4</spawnPosition>
+		<tagName>enemy</tagName>
+		<amount>1</amount>
+		<MS>3</MS>
+		<AD>1</AD>
+		<HP>4</HP>
+	</EnemyWaveData>
+	<EnemyWaveData waveNo = "1">
+		<type>Pig</type>
+		<spawnPosition>4</spawnPosition>
+		<tagName>enemy</tagName>
+		<amount>1</amount>
+		<MS>3</MS>
+		<AD>1</AD>
+		<HP>4</HP>
+	</EnemyWaveData>
+	<EnemyWaveData waveNo = "2">
+		<type>Pig</type>
+		<spawnPosition>5</spawnPosition>
+		<tagName>enemy</tagName>
+		<amount>1</amount>
+		<MS>3</MS>
+		<AD>1</AD>
+		<HP>4</HP>
+	</EnemyWaveData>
+	<EnemyWaveData waveNo = "2">
+		<type>Pig</type>
+		<spawnPosition>4</spawnPosition>
+		<tagName>enemy</tagName>
+		<amount>1</amount>
+		<MS>3</MS>
+		<AD>1</AD>
+		<HP>5</HP>
+	</EnemyWaveData>
+	<EnemyWaveData waveNo = "2">
+		<type>Pig</type>
+		<spawnPosition>5</spawnPosition>
+		<tagName>enemy</tagName>
+		<amount>1</amount>
+		<MS>3</MS>
+		<AD>1</AD>
+		<HP>4</HP>
+	</EnemyWaveData>
+	<EnemyWaveData waveNo = "2">
+		<type>Pig</type>
+		<spawnPosition>4</spawnPosition>
+		<tagName>boss</tagName>
+		<amount>1</amount>
+		<MS>3</MS>
+		<AD>2</AD>
+		<HP>10</HP>
+	</EnemyWaveData>
+	<EnemyWaveData waveNo = "3">
+		<type>Rat</type>
+		<spawnPosition>5</spawnPosition>
+		<tagName>enemy</tagName>
+		<amount>1</amount>
+		<MS>3</MS>
+		<AD>1</AD>
+		<HP>4</HP>
+	</EnemyWaveData>
+	<EnemyWaveData waveNo = "3">
+		<type>Pig</type>
+		<spawnPosition>5</spawnPosition>
+		<tagName>boss</tagName>
+		<amount>1</amount>
+		<MS>3</MS>
+		<AD>1</AD>
+		<HP>10</HP>
+	</EnemyWaveData>
+</EnemyWaveDatas>
