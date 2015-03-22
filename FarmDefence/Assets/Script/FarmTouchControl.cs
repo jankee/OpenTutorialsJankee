@@ -25,35 +25,36 @@ public class FarmTouchControl : MonoBehaviour {
     Vector2 tempVector2 = new Vector2();
     //새총 발사에 사용되는 오브젝트 처리
     GameObject tempObj;
-
+    //애니메이터의 
+    Animator animator;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+    {
+        
 	}
+
+    public void Awake()
+    {
+
+        animator = GetComponent<Animator>();
+    }
+
+
 	
 	// Update is called once per frame
 	void Update () 
     {
-        if (Input.GetMouseButtonDown(0))
+        //GetMouseButton 과 GetMouseButtonDown의 차이점이 많다.
+        if (Input.GetMouseButton(0))
         {
-            tempVector3 = MainCamera.ScreenToWorldPoint(Input.mousePosition);
-            //기즈모 문에 z값을 캐릭터 위치로 바꿈
-            tempVector3.z = this.GetComponent<Transform>().position.z;
+            lastInputPosition = Input.mousePosition;
 
-            //벡터의 뺄셈 후 방향만 지닌 단위
-            FireDirection = tempVector3 - FirePoint.position;
-            FireDirection = FireDirection.normalized;
-            //FireDirection.normalized를 모르겠다.
-            print("파이어디렉션 :" + FireDirection);
-            print("노말라이즈드 :" + FireDirection.normalized);
-
-            tempObj = Instantiate(FireObj, FirePoint.position, Quaternion.LookRotation(FireDirection)) as GameObject;
-            //발사한 오브젝트 속도 계산
-            tempVector2.Set(FireDirection.x, FireDirection.y);
-            tempVector2 = tempVector2 * FireSpeed;
-
-            tempObj.rigidbody2D.velocity = tempVector2;
+            if (enableAttack)
+            {
+                //공격 애니메이션 전환
+                animator.SetTrigger("fire");
+            }
         }
 	}
 
@@ -63,5 +64,40 @@ public class FarmTouchControl : MonoBehaviour {
         Gizmos.DrawLine(FirePoint.position, tempVector3);
     }
 
-    
+    void FireTrigger()
+    {
+        //애니메이터에서 이벤트로 함수를 실행한다.
+        Fire(lastInputPosition);
+
+    }
+
+    void Fire(Vector3 inputPosition)
+    {
+        tempVector3 = MainCamera.ScreenToWorldPoint(inputPosition);
+        //기즈모 문에 z값을 캐릭터 위치로 바꿈
+        tempVector3.z = this.GetComponent<Transform>().position.z;
+
+        //벡터의 뺄셈 후 방향만 지닌 단위
+        FireDirection = tempVector3 - FirePoint.position;
+        FireDirection = FireDirection.normalized;
+        //FireDirection.normalized를 모르겠다.
+        print("파이어디렉션 :" + FireDirection);
+        print("노말라이즈드 :" + FireDirection.normalized);
+
+        tempObj = Instantiate(FireObj, FirePoint.position, Quaternion.LookRotation(FireDirection)) as GameObject;
+
+        
+        //발사한 오브젝트 속도 계산
+        tempVector2.Set(FireDirection.x, FireDirection.y);
+        tempVector2 = tempVector2 * FireSpeed;
+
+        tempObj.rigidbody2D.velocity = tempVector2;
+
+        enableAttack = false;
+    }
+
+    void FireEnd()
+    {
+        enableAttack = true;
+    }
 }
