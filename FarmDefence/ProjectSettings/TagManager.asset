@@ -43,15 +43,15 @@ TagManager:
     userID: 0
     uniqueID: 0
     locked: 0
-  - name: BackGround
+  - name: BGground
     userID: 1
-    uniqueID: 502607883
+    uniqueID: 2735115217
     locked: 0
-  - name: Charaters
+  - name: Charactors
     userID: 2
-    uniqueID: 360407981
+    uniqueID: 2806830757
     locked: 0
-  - name: ForeGround
+  - name: Foreground
     userID: 3
-    uniqueID: 271631913
+    uniqueID: 3264968225
     locked: 0

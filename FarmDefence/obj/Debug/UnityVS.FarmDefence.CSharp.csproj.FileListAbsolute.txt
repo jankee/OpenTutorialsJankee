@@ -1,0 +1,9 @@
+D:\01_MyWork\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+D:\01_MyWork\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+D:\01_MyWork\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEditor.dll
+D:\01_MyWork\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEngine.dll
+D:\01_MyWork\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEngine.xml
+D:\01_MyWork\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEditor.xml
+D:\01_MyWork\OpenTutorialsJankee\FarmDefence\obj\Debug\UnityVS.FarmDefence.CSharp.csprojResolveAssemblyReference.cache
+D:\01_MyWork\OpenTutorialsJankee\FarmDefence\obj\Debug\Assembly-CSharp.dll
+D:\01_MyWork\OpenTutorialsJankee\FarmDefence\obj\Debug\Assembly-CSharp.pdb
