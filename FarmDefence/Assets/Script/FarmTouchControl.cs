@@ -11,6 +11,8 @@ public class FarmTouchControl : MonoBehaviour {
     public Transform FirePoint;
     //발사 속도
     public float FireSpeed = 3;
+    //새총 발사할 방향
+    Vector3 FireDirection;
 
     //발사 가능 여부 판다
     bool enableAttack = true;
@@ -36,8 +38,22 @@ public class FarmTouchControl : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             tempVector3 = MainCamera.ScreenToWorldPoint(Input.mousePosition);
+            //기즈모 문에 z값을 캐릭터 위치로 바꿈
             tempVector3.z = this.GetComponent<Transform>().position.z;
-            print("마우스 입력 시 :" + tempVector3);
+
+            //벡터의 뺄셈 후 방향만 지닌 단위
+            FireDirection = tempVector3 - FirePoint.position;
+            FireDirection = FireDirection.normalized;
+            //FireDirection.normalized를 모르겠다.
+            print("파이어디렉션 :" + FireDirection);
+            print("노말라이즈드 :" + FireDirection.normalized);
+
+            tempObj = Instantiate(FireObj, FirePoint.position, Quaternion.LookRotation(FireDirection)) as GameObject;
+            //발사한 오브젝트 속도 계산
+            tempVector2.Set(FireDirection.x, FireDirection.y);
+            tempVector2 = tempVector2 * FireSpeed;
+
+            tempObj.rigidbody2D.velocity = tempVector2;
         }
 	}
 
