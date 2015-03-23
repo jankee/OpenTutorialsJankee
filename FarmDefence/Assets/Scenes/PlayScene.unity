@@ -484,7 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86cb7f1b545ea440a390d5e1fb498a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 1
+  currentState: 3
   FrontPosition: {fileID: 340010119}
   moveSpeed: 1
 --- !u!50 &624026909
@@ -650,7 +650,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 47a425631aca1427195fc8cf944ed808, type: 2}
       propertyPath: currentState
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47a425631aca1427195fc8cf944ed808, type: 2}

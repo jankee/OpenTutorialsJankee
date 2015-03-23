@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     public float moveSpeed = 1.0f;
 
     //체력
-    protected float currentHP;
+    protected float currentHP = 100;
     protected float maxHP;
 
     //공격여부 저장
@@ -35,6 +35,14 @@ public class Enemy : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
+
+    public void OnMouseDown()
+    {
+        print("fire");
+        Damage(10f);
+    }
+
+
 
     void FixedUpdate()
     {
@@ -68,7 +76,6 @@ public class Enemy : MonoBehaviour
                     //거짓이면 이동
                     rigidbody2D.velocity = new Vector2(-moveSpeed, rigidbody2D.velocity.y);
                 }
-                rigidbody2D.velocity = new Vector2(-moveSpeed, rigidbody2D.velocity.y);
                 break;
             case EnemyState.attack:
                 rigidbody2D.velocity = Vector2.zero;
@@ -82,7 +89,54 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void AttackAnimationEnd()
+    {
+        if (currentState == EnemyState.attack)
+        {
+            currentState = EnemyState.move;
+        }
+    }
 
+    public void Damage(float damageTaken)
+    {
+        //dead나 none 상태일때 진행되지 않도록 한다.
+        if (currentState == EnemyState.dead || currentState == EnemyState.none)
+        {
+            print("에너미 상태1 : " + currentState);
+            if (IsInvoking("ChangeStateToMove"))
+            {
+                CancelInvoke("ChangeStateToMove");
+            }
+            return;    
+        }
+
+        //충돌 후 일정 시간 동안 이동 정지
+        currentState = EnemyState.damage;
+        print("에너미 상태2 : " + currentState);
+
+        if (IsInvoking("ChangeStateToMove"))
+        {
+            print("IsIvoking Start");
+            CancelInvoke("ChangeStateToMove");
+        }
+
+        Invoke("ChangeStateToMove", 1f);
+
+        currentHP -= damageTaken;
+
+        if (currentHP <= 0)
+        {
+            currentHP = 0;
+            enableAttack = false;
+            currentState = EnemyState.dead;
+        }
+    }
+
+    void ChangeStateToMove()
+    {
+        print("ChangeStateToMove");
+        currentState = EnemyState.move;
+    }
 
 	// Use this for initialization
 	void Start () {
