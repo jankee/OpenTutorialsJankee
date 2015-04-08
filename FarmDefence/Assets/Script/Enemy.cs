@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
         {
             case EnemyState.none:
                 //이동 중지
-                rigidbody2D.velocity = Vector2.zero;
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 break;
             case EnemyState.move:
                 //이동
@@ -74,17 +74,17 @@ public class Enemy : MonoBehaviour
                 else
                 {
                     //거짓이면 이동
-                    rigidbody2D.velocity = new Vector2(-moveSpeed, rigidbody2D.velocity.y);
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
                 }
                 break;
             case EnemyState.attack:
-                rigidbody2D.velocity = Vector2.zero;
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 break;
             case EnemyState.damage:
-                rigidbody2D.velocity = Vector2.zero;
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 break;
             case EnemyState.dead:
-                rigidbody2D.velocity = Vector2.zero;
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 break;
         }
     }
