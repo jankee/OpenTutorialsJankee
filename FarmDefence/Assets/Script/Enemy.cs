@@ -12,19 +12,19 @@ public enum EnemyState
 
 public class Enemy : MonoBehaviour 
 {
-    //적상태
+    //적상태.
     public EnemyState currentState = EnemyState.none;
-    //LineCast에 사용될 위치
+    //LineCast에 사용될 위치.
     public Transform FrontPosition;
     protected RaycastHit2D isObstacle;
-    //이동 속도
+    //이동 속도.
     public float moveSpeed = 1.0f;
 
-    //체력
+    //체력.
     protected float currentHP = 10;
     protected float maxHP;
 
-    //공격여부 저장
+    //공격여부 저장.
     protected bool enableAttack = true;
     protected float attackPower = 10;
 
