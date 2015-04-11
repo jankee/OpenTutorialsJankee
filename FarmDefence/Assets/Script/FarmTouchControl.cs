@@ -10,7 +10,7 @@ public class FarmTouchControl : MonoBehaviour {
     //새총이 발사 되는 지점
     public Transform FirePoint;
     //발사 속도
-    public float FireSpeed = 3;
+    public float FireSpeed = 3f;
     //새총 발사할 방향
     Vector3 FireDirection;
 
@@ -28,6 +28,8 @@ public class FarmTouchControl : MonoBehaviour {
     //애니메이터의 
     Animator animator;
 
+    GameObject TEnemy;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -36,8 +38,8 @@ public class FarmTouchControl : MonoBehaviour {
 
     public void Awake()
     {
-
         animator = GetComponent<Animator>();
+
     }
 
 
@@ -55,6 +57,12 @@ public class FarmTouchControl : MonoBehaviour {
                 //공격 애니메이션 전환
                 animator.SetTrigger("fire");
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            TEnemy = GameObject.Find("Pig");
+            TEnemy.GetComponent<Enemy>().Damage(3);
         }
 	}
 

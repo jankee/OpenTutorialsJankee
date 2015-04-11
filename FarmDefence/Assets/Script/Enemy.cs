@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     public float moveSpeed = 1.0f;
 
     //체력
-    protected float currentHP = 100;
+    protected float currentHP = 10;
     protected float maxHP;
 
     //공격여부 저장
@@ -123,12 +123,23 @@ public class Enemy : MonoBehaviour
         Invoke("ChangeStateToMove", 1f);
 
         currentHP -= damageTaken;
-
+        //현재 체력이 0보다 작다면
         if (currentHP <= 0)
         {
             currentHP = 0;
             enableAttack = false;
             currentState = EnemyState.dead;
+            //데드 애니메이션 재생
+            animator.SetTrigger("isDead");
+            if (IsInvoking("ChangeStateToMove"))
+            {
+                CancelInvoke("ChangeStateToMove");
+            }
+            //TODO:점수 증가
+        }
+        else
+        {
+            animator.SetTrigger("damaged");
         }
     }
 
@@ -136,6 +147,17 @@ public class Enemy : MonoBehaviour
     {
         print("ChangeStateToMove");
         currentState = EnemyState.move;
+    }
+
+    public void Attack()
+    {
+        //농장에 피해를 가한다
+        RaycastHit2D findObstacle = Physics2D.Linecast(transform.position, FrontPosition.position,
+            1 << LayerMask.NameToLayer("Obstacle"));
+        if (findObstacle)
+        {
+            print("Fine Obstacle!!");
+        }
     }
 
 	// Use this for initialization

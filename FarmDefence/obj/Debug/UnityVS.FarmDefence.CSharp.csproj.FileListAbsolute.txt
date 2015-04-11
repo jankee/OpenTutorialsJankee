@@ -7,3 +7,16 @@ D:\01_MyWork\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEditor.
 D:\01_MyWork\OpenTutorialsJankee\FarmDefence\obj\Debug\UnityVS.FarmDefence.CSharp.csprojResolveAssemblyReference.cache
 D:\01_MyWork\OpenTutorialsJankee\FarmDefence\obj\Debug\Assembly-CSharp.dll
 D:\01_MyWork\OpenTutorialsJankee\FarmDefence\obj\Debug\Assembly-CSharp.pdb
+D:\GitHub\OpenTutorialsJankee\FarmDefence\obj\Debug\UnityVS.FarmDefence.CSharp.csprojResolveAssemblyReference.cache
+D:\GitHub\OpenTutorialsJankee\FarmDefence\obj\Debug\Assembly-CSharp.dll
+D:\GitHub\OpenTutorialsJankee\FarmDefence\obj\Debug\Assembly-CSharp.pdb
+D:\GitHub\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+D:\GitHub\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+D:\GitHub\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEditor.dll
+D:\GitHub\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll
+D:\GitHub\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEngine.dll
+D:\GitHub\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+D:\GitHub\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEngine.xml
+D:\GitHub\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEditor.xml
+D:\GitHub\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+D:\GitHub\OpenTutorialsJankee\FarmDefence\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
