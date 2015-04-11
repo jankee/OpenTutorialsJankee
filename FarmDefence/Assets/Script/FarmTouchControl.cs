@@ -91,7 +91,7 @@ public class FarmTouchControl : MonoBehaviour {
         tempVector2.Set(FireDirection.x, FireDirection.y);
         tempVector2 = tempVector2 * FireSpeed;
 
-        tempObj.rigidbody2D.velocity = tempVector2;
+        tempObj.GetComponent<Rigidbody2D>().velocity = tempVector2;
 
         enableAttack = false;
     }
