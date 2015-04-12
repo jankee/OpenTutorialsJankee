@@ -29,6 +29,7 @@ public class FarmTouchControl : MonoBehaviour {
     Animator animator;
 
     GameObject TEnemy;
+    GameObject TsEnemy;
 
 	// Use this for initialization
 	void Start () 
@@ -67,6 +68,13 @@ public class FarmTouchControl : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.S))
         {
             TEnemy.GetComponent<Enemy>().Attack();
+            
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            TsEnemy = GameObject.Find("GamePlayManager");
+            TsEnemy.GetComponent<GamePlayManager>().Damage(100);
+            TsEnemy.GetComponent<GamePlayManager>().AddScore(10);
         }
 	}
 

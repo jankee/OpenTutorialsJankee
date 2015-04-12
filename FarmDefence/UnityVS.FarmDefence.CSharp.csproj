@@ -195,6 +195,9 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\FarmTouchControl.cs" />
+    <Compile Include="Assets\Script\Fence.cs" />
+    <Compile Include="Assets\Script\GameData.cs" />
+    <Compile Include="Assets\Script\GamePlayManager.cs" />
     <Compile Include="Assets\Script\IDamageable.cs" />
     <Compile Include="Assets\Script\ShotObj.cs" />
   </ItemGroup>

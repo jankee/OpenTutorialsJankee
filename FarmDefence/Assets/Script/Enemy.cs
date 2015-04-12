@@ -114,6 +114,9 @@ public class Enemy : MonoBehaviour, IDamageable
         currentState = EnemyState.damage;
         print("에너미 상태2 : " + currentState);
 
+        //점수 증가.
+        GameData.Instance.gamePlayManager.AddScore(10);
+
         if (IsInvoking("ChangeStateToMove"))
         {
             print("IsIvoking Start");
@@ -162,14 +165,4 @@ public class Enemy : MonoBehaviour, IDamageable
             damageTarget.Damage(attackPower);
         }
     }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
