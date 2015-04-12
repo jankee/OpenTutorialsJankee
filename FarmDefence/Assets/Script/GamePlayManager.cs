@@ -34,6 +34,38 @@ public class GamePlayManager : MonoBehaviour, IDamageable
     //획득한 점수 저장
     int score = 0;
 
+    //게임 오브젝트 풀에 들어가는 게임 오브젝트의 최초 생성되는 위치
+    public Transform gameObjectPoolPosition;
+    //게임 오브젝트 풀 딕셔너리.
+    Dictionary<string, GameObjectPool> gameObjectPool = new Dictionary<string, GameObjectPool>();
+
+    public void OnEnable()
+    {
+        InitGameObjectPools();
+    }
+
+    void InitGameObjectPools()
+    {
+        print("Hi");
+        for (int i = 0; i < spawnEnemyObjs.Count; i++)
+        {
+            // 게임 오브젝트 풀 생성
+            GameObjectPool tempGameObjectPool = new GameObjectPool
+            (gameObjectPoolPosition.transform.position.x, spawnEnemyObjs[i]);
+            for (int j = 0; j < 5; j++)
+            {
+                //게임 오브젝트 생성
+                GameObject tempEnemyObj = Instantiate
+                    (spawnEnemyObjs[i], gameObjectPoolPosition.position, Quaternion.identity) as GameObject;
+                tempEnemyObj.name = spawnEnemyObjs[i].name + j;
+                tempEnemyObj.transform.parent = gameObjectPoolPosition;
+                //게임 오브젝트를 풀에 등록
+                tempGameObjectPool.AddGameObjec(tempEnemyObj);
+
+            }
+        }
+    }
+
     public void Awake()
     {
         //스크립트 연결.
