@@ -64,6 +64,10 @@ public class FarmTouchControl : MonoBehaviour {
             TEnemy = GameObject.Find("Pig");
             TEnemy.GetComponent<Enemy>().Damage(3);
         }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            TEnemy.GetComponent<Enemy>().Attack();
+        }
 	}
 
     void OnDrawGizmos()

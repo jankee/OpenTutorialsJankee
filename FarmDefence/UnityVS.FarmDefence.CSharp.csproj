@@ -195,6 +195,8 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\FarmTouchControl.cs" />
+    <Compile Include="Assets\Script\IDamageable.cs" />
+    <Compile Include="Assets\Script\ShotObj.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\NGUI\Examples\Atlases\Fantasy\Fantasy Font - Normal.txt" />

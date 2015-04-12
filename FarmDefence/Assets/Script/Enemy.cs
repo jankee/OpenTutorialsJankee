@@ -10,7 +10,7 @@ public enum EnemyState
     dead,
 }
 
-public class Enemy : MonoBehaviour 
+public class Enemy : MonoBehaviour, IDamageable
 {
     //적상태.
     public EnemyState currentState = EnemyState.none;
@@ -157,6 +157,9 @@ public class Enemy : MonoBehaviour
         if (findObstacle)
         {
             print("Fine Obstacle!!");
+
+            IDamageable damageTarget = (IDamageable)findObstacle.transform.GetComponent(typeof(IDamageable));
+            damageTarget.Damage(attackPower);
         }
     }
 
