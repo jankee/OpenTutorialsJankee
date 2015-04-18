@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86cb7f1b545ea440a390d5e1fb498a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 3
+  currentState: 1
   FrontPosition: {fileID: 400016}
   moveSpeed: 1
 --- !u!212 &21200000
