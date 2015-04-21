@@ -123,7 +123,7 @@ public class Enemy : MonoBehaviour, IDamageable
             CancelInvoke("ChangeStateToMove");
         }
 
-        Invoke("ChangeStateToMove", 1f);
+        Invoke("ChangeStateToMove", 0.3f);
 
         currentHP -= damageTaken;
         //현재 체력이 0보다 작다면
@@ -138,12 +138,28 @@ public class Enemy : MonoBehaviour, IDamageable
             {
                 CancelInvoke("ChangeStateToMove");
             }
-            //TODO:점수 증가
+
+            //점수 증가
+            GameData.Instance.gamePlayManager.AddScore(10);
+
+            //적 보스가 사망하면 다시 적을 생성할 수 있도록 처리한다.
+            if (gameObject.tag == "boss")
+            {
+                GameData.Instance.gamePlayManager.SetupGameStateToIdle();
+            }
         }
         else
         {
             animator.SetTrigger("damaged");
         }
+    }
+
+    public void ResetEnemy()
+    {
+        transform.position = Vector3.right * 30;
+        currentState = EnemyState.none;
+        animator.ResetTrigger("isDead");
+        animator.SetTrigger("isAlive");
     }
 
     void ChangeStateToMove()
@@ -164,5 +180,22 @@ public class Enemy : MonoBehaviour, IDamageable
             IDamageable damageTarget = (IDamageable)findObstacle.transform.GetComponent(typeof(IDamageable));
             damageTarget.Damage(attackPower);
         }
+    }
+
+    public void InitEnemy(float setupMaxHP, float setupAttackPower, float setupMoveSpeed)
+    {
+        //walk 애니메이션 재생
+        animator.SetTrigger("isAlive");
+        //HP와 공격력, 이동속도를 설정한다.
+        maxHP = setupMaxHP;
+        attackPower = setupAttackPower;
+        moveSpeed = setupMoveSpeed;
+        enableAttack = true;
+
+        //캐릭터 상태를 변경하여 이동을 시작하도록 한다
+        currentState = EnemyState.move;
+        //isAlive트리거를 초기화해서 dead 애니메이션 종료 후
+        //walk 애니메이션 바로 전환되는 것을 방지
+        animator.ResetTrigger("isAlive");
     }
 }

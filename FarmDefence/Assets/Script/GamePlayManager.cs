@@ -28,6 +28,7 @@ public class GamePlayManager : MonoBehaviour, IDamageable
         new Vector3(12f, -2.2f, 190f), new Vector3(12f, -4.7f, 190f),
     };
 
+    //농장 HP
     float farmCurrentHP = 300;
     float farmLimitHP = 300;
 
@@ -39,8 +40,13 @@ public class GamePlayManager : MonoBehaviour, IDamageable
 
     //게임 오브젝트 풀에 들어가는 게임 오브젝트의 최초 생성되는 위치
     public Transform gameObjectPoolPosition;
+
     //게임 오브젝트 풀 딕셔너리.
     Dictionary<string, GameObjectPool> gameObjectPools = new Dictionary<string, GameObjectPool>();
+
+    //적 생성 데이터 저장
+    List<EnemyWaveData> enemyWaveDatas = new List<EnemyWaveData>();
+    int currentEnemyWaveDataIndexNo = 0;
 
     //생성할 위치값을 생성할 유닛 수로 치환
     Dictionary<int, int> positionToAmount = new Dictionary<int, int>
@@ -51,17 +57,89 @@ public class GamePlayManager : MonoBehaviour, IDamageable
         {15, 4}
     };
 
-    //적 생성 데이터 저장
-    List<EnemyWaveData> enemyWaveDatas = new List<EnemyWaveData>();
-    int currentEnemyWaveDataIndext = 0;
+    void Awake()
+    {
+        //스크립트 연결
+        GameData.Instance.gamePlayManager = this;
+    }
 
-
+    void OnDestroy()
+    {
+        //스크립트 연결 해제
+        GameData.Instance.gamePlayManager = null;
+    }
 
     public void OnEnable()
     {
         InitGameObjectPools();
         LoadEnemyWaveDataFromXML();
     }
+
+    public void Update()
+    {
+        switch (nowGameState)
+        {
+            case GameState.ready:
+                //게임이 시작되면 3초간 사용자에게 준비시간을 제공
+                timeElapsed += Time.deltaTime;
+                if (timeElapsed >= 3.0f)
+                {
+                    timeElapsed = 0;
+                    SetupGameStateToIdle();
+                }
+                break;
+            case GameState.idle:
+                break;
+            case GameState.gameOver:
+                break;
+            case GameState.Wait:
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void SetupGameStateToIdle()
+    {
+        //게임 스테이트를 idle로 변경
+        nowGameState = GameState.idle;
+
+        //해체되지 못한 Invoke를 해제하고 새롭게 설정
+        if (IsInvoking("CheckSpawnEnemy"))
+        {
+            CancelInvoke("CheckSpawnEnemy");
+        }
+        InvokeRepeating("CheckSpawnEnemy", 0.5f, 2.0f);
+    }
+
+    void CheckSpawnEnemy()
+    {
+        //idle 상태가 아니라면 더 이상 진행되지 못하도록 에러처리
+        if (nowGameState != GameState.idle)
+        {
+            return;
+        }
+
+        //적 생성 데이터 전체가 소모되었다면 게임을 종료하도록 한다
+        if (currentEnemyWaveDataIndexNo >= enemyWaveDatas.Count)
+        {
+            nowGameState = GameState.gameOver;
+            CancelInvoke("CheckSpawnEnemy");
+            return;
+        }
+
+        //적을 생성한다.
+        SpawnEnemy(enemyWaveDatas[currentEnemyWaveDataIndexNo]);
+        //생성된 적이 boss인 경우 적 생성을 멈춘다
+        if (enemyWaveDatas[currentEnemyWaveDataIndexNo].tagName == "boss")
+        {
+            nowGameState = GameState.Wait;
+            CancelInvoke("CheckSpawnEney");
+        }
+
+        currentEnemyWaveDataIndexNo++;
+    }
+
 
     void InitGameObjectPools()
     {
@@ -132,6 +210,10 @@ public class GamePlayManager : MonoBehaviour, IDamageable
 
             //오브젝트 풀에 사용 가능한 게임 오브젝트가 있는지 점검
             GameObject currentSpawnGameObject;
+
+            
+
+
             if (!gameObjectPools[enemyData.type].NextGameObject(out currentSpawnGameObject))
             {
                 //사용가능한 게임 오브젝트가 없다면 생성하여 추가한다.
@@ -146,8 +228,20 @@ public class GamePlayManager : MonoBehaviour, IDamageable
             }
             currentSpawnGameObject.transform.position = spawnPositions[shiftPosition];
 
+            //선택된 적 캐릭터를 초기화하여 작동시킨다
+            currentSpawnGameObject.tag = enemyData.tagName;
+            Enemy currentEnemy = currentSpawnGameObject.GetComponent<Enemy>();
+            currentEnemy.InitEnemy(enemyData.HP, enemyData.AD, enemyData.MS);
+            
             shiftPosition++;
+
+            if (enemyData.tagName == "boss")
+            {
+                
+            }
         }
+
+  
     }
 
     public void Awake()
