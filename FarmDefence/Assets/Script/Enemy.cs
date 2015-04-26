@@ -36,6 +36,13 @@ public class Enemy : MonoBehaviour, IDamageable
         animator = GetComponent<Animator>();
     }
 
+    void OnEnable()
+    {
+        currentHP = 2;
+    }
+
+
+
     public void OnMouseDown()
     {
         print("fire");
@@ -65,7 +72,6 @@ public class Enemy : MonoBehaviour, IDamageable
                     if (isObstacle)
                     {
                         currentState = EnemyState.attack;
-                        print("적의 상태 : " + currentState);
                         //애니메이터의 트리거 작동
                         animator.SetTrigger("attack");
 
@@ -102,7 +108,6 @@ public class Enemy : MonoBehaviour, IDamageable
         //dead나 none 상태일때 진행되지 않도록 한다.
         if (currentState == EnemyState.dead || currentState == EnemyState.none)
         {
-            print("에너미 상태1 : " + currentState);
             if (IsInvoking("ChangeStateToMove"))
             {
                 CancelInvoke("ChangeStateToMove");
@@ -112,10 +117,6 @@ public class Enemy : MonoBehaviour, IDamageable
 
         //충돌 후 일정 시간 동안 이동 정지
         currentState = EnemyState.damage;
-        print("에너미 상태2 : " + currentState);
-
-        //점수 증가.
-        GameData.Instance.gamePlayManager.AddScore(10);
 
         if (IsInvoking("ChangeStateToMove"))
         {
@@ -168,7 +169,7 @@ public class Enemy : MonoBehaviour, IDamageable
         currentState = EnemyState.move;
     }
 
-    public void Attack()
+    public virtual void Attack()
     {
         //농장에 피해를 가한다
         RaycastHit2D findObstacle = Physics2D.Linecast(transform.position, FrontPosition.position,

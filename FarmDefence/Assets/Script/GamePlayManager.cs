@@ -89,8 +89,8 @@ public class GamePlayManager : MonoBehaviour, IDamageable
                 }
                 break;
             case GameState.idle:
-                break;
-            case GameState.gameOver:
+                //두 상태 모두 게임이 진행중이므로 경과 시간을 증가시킨다.
+                timeElapsed += Time.deltaTime;
                 break;
             case GameState.Wait:
                 break;
@@ -157,8 +157,8 @@ public class GamePlayManager : MonoBehaviour, IDamageable
                 tempEnemyObj.transform.parent = gameObjectPoolPosition;
                 //게임 오브젝트를 풀에 등록
                 tempGameObjectPool.AddGameObjec(tempEnemyObj);
-
             }
+            gameObjectPools.Add(spawnEnemyObjs[i].name, tempGameObjectPool);
         }
     }
 
@@ -211,9 +211,6 @@ public class GamePlayManager : MonoBehaviour, IDamageable
             //오브젝트 풀에 사용 가능한 게임 오브젝트가 있는지 점검
             GameObject currentSpawnGameObject;
 
-            
-
-
             if (!gameObjectPools[enemyData.type].NextGameObject(out currentSpawnGameObject))
             {
                 //사용가능한 게임 오브젝트가 없다면 생성하여 추가한다.
@@ -242,17 +239,6 @@ public class GamePlayManager : MonoBehaviour, IDamageable
         }
 
   
-    }
-
-    public void Awake()
-    {
-        //스크립트 연결.
-        GameData.Instance.gamePlayManager = this;
-    }
-
-    public void OnDestroy()
-    {
-        GameData.Instance.gamePlayManager = null;
     }
 
 

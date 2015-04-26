@@ -194,6 +194,8 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
+    <Compile Include="Assets\Script\EnemyRanged.cs" />
+    <Compile Include="Assets\Script\EnemyShotObj.cs" />
     <Compile Include="Assets\Script\FarmTouchControl.cs" />
     <Compile Include="Assets\Script\Fence.cs" />
     <Compile Include="Assets\Script\GameData.cs" />

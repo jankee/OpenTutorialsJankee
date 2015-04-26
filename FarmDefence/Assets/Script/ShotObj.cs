@@ -15,10 +15,18 @@ public class ShotObj : MonoBehaviour
         //적 캐릭터인 경우, 공격하여 피해를 가한다.
         if (other.CompareTag("enemy") || other.CompareTag("boss"))
         {
-            IDamageable damageTarget = (IDamageable)other.transform.GetComponent(typeof(IDamageable));
-            damageTarget.Damage(attackPower);
-            //공격 후 제거
-            Destroy(gameObject);
+            //적 캐릭터 인 경우, 공격하여 피해를 가한다
+            AttackAndDestroy(other);
         }
+    }
+
+    protected void AttackAndDestroy(Collider2D other)
+    {
+        IDamageable damageTarget = (IDamageable)other.GetComponent(typeof(IDamageable));
+        damageTarget.Damage(attackPower);
+
+        //공격 후 제거
+        transform.position = (Vector3.right * 30) + (Vector3.up * 10);
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 }
