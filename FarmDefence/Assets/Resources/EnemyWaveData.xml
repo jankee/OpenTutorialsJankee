@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <EnemyWaveDatas>
 	<EnemyWaveData waveNo = "1">
-		<type>Pig</type>
+		<type>Rat</type>
 		<spawnPosition>4</spawnPosition>
 		<tagName>enemy</tagName>
 		<amount>1</amount>
@@ -10,7 +10,7 @@
 		<HP>2</HP>
 	</EnemyWaveData>
 	<EnemyWaveData waveNo = "1">
-		<type>Pig</type>
+		<type>Rat</type>
 		<spawnPosition>4</spawnPosition>
 		<tagName>enemy</tagName>
 		<amount>1</amount>
@@ -19,7 +19,7 @@
 		<HP>2</HP>
 	</EnemyWaveData>
 	<EnemyWaveData waveNo = "1">
-		<type>Pig</type>
+		<type>Rat</type>
 		<spawnPosition>4</spawnPosition>
 		<tagName>enemy</tagName>
 		<amount>1</amount>

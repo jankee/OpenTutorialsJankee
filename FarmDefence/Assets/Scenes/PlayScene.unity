@@ -565,7 +565,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nowGameState: 1
   spawnEnemyObjs:
-  - {fileID: 100006, guid: 47a425631aca1427195fc8cf944ed808, type: 2}
   - {fileID: 100000, guid: 5b209c315b5804eb8b1c0e63c5b080a7, type: 2}
   gameObjectPoolPosition: {fileID: 1640794634}
 --- !u!4 &1640794634

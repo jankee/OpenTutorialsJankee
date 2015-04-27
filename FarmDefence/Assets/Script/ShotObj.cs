@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShotObj : MonoBehaviour 
+public class ShotObj : MonoBehaviour
 {
     protected float attackPower = 1;
     
