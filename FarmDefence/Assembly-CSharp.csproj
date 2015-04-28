@@ -39,13 +39,48 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/Program Files/Unity5/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/Program Files/Unity5/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\AnimationController.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\BulletController.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\CharAnimationController.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\CharBasicController.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\ComboBox.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\DamageBehaviour.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\DamageData.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\DemoPathFindingBehavior.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\FollowerAI.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\GameFactory.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\IsoSpriteController.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\ObjectGenerator.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\PhysicCharBehaviour.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\VehicleCharController.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Samples\Scripts\WeaponController.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\AutoTileBrush.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\AutoTileMap.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\AutoTileMapData.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\AutoTileMapEditorBehaviour.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\AutoTileMapGui.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\AutoTileMapSerializeData.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\AutoTileset.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\RpgMapHelper.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\TileChunk.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\TileChunkPool.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\UtilsAutoTileMap.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\UtilsGuiDrawing.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutoTileMap\UtilsSerialize.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\AutonomousAgents\MovingBehaviour.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\Extra\Camera2DController.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\Extra\FollowObjectBehaviour.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\MapPathFinding\MapPathFinding.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\MapPathFinding\MapPathFindingBehaviour.cs" />
+     <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\MapPathFinding\PathFinding.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\EquipItems.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\EquipRandomItem.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\UICursor.cs" />
@@ -225,10 +260,10 @@
      <None Include="Assets\NGUI\Examples\Models\Orc Armor\Orc Armor.shader" />
      <None Include="Assets\NGUI\Examples\Resources\Localization.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
- <HintPath>D:/Program Files/Unity5/Editor/Data/PlaybackEngines/iossupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iossupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

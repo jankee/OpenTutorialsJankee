@@ -107,6 +107,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\Editor\AutoTileMapEditor.cs" />
+    <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\Editor\AutoTilesetEditor.cs" />
+    <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\Editor\AutoTilesetEditorWindow.cs" />
+    <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\Editor\RpgMapMakerEditor.cs" />
+    <Compile Include="Assets\CreativeSpore\RpgMapEditor\Scripts\Editor\TilesetComponent.cs" />
     <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Editor\InvDatabaseInspector.cs" />
     <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Editor\InvFindItem.cs" />
     <Compile Include="Assets\NGUI\Scripts\Editor\ActiveAnimationEditor.cs" />
