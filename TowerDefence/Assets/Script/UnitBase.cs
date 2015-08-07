@@ -7,6 +7,7 @@ public class UnitBase : MonoBehaviour
     public float moveSpeed = 1.0f;
     public tk2dSpriteAnimator spr;
 
+    private float timeCheck = 1;
     private bool isMoveAble = false;
     private Point nextPoint;
     //현재 유닛이 속해있는 타일맵 좌표
@@ -44,6 +45,7 @@ public class UnitBase : MonoBehaviour
 
     void Update()
     {
+            
         if (!isMoveAble)
         {
             return;
@@ -62,6 +64,7 @@ public class UnitBase : MonoBehaviour
         bool isCloseX = false;
         bool isCloseY = false;
 
+       
         if (Mathf.Abs(dx) > Mathf.Abs(rx) || dx == 0)
         {
             dx = rx;
@@ -82,23 +85,51 @@ public class UnitBase : MonoBehaviour
             return;
         }
         setNextPoint();
+        //StartCoroutine( "setNextPoint");
     }
 
     public void getPath()
     {
-        pathArr = new Point[] { new Point(startPoint.x + 1, startPoint.y), new Point(startPoint.x + 2, startPoint.y), 
-            new Point(startPoint.x + 2, startPoint.y + 1), new Point(startPoint.x + 2, startPoint.y) };
+        Point[] pArr = PathFinder.instance.getPath(startPoint, 111);
+
+        if (pArr == null)
+        {
+            Debug.Log("NULL path");
+            return;
+        }
+
+        pathArr = pArr;
+
+        //pathArr = new Point[] { new Point(startPoint.x + 1, startPoint.y), new Point(startPoint.x + 2, startPoint.y), 
+        //    new Point(startPoint.x + 2, startPoint.y + 1), new Point(startPoint.x + 2, startPoint.y) };
         pathIndex = 0;
     }
+
+    //private IEnumerator setNextPoint()
+    //{
+    //    startPoint = nextPoint;
+    //    pathIndex++;
+
+    //    //if (pathIndex > 3)
+    //    //{
+    //    //    pathIndex = 0;
+    //    //}
+
+    //    nextPoint = pathArr[pathIndex];
+    //    showCharDir();
+    //    yield return new WaitForSeconds(1.0f);
+    //}
 
     private void setNextPoint()
     {
         startPoint = nextPoint;
         pathIndex++;
-        if (pathIndex > 3)
-        {
-            pathIndex = 0;
-        }
+
+        //if (pathIndex > 3)
+        //{
+        //    pathIndex = 0;
+        //}
+
         nextPoint = pathArr[pathIndex];
         showCharDir();
     }

@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using common;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour 
+{
+    public BgCellDisplayer bgGrid;
+    public Camera mainCamera;
 
     private static GameManager _instance = null;
     public static GameManager instance
@@ -50,11 +53,14 @@ public class GameManager : MonoBehaviour {
     void Awake()
     {
         _instance = this;
+        init();
     }
 
     private void init()
     {
         unitList.Clear();
+
+        initPathFinder();
     }
 
     void addUnit()
@@ -91,6 +97,11 @@ public class GameManager : MonoBehaviour {
 
         int ranIdx = Random.Range(0, startPointList.Count);
         return startPointList[ranIdx];
+    }
+
+    public void initPathFinder()
+    {
+        PathFinder.instance.setMapData(wallMap);
     }
 
     public void OnGUI()
