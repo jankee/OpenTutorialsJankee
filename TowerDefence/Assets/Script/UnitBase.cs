@@ -38,9 +38,10 @@ public class UnitBase : MonoBehaviour
 
     private string[] charAniStr = new string[] { "walk_up", "walk_down", "walk_left", "walk_right", "destroy" };
 
-    void Start()
+    void Awake()
     {
-        spr = this.GetComponent<tk2dSpriteAnimator>();
+        nextPoint = new Point(0, 0);
+        //spr = this.GetComponent<tk2dSpriteAnimator>();
     }
 
     void Update()
@@ -82,73 +83,104 @@ public class UnitBase : MonoBehaviour
         if (isCloseX && isCloseY)
         {
             isMoveAble = false;
+            GameManager.instance.removeUnit(this);
+            //Destroy(this.gameObject);
             return;
         }
-        setNextPoint();
-        //StartCoroutine( "setNextPoint");
+        //setNextPoint();
+        StopCoroutine("setNextPoint");
+        StartCoroutine("setNextPoint");
     }
 
-    public void getPath()
+    int makeNomal(float f)
     {
+        float k = .1f;
+        if (f > k)
+        {
+            return 1;
+        }
+        else if (f < -k)
+        {
+            return -1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public bool getPath()
+    {
+        float cellSize = GameManager.instance.cellSize;
+        startPoint = new Point((int)(this.transform.localPosition.x / cellSize), -(int)(this.transform.localPosition.y / cellSize));
+        int wallMapIndex = GameManager.instance.wallMap[startPoint.x, startPoint.y];
+        if (wallMapIndex > 0 && wallMapIndex < 10)
+        {
+            return true;
+        }
+
         Point[] pArr = PathFinder.instance.getPath(startPoint, 111);
 
         if (pArr == null)
         {
             Debug.Log("NULL path");
-            return;
+            return false;
         }
 
         pathArr = pArr;
 
-        //pathArr = new Point[] { new Point(startPoint.x + 1, startPoint.y), new Point(startPoint.x + 2, startPoint.y), 
-        //    new Point(startPoint.x + 2, startPoint.y + 1), new Point(startPoint.x + 2, startPoint.y) };
-        pathIndex = 0;
+        if (nextPoint != null && pathArr.Length > 1 && nextPoint.isEqual(pathArr[1]))
+        {
+            pathIndex = 1;
+        }
+        else
+        {
+            pathIndex = 0;
+        }
+
+        showCharDir();
+        return true;
+
     }
-
-    //private IEnumerator setNextPoint()
-    //{
-    //    startPoint = nextPoint;
-    //    pathIndex++;
-
-    //    //if (pathIndex > 3)
-    //    //{
-    //    //    pathIndex = 0;
-    //    //}
-
-    //    nextPoint = pathArr[pathIndex];
-    //    showCharDir();
-    //    yield return new WaitForSeconds(1.0f);
-    //}
-
-    private void setNextPoint()
+    IEnumerator setNextPoint()
     {
         startPoint = nextPoint;
         pathIndex++;
 
-        //if (pathIndex > 3)
-        //{
-        //    pathIndex = 0;
-        //}
-
         nextPoint = pathArr[pathIndex];
         showCharDir();
+        yield return new WaitForSeconds(1.0f);
     }
+
+    //private void setNextPoint()
+    //{
+    //    startPoint = nextPoint;
+    //    pathIndex++;
+
+    //    nextPoint = pathArr[pathIndex];
+    //    showCharDir();
+    //}
 
     private void showCharDir()
     {
-        if (startPoint.x < nextPoint.x)
+        float cellSize = GameManager.instance.cellSize;
+        //float nx = nextPoint.x;
+        float nx = (nextPoint.x * cellSize + cellSize / 2.0f);
+        float ny = (-nextPoint.y * cellSize - cellSize / 2.0f);
+
+        if (this.transform.localPosition.x < nx)
         {
             spr.Play(charAniStr[(int)CHAR_ANI.RIGHT]);
         }
-        else if (startPoint.x > nextPoint.x)
+        else if (this.transform.localPosition.x > nx)
         {
             spr.Play(charAniStr[(int)CHAR_ANI.LEFT]);
         }
-        else if (startPoint.y > nextPoint.y)
+        else if (this.transform.localPosition.y < ny)
         {
             spr.Play(charAniStr[(int)CHAR_ANI.UP]);
         }
-        else if (startPoint.y < nextPoint.y)
+        else if (this.transform.localPosition.y > ny)
         {
             spr.Play(charAniStr[(int)CHAR_ANI.DOWN]);
         }

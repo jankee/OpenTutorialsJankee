@@ -65,8 +65,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Bg.cs" />
     <Compile Include="Assets\Script\BgCell.cs" />
     <Compile Include="Assets\Script\BgCellDisplayer.cs" />
+    <Compile Include="Assets\Script\BgDisplayer.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\MapData.cs" />
     <Compile Include="Assets\Script\PathFinder.cs" />

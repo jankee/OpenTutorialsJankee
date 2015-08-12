@@ -1,0 +1,17 @@
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEditor.dll
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEngine.Analytics.dll
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEngine.dll
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEngine.Networking.dll
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEngine.xml
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEditor.xml
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEngine.Networking.xml
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEngine.Analytics.xml
+D:\001_Working\opentutorials_egoing\TowerDefence\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
+D:\001_Working\opentutorials_egoing\TowerDefence\obj\Debug\UnityVS.TowerDefence.CSharp.csprojResolveAssemblyReference.cache
+D:\001_Working\opentutorials_egoing\TowerDefence\obj\Debug\Assembly-CSharp.dll
+D:\001_Working\opentutorials_egoing\TowerDefence\obj\Debug\Assembly-CSharp.pdb
