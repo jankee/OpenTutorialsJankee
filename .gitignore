@@ -5,6 +5,9 @@ TowerDefence/Temp/
 TowerDefence/Library/
 TowerDefence/obj/
 
+INventoryTuto/Library/
+INventoryTuto/Temp/
+INventoryTuto/obj/
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -12,6 +15,14 @@ TowerDefence/*.csproj
 *.pidb
 *.suo
 TowerDefence/*.sln
+*.user
+*.unityproj
+*.booproj
+
+INventoryTuto/*.csproj
+*.pidb
+*.suo
+INventoryTuto/*.sln
 *.user
 *.unityproj
 *.booproj
