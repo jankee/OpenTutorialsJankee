@@ -12,6 +12,7 @@ public class BgDisplayer : MonoBehaviour
 	void Start () 
     {
         gm = GameManager.instance;
+        cellTileArr = new Bg[0, 0];
         showBgCellTile();
         Debug.Log(gm.wallMap.GetLength(0));
         Debug.Log(gm.wallMap.GetLength(1));
@@ -39,6 +40,8 @@ public class BgDisplayer : MonoBehaviour
                 bgCell.transform.parent = this.transform;
                 bgCell.transform.localPosition = new Vector3(40 * x, -40 * y, 0);
                 cellTileArr[x, y] = bgCell;
+                cellTileArr[x, y].name = "Cell" + x + y; 
+                print("Cell : " + cellTileArr[x, y].name);
             }   
         }
         refreshCellDisplay();
@@ -62,7 +65,7 @@ public class BgDisplayer : MonoBehaviour
                 // 10이하로는 setActivete를 꺼준다.
                 if (gm.wallMap[x, y] < 10 && gm.wallMap[x, y] != 0)
                 {
-                    bgCell.isVisableBg = false;
+                    bgCell.isVisableBg = true;
                 }
                 // 11이면 스타트 컬러를 대입
                 else if (gm.wallMap[x, y] == 11)
@@ -78,7 +81,7 @@ public class BgDisplayer : MonoBehaviour
                 }
                 else if (gm.wallMap[x, y] == 2)
                 {
-                    bgCell.isVisableBg = false;   
+                    bgCell.isVisableBg = true;   
                 }
                 else
                 {
@@ -94,5 +97,16 @@ public class BgDisplayer : MonoBehaviour
     public void textTest()
     {
         Debug.Log("Test");
+                
+        int x, y;
+
+        for (x = 0; x < 20; x++)
+        {
+            for (y = 0; y < 13; y++)
+            {
+                print("Cell : " + cellTileArr[x, y].name);
+
+            }   
+        }
     }
 }
