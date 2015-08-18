@@ -157,6 +157,7 @@ GameObject:
   - 224: {fileID: 1243485004}
   - 222: {fileID: 1243485003}
   - 114: {fileID: 1243485002}
+  - 114: {fileID: 1243485005}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -205,9 +206,26 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 88, y: -88}
+  m_AnchoredPosition: {x: 38, y: -38}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &1243485005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1243485001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e733007c2e7939847bc00ff67c6b3157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot: 30
+  rows: 5
+  slotPaddingLeft: 2
+  slotPaddingTop: 2
+  slotSize: 50
+  slotPrefab: {fileID: 150326, guid: 82452687043750f4da329509fbf073e9, type: 2}
 --- !u!1 &1521490860
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +274,7 @@ Camera:
   m_GameObject: {fileID: 1521490860}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
