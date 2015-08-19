@@ -75,8 +75,9 @@ public class Inventory : MonoBehaviour
                 //사이즈 값을 slotSize로 넣어 준다
                 slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotSize);
                 slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotSize);
+
                 //스케일값 변경때문에 다시 설정
-                slotRect.localScale = new Vector3(1, 1, 1);
+                //slotRect.localScale = new Vector3(1, 1, 1);
                 //allSlot에 동록한다
                 allSlots.Add(newSlot);
             }
