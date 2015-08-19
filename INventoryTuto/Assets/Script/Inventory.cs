@@ -25,6 +25,9 @@ public class Inventory : MonoBehaviour
     //슬롯 오브젝트 리스트 변수
     private List<GameObject> allSlots;
 
+    //비여있는 스롯 갯수 저장 변수
+    private int emptySlot;
+
 
 	// Use this for initialization
 	void Start () 
@@ -37,10 +40,44 @@ public class Inventory : MonoBehaviour
 	
 	}
 
+    public bool AddItem(Item item)
+    {
+        if (item.maxSize == 1)
+        {
+            PlaceEmpty(item);
+            return true;
+        }
+        return false;
+    }
+
+    //비여있는 슬롯을 찾아 아이템을 넣어 준다.
+    private bool PlaceEmpty(Item item)
+    {
+        if (emptySlot > 0)
+        {
+            foreach (GameObject slot in allSlots)
+            {
+                Slot tmp = slot.GetComponent<Slot>();
+
+                if (tmp.isEmpty)
+                {
+                    tmp.AddItem(item);
+                    emptySlot--;
+                    return true;
+
+                }
+            }
+        }
+        return false;
+    }
+
     private void CreateLayout()
     {
         //allSlot의 초기화
         allSlots = new List<GameObject>();
+
+        //비여있는 스롯 갯수를 초기화
+        emptySlot = slot;
 
         int colums = slot / rows;
 
