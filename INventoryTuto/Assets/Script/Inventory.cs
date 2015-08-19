@@ -25,6 +25,7 @@ public class Inventory : MonoBehaviour
     //슬롯 오브젝트 리스트 변수
     private List<GameObject> allSlots;
 
+
 	// Use this for initialization
 	void Start () 
     {
