@@ -101,7 +101,7 @@ GameObject:
   - 114: {fileID: 206240259}
   m_Layer: 0
   m_Name: Health
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +137,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 206240254}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -175,7 +175,7 @@ MonoBehaviour:
   type: 1
   spriteNeutral: {fileID: 21300000, guid: f01b202f20e408445b2e3049fbfeb8ba, type: 3}
   spriteHighlighted: {fileID: 21300000, guid: fe2a527be58b2a94c8c25dbfc4140250, type: 3}
-  maxSize: 5
+  maxSize: 1
 --- !u!1 &874739936
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +250,7 @@ GameObject:
   - 114: {fileID: 1118466746}
   m_Layer: 0
   m_Name: Mana
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -286,7 +286,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1118466741}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -324,7 +324,7 @@ MonoBehaviour:
   type: 0
   spriteNeutral: {fileID: 21300000, guid: e184b3b76c0b2ae43a5652c497bcfb2c, type: 3}
   spriteHighlighted: {fileID: 21300000, guid: 058514d04961a664c88369e0e21aa97d, type: 3}
-  maxSize: 5
+  maxSize: 1
 --- !u!1 &1243485001
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,6 +750,7 @@ GameObject:
   - 65: {fileID: 1987195384}
   - 23: {fileID: 1987195383}
   - 54: {fileID: 1987195382}
+  - 114: {fileID: 1987195387}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -827,3 +828,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!114 &1987195387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1987195381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ef889d79b11284c936b3a1ae01fc0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 30
+  inventory: {fileID: 1243485005}
