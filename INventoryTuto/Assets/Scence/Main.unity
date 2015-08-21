@@ -175,7 +175,7 @@ MonoBehaviour:
   type: 1
   spriteNeutral: {fileID: 21300000, guid: f01b202f20e408445b2e3049fbfeb8ba, type: 3}
   spriteHighlighted: {fileID: 21300000, guid: fe2a527be58b2a94c8c25dbfc4140250, type: 3}
-  maxSize: 1
+  maxSize: 5
 --- !u!1 &874739936
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +324,7 @@ MonoBehaviour:
   type: 0
   spriteNeutral: {fileID: 21300000, guid: e184b3b76c0b2ae43a5652c497bcfb2c, type: 3}
   spriteHighlighted: {fileID: 21300000, guid: 058514d04961a664c88369e0e21aa97d, type: 3}
-  maxSize: 1
+  maxSize: 5
 --- !u!1 &1243485001
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,5 +839,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ef889d79b11284c936b3a1ae01fc0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 60
   inventory: {fileID: 1243485005}

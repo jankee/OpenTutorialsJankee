@@ -13,11 +13,28 @@ public class Slot : MonoBehaviour
     public Sprite slotEmpty;
     public Sprite slotHighlight;
 
+    //스탁의 카운트가 0이면 참을 준다
     public bool isEmpty
     {
         get
         {
             return items.Count == 0;
+        }
+    }
+
+    public bool isAvarable
+    {
+        get
+        {
+            return currentItem.maxSize > items.Count;
+        }
+    }
+
+    public Item currentItem
+    {
+        get
+        {
+            return items.Peek();
         }
     }
 

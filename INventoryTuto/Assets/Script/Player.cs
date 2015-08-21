@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        print("HI");
         if (other.tag == "Item")
         {
             inventory.AddItem(other.GetComponent<Item>());
