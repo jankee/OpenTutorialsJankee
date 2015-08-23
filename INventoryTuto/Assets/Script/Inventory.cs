@@ -26,7 +26,13 @@ public class Inventory : MonoBehaviour
     private List<GameObject> allSlots;
 
     //비여있는 스롯 갯수 저장 변수
-    private int emptySlot;
+    private static int emptySlot;
+
+    public static int EmptySlot
+    {
+        get { return emptySlot; }
+        set { emptySlot = value; }
+    }
 
 
 	// Use this for initialization
@@ -36,40 +42,10 @@ public class Inventory : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
 	
 	}
-
-    public bool AddItem(Item item)
-    {
-        if (item.maxSize == 1)
-        {
-            PlaceEmpty(item);
-            return true;
-        }
-        return false;
-    }
-
-    //비여있는 슬롯을 찾아 아이템을 넣어 준다.
-    private bool PlaceEmpty(Item item)
-    {
-        if (emptySlot > 0)
-        {
-            foreach (GameObject slot in allSlots)
-            {
-                Slot tmp = slot.GetComponent<Slot>();
-
-                if (tmp.isEmpty)
-                {
-                    tmp.AddItem(item);
-                    emptySlot--;
-                    return true;
-
-                }
-            }
-        }
-        return false;
-    }
 
     private void CreateLayout()
     {
@@ -120,5 +96,58 @@ public class Inventory : MonoBehaviour
                 allSlots.Add(newSlot);
             }
         }
+    }
+
+    public bool AddItem(Item item)
+    {
+        if (item.maxSize == 1)
+        {
+            PlaceEmpty(item);
+            return true;
+        }
+        else
+        {
+            foreach (GameObject slot in allSlots)
+            {
+                Slot tmp = slot.GetComponent<Slot>();
+
+                if (!tmp.isEmpty)
+                {
+                    if (tmp.currentItem.type == item.type && tmp.isAvailable)
+                    {
+                        tmp.AddItem(item);
+                        //emptySlot--;
+                        return true;
+                    }
+                }
+            }
+            if (emptySlot > 0)
+            {
+                PlaceEmpty(item);
+            }
+        }
+
+        return false;
+    }
+
+    //비여있는 슬롯을 찾아 아이템을 넣어 준다.
+    private bool PlaceEmpty(Item item)
+    {
+        if (emptySlot > 0)
+        {
+            foreach (GameObject slot in allSlots)
+            {
+                Slot tmp = slot.GetComponent<Slot>();
+
+                if (tmp.isEmpty)
+                {
+                    tmp.AddItem(item);
+                    emptySlot--;
+                    return true;
+
+                }
+            }
+        }
+        return false;
     }
 }

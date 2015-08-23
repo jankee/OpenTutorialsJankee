@@ -22,7 +22,7 @@ public class Slot : MonoBehaviour
         }
     }
 
-    public bool isAvarable
+    public bool isAvailable
     {
         get
         {
@@ -45,7 +45,7 @@ public class Slot : MonoBehaviour
         items = new Stack<Item>();
 
         RectTransform slotRect = GetComponent<RectTransform>();
-        RectTransform txtRect = GetComponent<RectTransform>();
+        RectTransform txtRect = stackTxt.GetComponent<RectTransform>();
 
         int txtScaleFactor = (int)(slotRect.sizeDelta.x * 0.6);
 
@@ -85,5 +85,21 @@ public class Slot : MonoBehaviour
 
         //버튼 컨포넌트 스프라이트스테이트에 st를 대응한다.
         this.GetComponent<Button>().spriteState = st;
+    }
+
+    private void UseItem()
+    {
+        if (!isEmpty)
+        {
+            items.Pop();
+
+            stackTxt.text = items.Count > 1 ? items.Count.ToString() : string.Empty;
+
+            if (isEmpty)
+            {
+                ChaingeSprite(slotEmpty, slotHighlight);
+                Inventory.EmptySlot++;
+            }
+        }
     }
 }
