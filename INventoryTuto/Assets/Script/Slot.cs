@@ -91,7 +91,7 @@ public class Slot : MonoBehaviour
     {
         if (!isEmpty)
         {
-            items.Pop();
+            items.Pop().Use();
 
             stackTxt.text = items.Count > 1 ? items.Count.ToString() : string.Empty;
 

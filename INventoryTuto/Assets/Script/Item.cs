@@ -20,7 +20,7 @@ public class Item : MonoBehaviour
 
 
 	// Use this for initialization
-	void Use() 
+	public void Use() 
     {
         switch (type)
         {
