@@ -2,11 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour 
+public class Slot : MonoBehaviour, IPointerClickHandler
 {
 
     private Stack<Item> items;
+
+    public Stack<Item> Items
+    {
+        get { return items; }
+        set { items = value; }
+    }
 
     public Text stackTxt;
 
@@ -38,8 +45,8 @@ public class Slot : MonoBehaviour
         }
     }
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start()
     {
         //아이템스를 초기화 한다
         items = new Stack<Item>();
@@ -55,8 +62,8 @@ public class Slot : MonoBehaviour
         //txtRect의 가로세로 사이즈 구한다.
         txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotRect.sizeDelta.x);
         txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotRect.sizeDelta.y);
-        
-	}
+
+    }
 
     public void AddItem(Item item)
     {
@@ -69,6 +76,15 @@ public class Slot : MonoBehaviour
         }
 
         ChaingeSprite(item.spriteNeutral, item.spriteHighlighted);
+    }
+
+    public void AddItems(Stack<Item> items)
+    {
+        this.items = new Stack<Item>(items);
+
+        stackTxt.text = items.Count > 1 ? items.Count.ToString() : string.Empty;
+
+        ChaingeSprite(currentItem.spriteNeutral, currentItem.spriteHighlighted);
     }
 
 
@@ -100,6 +116,21 @@ public class Slot : MonoBehaviour
                 ChaingeSprite(slotEmpty, slotHighlight);
                 Inventory.EmptySlot++;
             }
+        }
+    }
+
+    public void ClearSlot()
+    {
+        items.Clear();
+        ChaingeSprite(slotEmpty, slotHighlight);
+        stackTxt.text = string.Empty;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            UseItem();
         }
     }
 }

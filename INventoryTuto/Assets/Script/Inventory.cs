@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 public class Inventory : MonoBehaviour 
 {
     //인벤의 크기를 조정할 변수
@@ -21,6 +22,8 @@ public class Inventory : MonoBehaviour
 
     //슬롯 오브젝트 변수
     public GameObject slotPrefab;
+
+    public Slot from, to;
 
     //슬롯 오브젝트 리스트 변수
     private List<GameObject> allSlots;
@@ -149,5 +152,47 @@ public class Inventory : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void MoveItem(GameObject clicked)
+    {
+        //from 슬롯이 비여 있다면
+        if (from == null)
+        {
+            //클릭한 슬롯이 비여있지 않다면
+            if (!clicked.GetComponent<Slot>().isEmpty)
+            {
+                //from에 클릭 스롯을 넣어준다
+                from = clicked.GetComponent<Slot>();
+                //from의 이미지 컨포넌트에 컬러르 회색으로 바꾸어 준다
+                from.GetComponent<Image>().color = Color.gray;
+            }
+        }
+        else if (to == null)
+        {
+            to = clicked.GetComponent<Slot>();
+        }
+
+        if (to != null && from != null)
+        {
+            Stack<Item> tmpTo = new Stack<Item>(to.Items);
+
+            to.AddItems(from.Items);
+
+            if (tmpTo.Count == 0)
+            {
+                from.ClearSlot();
+            }
+            else
+            {
+                from.AddItems(tmpTo);
+            }
+
+            from.GetComponent<Image>().color = Color.white;
+
+            to = null;
+            from = null;
+        }
+
     }
 }
