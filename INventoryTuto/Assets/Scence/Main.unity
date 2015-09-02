@@ -404,6 +404,10 @@ MonoBehaviour:
   slotPaddingTop: 2
   slotSize: 60
   slotPrefab: {fileID: 150326, guid: 82452687043750f4da329509fbf073e9, type: 2}
+  iconPrefab: {fileID: 0}
+  camera: {fileID: 1521490864}
+  canvas: {fileID: 1763560065}
+  eventSystem: {fileID: 1886628246}
 --- !u!1 &1498083980
 GameObject:
   m_ObjectHideFlags: 0

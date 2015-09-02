@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 public class Inventory : MonoBehaviour 
 {
     //인벤의 크기를 조정할 변수
@@ -23,13 +24,26 @@ public class Inventory : MonoBehaviour
     //슬롯 오브젝트 변수
     public GameObject slotPrefab;
 
-    public Slot from, to;
+    private static Slot from, to;
 
     //슬롯 오브젝트 리스트 변수
     private List<GameObject> allSlots;
 
+    //아이콘 이미지를 등록한다.
+    public GameObject iconPrefab;
+
+    //등록된 아이콘이미지를 관리할 스테틱 변수
+    private static GameObject hoverObject;
+
+    public Camera camera;
+    public Canvas canvas;
+
+    public EventSystem eventSystem;
+
     //비여있는 스롯 갯수 저장 변수
     private static int emptySlot;
+
+    private float hoverYOffset;
 
     public static int EmptySlot
     {
@@ -47,6 +61,30 @@ public class Inventory : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (!eventSystem.IsPointerOverGameObject(-1) && from != null)
+            {
+                from.GetComponent<Image>().color = Color.white;
+                from.ClearSlot();
+                Destroy(GameObject.Find("Hover"));
+
+                to = null;
+                from = null;
+                hoverObject = null;
+            }
+        }
+
+        if (hoverObject != null)
+        {
+            Vector2 position;
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, camera, out position);
+
+            position.Set(position.x, position.y - hoverYOffset);
+
+            hoverObject.transform.position = canvas.transform.TransformPoint(position);
+        }
 	
 	}
 
@@ -54,6 +92,8 @@ public class Inventory : MonoBehaviour
     {
         //allSlot의 초기화
         allSlots = new List<GameObject>();
+
+        hoverYOffset = slotSize * -10f;
 
         //비여있는 스롯 갯수를 초기화
         emptySlot = slot;
@@ -166,11 +206,29 @@ public class Inventory : MonoBehaviour
                 from = clicked.GetComponent<Slot>();
                 //from의 이미지 컨포넌트에 컬러르 회색으로 바꾸어 준다
                 from.GetComponent<Image>().color = Color.gray;
+
+                //하버이미지에 아이콘을 넣어준다.
+                hoverObject = (GameObject)Instantiate(iconPrefab);
+                hoverObject.GetComponent<Image>().sprite = clicked.GetComponent<Image>().sprite;
+                hoverObject.name = "Hover";
+
+                RectTransform hoverTransform = hoverObject.GetComponent<RectTransform>();
+                RectTransform clickedTransform = clicked.GetComponent<RectTransform>();
+
+                hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, clickedTransform.sizeDelta.x);
+                hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, clickedTransform.sizeDelta.y);
+
+                hoverObject.transform.SetParent(GameObject.Find("Canvas").transform, true);
+
+                hoverObject.transform.localScale = from.gameObject.transform.localScale;
+
             }
         }
         else if (to == null)
         {
             to = clicked.GetComponent<Slot>();
+
+            Destroy(GameObject.Find("Hover"));
         }
 
         if (to != null && from != null)
@@ -192,6 +250,7 @@ public class Inventory : MonoBehaviour
 
             to = null;
             from = null;
+            hoverObject = null;
         }
 
     }
