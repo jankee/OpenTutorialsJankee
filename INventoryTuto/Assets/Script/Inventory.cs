@@ -51,16 +51,55 @@ public class Inventory : MonoBehaviour
         set { emptySlot = value; }
     }
 
+    private static CanvasGroup canvasGroup;
+
+    public static CanvasGroup CanvasGroup
+    {
+        get { return Inventory.canvasGroup; }
+    }
+
+    private static Inventory instance;
+
+    public static Inventory Instance
+    {
+        get 
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<Inventory>();
+            }
+            return Inventory.instance; 
+        }
+    }
+
+    private bool fadingOut;
+    private bool fadingIn;
+
+    public float fadeTime;
+
+    private static GameObject clicked;
+
+    public GameObject selectStackSize;
+    public Text stackText;
+
+    private int splitAmount;
+    private int maxStackCount;
+
+    private static Slot movingSlot;
 
 	// Use this for initialization
 	void Start () 
     {
         CreateLayout();
+
+        canvasGroup = canvas.GetComponent<CanvasGroup>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
+        
+
         if (Input.GetMouseButtonUp(0))
         {
             if (!eventSystem.IsPointerOverGameObject(-1) && from != null)
@@ -71,7 +110,7 @@ public class Inventory : MonoBehaviour
 
                 to = null;
                 from = null;
-                hoverObject = null;
+                emptySlot++;
             }
         }
 
@@ -79,21 +118,40 @@ public class Inventory : MonoBehaviour
         {
             Vector2 position;
 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, camera, out position);
+            position = (Input.mousePosition - canvas.transform.position);
+
+            //position = new Vector2((Input.mousePosition - canvas.transform.localPosition).x, 
+            //    (Input.mousePosition - canvas.transform.localPosition).y);
+
+            //RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out position);
 
             position.Set(position.x, position.y - hoverYOffset);
 
             hoverObject.transform.position = canvas.transform.TransformPoint(position);
         }
-	
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (canvasGroup.alpha > 0)
+            {
+                StartCoroutine("FadingOut");
+                PutItemBack();
+            }
+            else
+            {
+                StartCoroutine("FadingIn");
+            }
+        }
 	}
+
+
 
     private void CreateLayout()
     {
         //allSlot의 초기화
         allSlots = new List<GameObject>();
 
-        hoverYOffset = slotSize * -10f;
+        hoverYOffset = slotSize * 0.01f;
 
         //비여있는 스롯 갯수를 초기화
         emptySlot = slot;
@@ -130,8 +188,8 @@ public class Inventory : MonoBehaviour
                 //slotRect의 포지션을 정해준다
                 slotRect.localPosition = inventoryRect.localPosition + new Vector3(xPosition, yPosition, 0);
                 //사이즈 값을 slotSize로 넣어 준다
-                slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotSize);
-                slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotSize);
+                slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotSize * canvas.scaleFactor);
+                slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotSize * canvas.scaleFactor);
 
                 //스케일값 변경때문에 다시 설정
                 //slotRect.localScale = new Vector3(1, 1, 1);
@@ -196,8 +254,10 @@ public class Inventory : MonoBehaviour
 
     public void MoveItem(GameObject clicked)
     {
+        Inventory.clicked = clicked;
+
         //from 슬롯이 비여 있다면
-        if (from == null)
+        if (from == null && canvasGroup.alpha == 1)
         {
             //클릭한 슬롯이 비여있지 않다면
             if (!clicked.GetComponent<Slot>().isEmpty)
@@ -207,21 +267,7 @@ public class Inventory : MonoBehaviour
                 //from의 이미지 컨포넌트에 컬러르 회색으로 바꾸어 준다
                 from.GetComponent<Image>().color = Color.gray;
 
-                //하버이미지에 아이콘을 넣어준다.
-                hoverObject = (GameObject)Instantiate(iconPrefab);
-                hoverObject.GetComponent<Image>().sprite = clicked.GetComponent<Image>().sprite;
-                hoverObject.name = "Hover";
-
-                RectTransform hoverTransform = hoverObject.GetComponent<RectTransform>();
-                RectTransform clickedTransform = clicked.GetComponent<RectTransform>();
-
-                hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, clickedTransform.sizeDelta.x);
-                hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, clickedTransform.sizeDelta.y);
-
-                hoverObject.transform.SetParent(GameObject.Find("Canvas").transform, true);
-
-                hoverObject.transform.localScale = from.gameObject.transform.localScale;
-
+                CreatHoverIcon();
             }
         }
         else if (to == null)
@@ -251,7 +297,99 @@ public class Inventory : MonoBehaviour
             to = null;
             from = null;
             hoverObject = null;
+            Destroy(GameObject.Find("Hover"));
         }
 
     }
+
+    private void CreatHoverIcon()
+    {
+        //하버이미지에 아이콘을 넣어준다.
+        hoverObject = (GameObject)Instantiate(iconPrefab);
+        hoverObject.GetComponent<Image>().sprite = clicked.GetComponent<Image>().sprite;
+        hoverObject.name = "Hover";
+
+        RectTransform hoverTransform = hoverObject.GetComponent<RectTransform>();
+        RectTransform clickedTransform = clicked.GetComponent<RectTransform>();
+
+        hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, clickedTransform.sizeDelta.x);
+        hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, clickedTransform.sizeDelta.y);
+
+        hoverObject.transform.SetParent(GameObject.Find("Canvas").transform, true);
+
+        hoverObject.transform.localScale = from.gameObject.transform.localScale;
+    }
+
+    private void PutItemBack()
+    {
+        if (from != null)
+        {
+            Destroy(GameObject.Find("Hover"));
+            from.GetComponent<Image>().color = Color.white;
+            from = null;
+        }
+    }
+
+    public void SetStackInfo(int maxStackCount)
+    {
+        selectStackSize.SetActive(true);
+        splitAmount = 0;
+        this.maxStackCount = maxStackCount;
+        stackText.text = splitAmount.ToString();
+    }
+
+    private IEnumerator FadingOut()
+    {
+        if (!fadingOut)
+        {
+            fadingOut = true;
+            fadingIn = false;
+            StopCoroutine("FadingIn");
+
+            float startAlpha = canvasGroup.alpha;
+
+            float rate = 1f / fadeTime;
+
+            float progress = 0.0f;
+
+            while (startAlpha < 1.0)
+	        {
+		        canvasGroup.alpha = Mathf.Lerp(startAlpha, 0, progress);
+                progress += rate * Time.deltaTime;
+                yield return null;
+	        }
+
+            canvasGroup.alpha = 0;
+
+            fadingOut = false;
+        }
+    }
+
+    private IEnumerator FadingIn()
+    {
+        if (!fadingOut)
+        {
+            fadingIn = true;
+            fadingOut = false;
+            StopCoroutine("FadingOut");
+
+            float startAlpha = canvasGroup.alpha;
+
+            float rate = 1f / fadeTime;
+
+            float progress = 0.0f;
+
+            while (startAlpha < 1.0)
+            {
+                canvasGroup.alpha = Mathf.Lerp(startAlpha, 1, progress);
+                progress += rate * Time.deltaTime;
+                yield return null;
+            }
+
+            canvasGroup.alpha = 1;
+
+            fadingIn = false;
+        }
+    }
+ 
 }
