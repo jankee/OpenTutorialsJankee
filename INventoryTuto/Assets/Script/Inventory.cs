@@ -93,6 +93,8 @@ public class Inventory : MonoBehaviour
         CreateLayout();
 
         canvasGroup = canvas.GetComponent<CanvasGroup>();
+
+        movingSlot = GameObject.Find("movingSlot").GetComponent<Slot>();
 	}
 	
 	// Update is called once per frame
@@ -256,10 +258,26 @@ public class Inventory : MonoBehaviour
     {
         Inventory.clicked = clicked;
 
-        //from 슬롯이 비여 있다면
-        if (from == null && canvasGroup.alpha == 1)
+        if (!movingSlot.isEmpty)
         {
-            //클릭한 슬롯이 비여있지 않다면
+            Slot tmp = clicked.GetComponent<Slot>();
+
+            if (tmp.isEmpty)
+            {
+                tmp.AddItems(movingSlot.Items);
+                movingSlot.Items.Clear();
+                Destroy(GameObject.Find("Hover"));
+            }
+            else if (!tmp.isEmpty && movingSlot.currentItem.type == tmp.currentItem.type && tmp.isAvailable)
+            {
+                MergeStacks(movingSlot, tmp);
+            }
+        }
+
+        //from 슬롯이 비여 있고, 캔버스알파의 값이 1 그리고 왼쪽 시프트키를 누르면
+        else if (from == null && canvasGroup.alpha == 1 && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            //변수 clicked가 비여있지 않다면
             if (!clicked.GetComponent<Slot>().isEmpty)
             {
                 //from에 클릭 스롯을 넣어준다
@@ -270,7 +288,7 @@ public class Inventory : MonoBehaviour
                 CreatHoverIcon();
             }
         }
-        else if (to == null)
+        else if (to == null && Input.GetKeyDown(KeyCode.LeftShift))
         {
             to = clicked.GetComponent<Slot>();
 
@@ -317,7 +335,10 @@ public class Inventory : MonoBehaviour
 
         hoverObject.transform.SetParent(GameObject.Find("Canvas").transform, true);
 
-        hoverObject.transform.localScale = from.gameObject.transform.localScale;
+        hoverObject.transform.localScale = clicked.gameObject.transform.localScale;
+
+        hoverObject.transform.GetChild(0).GetComponent<Text>().text = movingSlot.Items.Count > 1 ? movingSlot.Items.Count.ToString()
+            : string.Empty;
     }
 
     private void PutItemBack()
@@ -337,6 +358,58 @@ public class Inventory : MonoBehaviour
         this.maxStackCount = maxStackCount;
         stackText.text = splitAmount.ToString();
     }
+
+    public void SpritStack()
+    {
+        //셀렉스텍사이즈를 안보이게 한다
+        selectStackSize.SetActive(false);
+
+        if (splitAmount == maxStackCount)
+        {
+            MoveItem(clicked);
+        }
+        else if (splitAmount > 0)
+        {
+            movingSlot.Items = clicked.GetComponent<Slot>().RemoveItems(splitAmount);
+
+            CreatHoverIcon();
+        }
+    }
+
+    public void ChangeStackText(int i)
+    {
+        splitAmount += i;
+
+        if (splitAmount < 0)
+        {
+            splitAmount = 0;
+        }
+        if (splitAmount > maxStackCount)
+        {
+            splitAmount = maxStackCount;
+        }
+
+        stackText.text = splitAmount.ToString();
+    }
+
+    public void MergeStacks(Slot source, Slot destination)
+    {
+        int max = destination.currentItem.maxSize - destination.Items.Count;
+
+        int count = source.Items.Count < max ? source.Items.Count : max;
+
+        for (int i = 0; i < count; i++)
+        {
+            destination.AddItem(source.RemoveItem());
+        }
+        if (source.Items.Count == 0)
+        {
+            source.ClearSlot();
+            Destroy(GameObject.Find("Hover"));
+        }
+    }
+
+
 
     private IEnumerator FadingOut()
     {
