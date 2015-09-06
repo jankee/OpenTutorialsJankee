@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
+
 public class Inventory : MonoBehaviour 
 {
     //인벤의 크기를 조정할 변수
@@ -37,6 +39,9 @@ public class Inventory : MonoBehaviour
 
     public Camera camera;
     public Canvas canvas;
+
+    public GameObject mana;
+    public GameObject health;
 
     public EventSystem eventSystem;
 
@@ -114,6 +119,11 @@ public class Inventory : MonoBehaviour
                 from = null;
                 emptySlot++;
             }
+            else if (!eventSystem.IsPointerOverGameObject(-1) && !movingSlot.isEmpty)
+            {
+                movingSlot.ClearSlot();
+                Destroy(GameObject.Find("Hover"));
+            }
         }
 
         if (hoverObject != null)
@@ -144,12 +154,93 @@ public class Inventory : MonoBehaviour
                 StartCoroutine("FadingIn");
             }
         }
+        if (Input.GetMouseButton(2))
+        {
+            if (eventSystem.IsPointerOverGameObject(-1))
+            {
+                MoveInventory();
+            }
+        }
 	}
 
+    public void SaveInventory()
+    {
+        string content = string.Empty;
 
+        for (int i = 0; i < allSlots.Count; i++)
+        {
+            Slot tmp = allSlots[i].GetComponent<Slot>();
+
+            if (!tmp.isEmpty)
+            {
+                content += i + "-" + tmp.currentItem.ToString() + "-" + tmp.Items.Count.ToString() + ";";
+            }
+        }
+
+        PlayerPrefs.SetString("content", content);
+        PlayerPrefs.SetInt("slots", slot);
+        PlayerPrefs.SetInt("rows", rows);
+        PlayerPrefs.SetFloat("slotPaddingLeft", slotPaddingLeft);
+        PlayerPrefs.SetFloat("slotPaddingTop", slotPaddingTop);
+        PlayerPrefs.SetFloat("slotSize", slotSize);
+        PlayerPrefs.SetFloat("xPos", inventoryRect.position.x);
+        PlayerPrefs.SetFloat("yPos", inventoryRect.position.y);
+
+        PlayerPrefs.Save();
+
+        //string loadedString = PlayerPrefs.GetString("content");
+    }
+
+    public void LoadInventory()
+    {
+        string content = PlayerPrefs.GetString("content");
+        slot = PlayerPrefs.GetInt("slots");
+        rows = PlayerPrefs.GetInt("rows");
+        slotPaddingLeft = PlayerPrefs.GetFloat("slotPaddingLeft");
+        slotPaddingTop = PlayerPrefs.GetFloat("slotPaddingTop");
+        slotSize = PlayerPrefs.GetFloat("slotSize");
+
+        inventoryRect.position = new Vector3(PlayerPrefs.GetFloat("xPos"), PlayerPrefs.GetFloat("yPos"), inventoryRect.position.z);
+
+        CreateLayout();
+
+        string[] splitContent = content.Split(';');                                     //0-MANA-3
+
+        for (int x = 0; x < splitContent.Length - 1; x++)
+        {
+            string[] splitValues = splitContent[x].Split('-');                          //0; MANA; 3
+
+            int index = Int32.Parse(splitValues[0]);                                    //"0"
+
+            ItemType type = (ItemType)Enum.Parse(typeof(ItemType), splitValues[1]);     //"MANA"
+
+            int amount = Int32.Parse(splitValues[2]);                                   //"3"
+
+            for (int i = 0; i < amount; i++)
+            {
+                switch (type)
+                {
+                    case ItemType.MANA:
+                        allSlots[index].GetComponent<Slot>().AddItem(mana.GetComponent<Item>());
+                        break;
+                    case ItemType.HEALTH:
+                        allSlots[index].GetComponent<Slot>().AddItem(health.GetComponent<Item>());
+                        break;
+                }
+            }
+        }
+    } 
 
     private void CreateLayout()
     {
+        if (allSlots != null)
+        {
+            foreach (GameObject go in allSlots)
+            {
+                Destroy(go);
+            }
+        }
+
         //allSlot의 초기화
         allSlots = new List<GameObject>();
 
@@ -218,9 +309,15 @@ public class Inventory : MonoBehaviour
                 {
                     if (tmp.currentItem.type == item.type && tmp.isAvailable)
                     {
-                        tmp.AddItem(item);
-                        //emptySlot--;
-                        return true;
+                        if (!movingSlot.isEmpty && clicked.GetComponent<Slot>() == tmp.GetComponent<Slot>())
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            tmp.AddItem(item);
+                            return true;
+                        }
                     }
                 }
             }
@@ -231,6 +328,16 @@ public class Inventory : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void MoveInventory()
+    {
+        Vector2 mousePos;
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, new Vector3(Input.mousePosition.x - (inventoryRect.sizeDelta.x / 2 * canvas.scaleFactor),
+            Input.mousePosition.y + (inventoryRect.sizeDelta.y / 2 * canvas.scaleFactor)), canvas.worldCamera, out mousePos);
+
+        transform.position = canvas.transform.TransformPoint(mousePos);
     }
 
     //비여있는 슬롯을 찾아 아이템을 넣어 준다.
@@ -285,7 +392,7 @@ public class Inventory : MonoBehaviour
                 //from의 이미지 컨포넌트에 컬러르 회색으로 바꾸어 준다
                 from.GetComponent<Image>().color = Color.gray;
 
-                CreatHoverIcon();
+                CreateHoverIcon();
             }
         }
         else if (to == null && Input.GetKeyDown(KeyCode.LeftShift))
@@ -320,7 +427,7 @@ public class Inventory : MonoBehaviour
 
     }
 
-    private void CreatHoverIcon()
+    private void CreateHoverIcon()
     {
         //하버이미지에 아이콘을 넣어준다.
         hoverObject = (GameObject)Instantiate(iconPrefab);
@@ -349,6 +456,18 @@ public class Inventory : MonoBehaviour
             from.GetComponent<Image>().color = Color.white;
             from = null;
         }
+        else if (!movingSlot.isEmpty)
+        {
+            Destroy(GameObject.Find("Hover"));
+
+            foreach (Item item in movingSlot.Items)
+            {
+                clicked.GetComponent<Slot>().AddItem(item);
+            }
+
+            movingSlot.ClearSlot();
+        }
+        selectStackSize.SetActive(false);
     }
 
     public void SetStackInfo(int maxStackCount)
@@ -372,7 +491,7 @@ public class Inventory : MonoBehaviour
         {
             movingSlot.Items = clicked.GetComponent<Slot>().RemoveItems(splitAmount);
 
-            CreatHoverIcon();
+            CreateHoverIcon();
         }
     }
 
@@ -401,8 +520,9 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             destination.AddItem(source.RemoveItem());
+            hoverObject.transform.GetChild(0).GetComponent<Text>().text = movingSlot.Items.Count.ToString();
         }
-        if (source.Items.Count == 0)
+        if (source.Items.Count == 0) 
         {
             source.ClearSlot();
             Destroy(GameObject.Find("Hover"));

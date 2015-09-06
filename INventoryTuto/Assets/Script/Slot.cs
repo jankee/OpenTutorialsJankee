@@ -45,11 +45,16 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    // Use this for initialization
-    void Start()
+    void Awake()
     {
         //아이템스를 초기화 한다
         items = new Stack<Item>();
+    }
+
+    // Use this for initialization
+    void Start()
+    {
+
 
         RectTransform slotRect = GetComponent<RectTransform>();
         RectTransform txtRect = stackTxt.GetComponent<RectTransform>();
