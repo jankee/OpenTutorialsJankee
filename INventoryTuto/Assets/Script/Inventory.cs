@@ -92,9 +92,26 @@ public class Inventory : MonoBehaviour
 
     private static Slot movingSlot;
 
+
+    public GameObject toolTipObj;
+
+    private static GameObject toolTip;
+    public Text sizeTextObj;
+    private static Text sizeText;
+
+    public Text visualTextObj;
+    private static Text visualText;
+
+
 	// Use this for initialization
 	void Start () 
     {
+        sizeText = sizeTextObj;
+
+        visualText = visualTextObj;
+
+        toolTip = toolTipObj;
+
         CreateLayout();
 
         canvasGroup = canvas.GetComponent<CanvasGroup>();
@@ -105,7 +122,7 @@ public class Inventory : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        
+
 
         if (Input.GetMouseButtonUp(0))
         {
@@ -118,12 +135,16 @@ public class Inventory : MonoBehaviour
                 to = null;
                 from = null;
                 emptySlot++;
+
+                
             }
             else if (!eventSystem.IsPointerOverGameObject(-1) && !movingSlot.isEmpty)
             {
                 movingSlot.ClearSlot();
                 Destroy(GameObject.Find("Hover"));
             }
+
+            CreateHoverIcon();
         }
 
         if (hoverObject != null)
@@ -162,6 +183,36 @@ public class Inventory : MonoBehaviour
             }
         }
 	}
+
+    public void ShowToolTip(GameObject slot)
+    {
+        Slot tmpSlot = slot.GetComponent<Slot>();
+
+        if (!tmpSlot.isEmpty && hoverObject == null)
+        {
+            toolTip.SetActive(true);
+
+            float xPos = tmpSlot.transform.position.x * slotPaddingLeft;
+            float yPos = tmpSlot.transform.position.y - slot.GetComponent<RectTransform>().sizeDelta.y - slotPaddingTop;
+
+
+            toolTip.transform.position = new Vector2(xPos, yPos);
+
+            visualText.text = tmpSlot.currentItem.GetTooltip();
+            sizeText.text = visualText.text;
+
+            //toolTip.GetComponent<RectTransform>().SetSizeWithCurrentAnchors()
+
+            print("DeltaSize : " + slot.GetComponent<RectTransform>().sizeDelta.y);
+        }
+
+        //toolTip.SetActive(false);
+    }
+
+    public void HideToolTip()
+    {
+        toolTip.SetActive(false);
+    }
 
     public void SaveInventory()
     {
