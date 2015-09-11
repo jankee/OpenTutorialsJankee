@@ -158,7 +158,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right && GameObject.Find("Hover"))
+        if (eventData.button == PointerEventData.InputButton.Right || GameObject.Find("Hover"))
         {
             UseItem();
         }
@@ -167,18 +167,18 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         {
             Vector2 position;
 
-            position = (Input.mousePosition - Inventory.Instance.canvas.transform.position);
+            position = (Input.mousePosition - InventoryManager.Instance.canvas.transform.position);
 
-            //RectTransformUtility.ScreenPointToLocalPointInRectangle(Inventory.Instance.canvas.transform as RectTransform,
-            //    Input.mousePosition, Inventory.Instance.canvas.worldCamera, out position);
+            //RectTransformUtility.ScreenPointToLocalPointInRectangle(InventoryManager.Instance.canvas.transform as RectTransform,
+            //    Input.mousePosition, InventoryManager.Instance.canvas.worldCamera, out position);
 
-            Inventory.Instance.selectStackSize.transform.position = Inventory.Instance.canvas.transform.TransformPoint(position);
+            InventoryManager.Instance.selectStackSize.transform.position = InventoryManager.Instance.canvas.transform.TransformPoint(position);
 
-            Inventory.Instance.selectStackSize.SetActive(true);
+            InventoryManager.Instance.selectStackSize.SetActive(true);
 
-            Inventory.Instance.selectStackSize.transform.position = Inventory.Instance.canvas.transform.TransformPoint(position);
+            InventoryManager.Instance.selectStackSize.transform.position = InventoryManager.Instance.canvas.transform.TransformPoint(position);
 
-            Inventory.Instance.SetStackInfo(items.Count);
+            InventoryManager.Instance.SetStackInfo(items.Count);
         }
     }
 }

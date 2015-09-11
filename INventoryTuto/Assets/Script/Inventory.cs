@@ -5,8 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
-public class Inventory : MonoBehaviour 
+public class Inventory : MonoBehaviour
 {
+    #region  Property
     //인벤의 크기를 조정할 변수
     private RectTransform inventoryRect;
     //인벤의 가로와 세로 값 변수
@@ -23,33 +24,20 @@ public class Inventory : MonoBehaviour
     //슬롯의 크기 변수
     public float slotSize;
 
-    //슬롯 오브젝트 변수
-    public GameObject slotPrefab;
-
-    private static Slot from, to;
+    ////슬롯 오브젝트 변수
+    //public GameObject slotPrefab;
 
     //슬롯 오브젝트 리스트 변수
     private List<GameObject> allSlots;
 
-    //아이콘 이미지를 등록한다.
-    public GameObject iconPrefab;
+    //public Camera camera;
 
-    //등록된 아이콘이미지를 관리할 스테틱 변수
-    private static GameObject hoverObject;
-
-    public Camera camera;
-    public Canvas canvas;
-
-    public GameObject mana;
-    public GameObject health;
-
-    public EventSystem eventSystem;
-
-    //비여있는 스롯 갯수 저장 변수
-    private static int emptySlot;
+    //public GameObject toolTipObj;
 
     private float hoverYOffset;
 
+    //비여있는 스롯 갯수 저장 변수
+    private static int emptySlot;
     public static int EmptySlot
     {
         get { return emptySlot; }
@@ -57,18 +45,16 @@ public class Inventory : MonoBehaviour
     }
 
     private static CanvasGroup canvasGroup;
-
     public static CanvasGroup CanvasGroup
     {
         get { return Inventory.canvasGroup; }
     }
 
     private static Inventory instance;
-
     public static Inventory Instance
     {
         get 
-        {
+        { 
             if (instance == null)
             {
                 instance = GameObject.FindObjectOfType<Inventory>();
@@ -78,45 +64,29 @@ public class Inventory : MonoBehaviour
     }
 
     private bool fadingOut;
+
     private bool fadingIn;
 
     public float fadeTime;
 
-    private static GameObject clicked;
+    //private GameObject selectStackSizeStatic;
 
-    public GameObject selectStackSize;
-    public Text stackText;
+    #endregion
 
-    private int splitAmount;
-    private int maxStackCount;
-
-    private static Slot movingSlot;
-
-
-    public GameObject toolTipObj;
-
-    private static GameObject toolTip;
-    public Text sizeTextObj;
-    private static Text sizeText;
-
-    public Text visualTextObj;
-    private static Text visualText;
-
+    private static GameObject playerRef;
 
 	// Use this for initialization
 	void Start () 
     {
-        sizeText = sizeTextObj;
+        //selectStackSizeStatic = InventoryManager.Instance.selectStackSize.GetComponent<GameObject>();
 
-        visualText = visualTextObj;
-
-        toolTip = toolTipObj;
+        playerRef = GameObject.Find("player");
 
         CreateLayout();
 
-        canvasGroup = canvas.GetComponent<CanvasGroup>();
+        canvasGroup = InventoryManager.Instance.canvas.GetComponent<CanvasGroup>();
 
-        movingSlot = GameObject.Find("movingSlot").GetComponent<Slot>();
+        InventoryManager.Instance.MovingSlot = GameObject.Find("movingSlot").GetComponent<Slot>();
 	}
 	
 	// Update is called once per frame
@@ -126,41 +96,70 @@ public class Inventory : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (!eventSystem.IsPointerOverGameObject(-1) && from != null)
+            //인벤토리에서 서택된 item을 지운다.
+            if (!InventoryManager.Instance.eventSystem.IsPointerOverGameObject(0) && InventoryManager.Instance.From != null)
             {
-                from.GetComponent<Image>().color = Color.white;
-                from.ClearSlot();
+                print("eventSystem.IsPointerOverGameObject(-1)");
+                InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
+
+                foreach (Item item in InventoryManager.Instance.From.Items)
+                {
+                    float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
+
+                    Vector3 v = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
+
+                    v *= 25;
+
+                    GameObject tmpObj = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
+
+                    tmpObj.GetComponent<Item>().SetStates(item);
+                }
+                //from 스롯에서 item을 제거한다
+                InventoryManager.Instance.From.ClearSlot();
                 Destroy(GameObject.Find("Hover"));
 
-                to = null;
-                from = null;
+                //오브젝트를 리셋한다
+                InventoryManager.Instance.To = null;
+                InventoryManager.Instance.From = null;
                 emptySlot++;
-
-                
             }
-            else if (!eventSystem.IsPointerOverGameObject(-1) && !movingSlot.isEmpty)
+            else if (!InventoryManager.Instance.eventSystem.IsPointerOverGameObject(-1) && !InventoryManager.Instance.MovingSlot.isEmpty)
             {
-                movingSlot.ClearSlot();
+                print("eventSystem.IsPointerOverGameObject(-1)");
+                foreach (Item item in InventoryManager.Instance.MovingSlot.Items)
+                {
+                    float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
+
+                    Vector3 v = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
+
+                    v *= 25;
+
+                    GameObject tmpObj = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
+
+                    tmpObj.GetComponent<Item>().SetStates(item);
+                }
+
+                InventoryManager.Instance.MovingSlot.ClearSlot();
                 Destroy(GameObject.Find("Hover"));
             }
-
-            CreateHoverIcon();
+            //CreateHoverIcon();
         }
-
-        if (hoverObject != null)
+        //hoverObject를 체크한다
+        if (InventoryManager.Instance.HoverObject != null)
         {
+            //hoverObject의 위치변수
             Vector2 position;
 
-            position = (Input.mousePosition - canvas.transform.position);
+            position = (Input.mousePosition - InventoryManager.Instance.canvas.transform.position);
 
             //position = new Vector2((Input.mousePosition - canvas.transform.localPosition).x, 
             //    (Input.mousePosition - canvas.transform.localPosition).y);
-
+            
             //RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out position);
 
             position.Set(position.x, position.y - hoverYOffset);
 
-            hoverObject.transform.position = canvas.transform.TransformPoint(position);
+            InventoryManager.Instance.HoverObject.transform.position = InventoryManager.Instance.canvas.transform.TransformPoint(position);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
@@ -177,8 +176,10 @@ public class Inventory : MonoBehaviour
         }
         if (Input.GetMouseButton(2))
         {
-            if (eventSystem.IsPointerOverGameObject(-1))
+            
+            if (InventoryManager.Instance.eventSystem.IsPointerOverGameObject(-1))
             {
+                print("Input.GetMouseButton(2)");
                 MoveInventory();
             }
         }
@@ -188,30 +189,26 @@ public class Inventory : MonoBehaviour
     {
         Slot tmpSlot = slot.GetComponent<Slot>();
 
-        if (!tmpSlot.isEmpty && hoverObject == null)
+        if (!tmpSlot.isEmpty && InventoryManager.Instance.HoverObject == null && !InventoryManager.Instance.selectStackSize.activeSelf)
         {
-            toolTip.SetActive(true);
+            InventoryManager.Instance.toolTipObj.SetActive(true);
+
+            
 
             float xPos = tmpSlot.transform.position.x * slotPaddingLeft;
             float yPos = tmpSlot.transform.position.y - slot.GetComponent<RectTransform>().sizeDelta.y - slotPaddingTop;
 
 
-            toolTip.transform.position = new Vector2(xPos, yPos);
+            InventoryManager.Instance.toolTipObj.transform.position = new Vector2(xPos, yPos);
 
-            visualText.text = tmpSlot.currentItem.GetTooltip();
-            sizeText.text = visualText.text;
-
-            //toolTip.GetComponent<RectTransform>().SetSizeWithCurrentAnchors()
-
-            print("DeltaSize : " + slot.GetComponent<RectTransform>().sizeDelta.y);
+            InventoryManager.Instance.visualTextObj.text = tmpSlot.currentItem.GetTooltip();
+            InventoryManager.Instance.sizeTextObj.text = InventoryManager.Instance.visualTextObj.text;
         }
-
-        //toolTip.SetActive(false);
     }
 
     public void HideToolTip()
     {
-        toolTip.SetActive(false);
+        InventoryManager.Instance.toolTipObj.SetActive(false);
     }
 
     public void SaveInventory()
@@ -224,7 +221,9 @@ public class Inventory : MonoBehaviour
 
             if (!tmp.isEmpty)
             {
-                content += i + "-" + tmp.currentItem.ToString() + "-" + tmp.Items.Count.ToString() + ";";
+                content += i + "-" + tmp.currentItem.type + "-" + tmp.Items.Count.ToString() + ";";
+
+                print(content);
             }
         }
 
@@ -245,6 +244,7 @@ public class Inventory : MonoBehaviour
     public void LoadInventory()
     {
         string content = PlayerPrefs.GetString("content");
+        print(content);
         slot = PlayerPrefs.GetInt("slots");
         rows = PlayerPrefs.GetInt("rows");
         slotPaddingLeft = PlayerPrefs.GetFloat("slotPaddingLeft");
@@ -255,27 +255,39 @@ public class Inventory : MonoBehaviour
 
         CreateLayout();
 
-        string[] splitContent = content.Split(';');                                     //0-MANA-3
+        string[] splitContent = content.Split(';');                                              //0-MANA-3
+
+        for (int i = 0; i < splitContent.Length - 1; i++)
+        {
+            print(splitContent[i]);
+        }
 
         for (int x = 0; x < splitContent.Length - 1; x++)
         {
-            string[] splitValues = splitContent[x].Split('-');                          //0; MANA; 3
+            string[] splitValues = splitContent[x].Split('-');                                  //0; MANA; 3
 
-            int index = Int32.Parse(splitValues[0]);                                    //"0"
+            //print(splitValues[x]);
 
-            ItemType type = (ItemType)Enum.Parse(typeof(ItemType), splitValues[1]);     //"MANA"
+            int index = int.Parse(splitValues[0]);
 
-            int amount = Int32.Parse(splitValues[2]);                                   //"3"
+            //print(splitValues[1]);
+
+            ItemType type = (ItemType)Enum.Parse(typeof(ItemType), splitValues[1], true);       //"MANA"
+
+            int amount = int.Parse(splitValues[2]);                                             //"3"
 
             for (int i = 0; i < amount; i++)
             {
                 switch (type)
                 {
                     case ItemType.MANA:
-                        allSlots[index].GetComponent<Slot>().AddItem(mana.GetComponent<Item>());
+                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.mana.GetComponent<Item>());
                         break;
                     case ItemType.HEALTH:
-                        allSlots[index].GetComponent<Slot>().AddItem(health.GetComponent<Item>());
+                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.health.GetComponent<Item>());
+                        break;
+                    case ItemType.WEAPON:
+                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.sword.GetComponent<Item>());
                         break;
                 }
             }
@@ -322,18 +334,18 @@ public class Inventory : MonoBehaviour
                 float yPosition = -slotPaddingTop * (y + 1) + -(slotSize * y);
 
                 //newSlot에 slotPrefab 오브젝트를 넣어준다.
-                GameObject newSlot = (GameObject)Instantiate(slotPrefab);
+                GameObject newSlot = (GameObject)Instantiate(InventoryManager.Instance.slotPrefab);
                 //slotRect에 newSlot의 렉트컨포넌트를 넣준다.
                 RectTransform slotRect = newSlot.GetComponent<RectTransform>();
                 //newSlot 이름을 Slot이라 정해준다
                 newSlot.name = "Slot";
                 //newSlot의 부모를 cavas롤 변경해준다
-                newSlot.transform.SetParent(this.transform.parent);
+                newSlot.transform.SetParent(this.transform.FindChild("Slots"));
                 //slotRect의 포지션을 정해준다
                 slotRect.localPosition = inventoryRect.localPosition + new Vector3(xPosition, yPosition, 0);
                 //사이즈 값을 slotSize로 넣어 준다
-                slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotSize * canvas.scaleFactor);
-                slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotSize * canvas.scaleFactor);
+                slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotSize * InventoryManager.Instance.canvas.scaleFactor);
+                slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotSize * InventoryManager.Instance.canvas.scaleFactor);
 
                 //스케일값 변경때문에 다시 설정
                 //slotRect.localScale = new Vector3(1, 1, 1);
@@ -360,7 +372,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (tmp.currentItem.type == item.type && tmp.isAvailable)
                     {
-                        if (!movingSlot.isEmpty && clicked.GetComponent<Slot>() == tmp.GetComponent<Slot>())
+                        if (!InventoryManager.Instance.MovingSlot.isEmpty && InventoryManager.Instance.Clicked.GetComponent<Slot>() == tmp.GetComponent<Slot>())
                         {
                             continue;
                         }
@@ -385,10 +397,12 @@ public class Inventory : MonoBehaviour
     {
         Vector2 mousePos;
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, new Vector3(Input.mousePosition.x - (inventoryRect.sizeDelta.x / 2 * canvas.scaleFactor),
-            Input.mousePosition.y + (inventoryRect.sizeDelta.y / 2 * canvas.scaleFactor)), canvas.worldCamera, out mousePos);
+        mousePos = (Input.mousePosition - InventoryManager.Instance.canvas.transform.position);
 
-        transform.position = canvas.transform.TransformPoint(mousePos);
+        //RectTransformUtility.ScreenPointToLocalPointInRectangle(InventoryManager.Instance.canvas.transform as RectTransform, new Vector3(Input.mousePosition.x - (inventoryRect.sizeDelta.x / 2 * InventoryManager.Instance.canvas.scaleFactor),
+        //    Input.mousePosition.y + (inventoryRect.sizeDelta.y / 2 * InventoryManager.Instance.canvas.scaleFactor)), InventoryManager.Instance.canvas.worldCamera, out mousePos);
+
+        transform.position = InventoryManager.Instance.canvas.transform.TransformPoint(mousePos);
     }
 
     //비여있는 슬롯을 찾아 아이템을 넣어 준다.
@@ -414,65 +428,69 @@ public class Inventory : MonoBehaviour
 
     public void MoveItem(GameObject clicked)
     {
-        Inventory.clicked = clicked;
+        InventoryManager.Instance.Clicked = clicked;
 
-        if (!movingSlot.isEmpty)
+        if (!InventoryManager.Instance.MovingSlot.isEmpty)
         {
             Slot tmp = clicked.GetComponent<Slot>();
 
             if (tmp.isEmpty)
             {
-                tmp.AddItems(movingSlot.Items);
-                movingSlot.Items.Clear();
+                print("tmp.isEmpty");
+                tmp.AddItems(InventoryManager.Instance.MovingSlot.Items);
+                InventoryManager.Instance.MovingSlot.Items.Clear();
                 Destroy(GameObject.Find("Hover"));
             }
-            else if (!tmp.isEmpty && movingSlot.currentItem.type == tmp.currentItem.type && tmp.isAvailable)
+            else if (!tmp.isEmpty && InventoryManager.Instance.MovingSlot.currentItem.type == tmp.currentItem.type && tmp.isAvailable)
             {
-                MergeStacks(movingSlot, tmp);
-            }
-        }
-
-        //from 슬롯이 비여 있고, 캔버스알파의 값이 1 그리고 왼쪽 시프트키를 누르면
-        else if (from == null && canvasGroup.alpha == 1 && Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            //변수 clicked가 비여있지 않다면
-            if (!clicked.GetComponent<Slot>().isEmpty)
-            {
-                //from에 클릭 스롯을 넣어준다
-                from = clicked.GetComponent<Slot>();
-                //from의 이미지 컨포넌트에 컬러르 회색으로 바꾸어 준다
-                from.GetComponent<Image>().color = Color.gray;
+                print("tmp.isEmpty &&");
+                MergeStacks(InventoryManager.Instance.MovingSlot, tmp);
 
                 CreateHoverIcon();
             }
         }
-        else if (to == null && Input.GetKeyDown(KeyCode.LeftShift))
+
+        //from 슬롯이 비여 있고, 캔버스알파의 값이 1 그리고 왼쪽 시프트키를 누르면
+        else if (InventoryManager.Instance.From == null && canvasGroup.alpha == 1 && Input.GetKeyDown(KeyCode.LeftShift))
         {
-            to = clicked.GetComponent<Slot>();
+            //변수 clicked가 비여있지 않다면
+            if (!InventoryManager.Instance.Clicked.GetComponent<Slot>().isEmpty)
+            {
+                //from에 클릭 스롯을 넣어준다
+                InventoryManager.Instance.From = clicked.GetComponent<Slot>();
+                //from의 이미지 컨포넌트에 컬러르 회색으로 바꾸어 준다
+                InventoryManager.Instance.From.GetComponent<Image>().color = Color.gray;
+
+                CreateHoverIcon();
+            }
+        }
+        else if (InventoryManager.Instance.To == null && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            InventoryManager.Instance.To = clicked.GetComponent<Slot>();
 
             Destroy(GameObject.Find("Hover"));
         }
 
-        if (to != null && from != null)
+        if (InventoryManager.Instance.To != null && InventoryManager.Instance.From != null)
         {
-            Stack<Item> tmpTo = new Stack<Item>(to.Items);
+            Stack<Item> tmpTo = new Stack<Item>(InventoryManager.Instance.To.Items);
 
-            to.AddItems(from.Items);
+            InventoryManager.Instance.To.AddItems(InventoryManager.Instance.From.Items);
 
             if (tmpTo.Count == 0)
             {
-                from.ClearSlot();
+                InventoryManager.Instance.From.ClearSlot();
             }
             else
             {
-                from.AddItems(tmpTo);
+                InventoryManager.Instance.From.AddItems(tmpTo);
             }
 
-            from.GetComponent<Image>().color = Color.white;
+            InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
 
-            to = null;
-            from = null;
-            hoverObject = null;
+            InventoryManager.Instance.To = null;
+            InventoryManager.Instance.From = null;
+            InventoryManager.Instance.HoverObject = null;
             Destroy(GameObject.Find("Hover"));
         }
 
@@ -481,66 +499,66 @@ public class Inventory : MonoBehaviour
     private void CreateHoverIcon()
     {
         //하버이미지에 아이콘을 넣어준다.
-        hoverObject = (GameObject)Instantiate(iconPrefab);
-        hoverObject.GetComponent<Image>().sprite = clicked.GetComponent<Image>().sprite;
-        hoverObject.name = "Hover";
+        InventoryManager.Instance.HoverObject = (GameObject)Instantiate(InventoryManager.Instance.iconPrefab);
+        InventoryManager.Instance.HoverObject.GetComponent<Image>().sprite = InventoryManager.Instance.Clicked.GetComponent<Image>().sprite;
+        InventoryManager.Instance.HoverObject.name = "Hover";
 
-        RectTransform hoverTransform = hoverObject.GetComponent<RectTransform>();
-        RectTransform clickedTransform = clicked.GetComponent<RectTransform>();
+        RectTransform hoverTransform = InventoryManager.Instance.HoverObject.GetComponent<RectTransform>();
+        RectTransform clickedTransform = InventoryManager.Instance.Clicked.GetComponent<RectTransform>();
 
         hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, clickedTransform.sizeDelta.x);
         hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, clickedTransform.sizeDelta.y);
 
-        hoverObject.transform.SetParent(GameObject.Find("Canvas").transform, true);
+        InventoryManager.Instance.HoverObject.transform.SetParent(GameObject.Find("Canvas").transform, true);
 
-        hoverObject.transform.localScale = clicked.gameObject.transform.localScale;
+        InventoryManager.Instance.HoverObject.transform.localScale = InventoryManager.Instance.Clicked.gameObject.transform.localScale;
 
-        hoverObject.transform.GetChild(0).GetComponent<Text>().text = movingSlot.Items.Count > 1 ? movingSlot.Items.Count.ToString()
+        InventoryManager.Instance.HoverObject.transform.GetChild(0).GetComponent<Text>().text = InventoryManager.Instance.MovingSlot.Items.Count > 1 ? InventoryManager.Instance.MovingSlot.Items.Count.ToString()
             : string.Empty;
     }
 
+    /// <summary>
+    /// 인벤토리에 아이템을 다시 넣어 준다
+    /// </summary>
     private void PutItemBack()
     {
-        if (from != null)
+        if (InventoryManager.Instance.From != null)
         {
+            //아이템을 돌려 놓고 하버아이콘을 지운다
             Destroy(GameObject.Find("Hover"));
-            from.GetComponent<Image>().color = Color.white;
-            from = null;
+            InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
+            InventoryManager.Instance.From = null;
         }
-        else if (!movingSlot.isEmpty)
+
+        else if (!InventoryManager.Instance.MovingSlot.isEmpty)
         {
             Destroy(GameObject.Find("Hover"));
 
-            foreach (Item item in movingSlot.Items)
+            foreach (Item item in InventoryManager.Instance.MovingSlot.Items)
             {
-                clicked.GetComponent<Slot>().AddItem(item);
+                InventoryManager.Instance.Clicked.GetComponent<Slot>().AddItem(item);
             }
 
-            movingSlot.ClearSlot();
+            InventoryManager.Instance.MovingSlot.ClearSlot();
         }
-        selectStackSize.SetActive(false);
+        InventoryManager.Instance.selectStackSize.SetActive(false);
     }
 
-    public void SetStackInfo(int maxStackCount)
-    {
-        selectStackSize.SetActive(true);
-        splitAmount = 0;
-        this.maxStackCount = maxStackCount;
-        stackText.text = splitAmount.ToString();
-    }
+
+
 
     public void SpritStack()
     {
         //셀렉스텍사이즈를 안보이게 한다
-        selectStackSize.SetActive(false);
+        InventoryManager.Instance.selectStackSize.SetActive(false);
 
-        if (splitAmount == maxStackCount)
+        if (InventoryManager.Instance.SplitAmount == InventoryManager.Instance.MaxStackCount)
         {
-            MoveItem(clicked);
+            MoveItem(InventoryManager.Instance.Clicked);
         }
-        else if (splitAmount > 0)
+        else if (InventoryManager.Instance.SplitAmount > 0)
         {
-            movingSlot.Items = clicked.GetComponent<Slot>().RemoveItems(splitAmount);
+            InventoryManager.Instance.MovingSlot.Items = InventoryManager.Instance.Clicked.GetComponent<Slot>().RemoveItems(InventoryManager.Instance.SplitAmount);
 
             CreateHoverIcon();
         }
@@ -548,18 +566,18 @@ public class Inventory : MonoBehaviour
 
     public void ChangeStackText(int i)
     {
-        splitAmount += i;
+        InventoryManager.Instance.SplitAmount += i;
 
-        if (splitAmount < 0)
+        if (InventoryManager.Instance.SplitAmount < 0)
         {
-            splitAmount = 0;
+            InventoryManager.Instance.SplitAmount = 0;
         }
-        if (splitAmount > maxStackCount)
+        if (InventoryManager.Instance.SplitAmount > InventoryManager.Instance.MaxStackCount)
         {
-            splitAmount = maxStackCount;
+            InventoryManager.Instance.SplitAmount = InventoryManager.Instance.MaxStackCount;
         }
 
-        stackText.text = splitAmount.ToString();
+        InventoryManager.Instance.stackText.text = InventoryManager.Instance.SplitAmount.ToString();
     }
 
     public void MergeStacks(Slot source, Slot destination)
@@ -571,7 +589,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             destination.AddItem(source.RemoveItem());
-            hoverObject.transform.GetChild(0).GetComponent<Text>().text = movingSlot.Items.Count.ToString();
+            InventoryManager.Instance.HoverObject.transform.GetChild(0).GetComponent<Text>().text = InventoryManager.Instance.MovingSlot.Items.Count.ToString();
         }
         if (source.Items.Count == 0) 
         {

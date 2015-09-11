@@ -13,7 +13,7 @@ GameObject:
   - 23: {fileID: 2385872}
   - 114: {fileID: 11490004}
   m_Layer: 0
-  m_Name: Mana
+  m_Name: MANA
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,9 +86,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  quality: 0
   spriteNeutral: {fileID: 21300000, guid: e184b3b76c0b2ae43a5652c497bcfb2c, type: 3}
   spriteHighlighted: {fileID: 21300000, guid: 058514d04961a664c88369e0e21aa97d, type: 3}
   maxSize: 5
+  strength: 0
+  intellect: 0
+  agility: 0
+  stamina: 0
+  itemName: Mana Potion
+  description: 'Use : Restores an amount of mana'
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

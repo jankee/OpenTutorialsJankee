@@ -28,6 +28,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void OnCollisionEnter(Collider collision)
+    {
+        if (collision.tag == "Item")
+        {
+            inventory.AddItem(collision.GetComponent<Item>());
+
+            Destroy(collision.gameObject);
+        }
+    }
 
 
     private void HandleMovement()
@@ -37,3 +46,4 @@ public class Player : MonoBehaviour
         this.transform.Translate(new Vector3(Input.GetAxis("Horizontal") * translation, 0, Input.GetAxis("Vertical") * translation));
     }
 }
+ 

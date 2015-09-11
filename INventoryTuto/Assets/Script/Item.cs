@@ -5,6 +5,7 @@ public enum ItemType
 {
     MANA, 
     HEALTH,
+    WEAPON,
 };
 
 public enum Quality
@@ -84,21 +85,49 @@ public class Item : MonoBehaviour
 
         if (strength > 0)
         {
-            stats += "\n" + strength.ToString() + "Strength";
+            stats += "\n" + strength.ToString() + " Strength";
         }
         if (intellect > 0)
         {
-            stats += "\n" + intellect.ToString() + "Intellect";
+            stats += "\n" + intellect.ToString() + " Intellect";
         }
         if (agility > 0)
         {
-            stats += "\n" + agility.ToString() + "Agility";
+            stats += "\n" + agility.ToString() + " Agility";
         }
         if (stamina > 0)
         {
-            stats += "\n" + stamina.ToString() + "Stamina";
+            stats += "\n" + stamina.ToString() + " Stamina";
         }
         return string.Format("<color=" + color + "><size=16>{0}</size></color><size=14><i><color=lime>" + newLine + 
             "{1}</color></i>{2}</size>", itemName, description, stats);
+    }
+
+    public void SetStates(Item item)
+    {
+        this.type = item.type;
+        this.quality = item.quality;
+        this.spriteNeutral = item.spriteNeutral;
+        this.spriteHighlighted = item.spriteHighlighted;
+        this.maxSize = item.maxSize;
+        this.strength = item.strength;
+        this.intellect = item.intellect;
+        this.agility = item.agility;
+        this.stamina = item.stamina;
+        this.itemName = item.itemName;
+        this.description = item.description;
+
+        switch (type)
+        {
+            case ItemType.MANA:
+                GetComponent<Renderer>().material.color = Color.blue;
+                break;
+            case ItemType.HEALTH:
+                GetComponent<Renderer>().material.color = Color.red;
+                break;
+            case ItemType.WEAPON:
+                GetComponent<Renderer>().material.color = Color.green;
+                break;
+        }
     }
 }

@@ -16,6 +16,8 @@ public class HandleCanvas : MonoBehaviour
 	void Start () 
     {
         canvas = GetComponent<Canvas>();
+
+        //hoverObject = null;
 	}
 
     public void Update()
@@ -43,11 +45,14 @@ public class HandleCanvas : MonoBehaviour
 
         }
 
+
+
         if (hoverObject != null)
         {
+            print("OK");
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition,
                 canvas.worldCamera, out position);
-            hoverObject.transform.position = canvas.transform.TransformPoint(position);    
+            hoverObject.transform.position = canvas.transform.TransformPoint(position);
         }
 
         
