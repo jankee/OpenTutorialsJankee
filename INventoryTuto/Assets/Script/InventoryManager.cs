@@ -125,4 +125,23 @@ public class InventoryManager : MonoBehaviour
         stackText.text = splitAmount.ToString();
     }
 
+    public void Save()
+    {
+        GameObject[] inventories = GameObject.FindGameObjectsWithTag("Inventory");
+
+        foreach (GameObject inventory in inventories)
+        {
+            inventory.GetComponent<Inventory>().SaveInventory();
+        }
+    }
+
+    public void Load()
+    {
+        GameObject[] inventories = GameObject.FindGameObjectsWithTag("Inventory");
+
+        foreach (GameObject inventory in inventories)
+        {
+            inventory.GetComponent<Inventory>().LoadInventory();
+        }
+    }
 }

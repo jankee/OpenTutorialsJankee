@@ -44,11 +44,7 @@ public class Inventory : MonoBehaviour
         set { emptySlot = value; }
     }
 
-    private static CanvasGroup canvasGroup;
-    public static CanvasGroup CanvasGroup
-    {
-        get { return Inventory.canvasGroup; }
-    }
+    private CanvasGroup canvasGroup;
 
     private static Inventory instance;
     public static Inventory Instance
@@ -61,6 +57,14 @@ public class Inventory : MonoBehaviour
             }
             return Inventory.instance; 
         }
+    }
+
+    private bool isOpen;
+
+    public bool IsOpen
+    {
+        get { return isOpen; }
+        set { isOpen = value; }
     }
 
     private bool fadingOut;
@@ -78,17 +82,37 @@ public class Inventory : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+
+        isOpen = false;
+
         //selectStackSizeStatic = InventoryManager.Instance.selectStackSize.GetComponent<GameObject>();
 
         playerRef = GameObject.Find("player");
 
         CreateLayout();
 
-        canvasGroup = InventoryManager.Instance.canvas.GetComponent<CanvasGroup>();
+        canvasGroup = GetComponent<CanvasGroup>();
 
         InventoryManager.Instance.MovingSlot = GameObject.Find("movingSlot").GetComponent<Slot>();
 	}
 	
+    public void Open()
+    {
+            if (canvasGroup.alpha > 0)
+            {
+                StartCoroutine("FadingOut");
+                PutItemBack();
+
+                isOpen = false;
+            }
+            else
+            {
+                StartCoroutine("FadingIn");
+
+                isOpen = true;
+            }
+    }
+
 	// Update is called once per frame
 	void Update () 
     {
@@ -159,31 +183,21 @@ public class Inventory : MonoBehaviour
 
             position.Set(position.x, position.y - hoverYOffset);
 
-            InventoryManager.Instance.HoverObject.transform.position = InventoryManager.Instance.canvas.transform.TransformPoint(position);
+            InventoryManager.Instance.HoverObject.transform.position = 
+                InventoryManager.Instance.canvas.transform.TransformPoint(position);
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            if (canvasGroup.alpha > 0)
-            {
-                StartCoroutine("FadingOut");
-                PutItemBack();
-            }
-            else
-            {
-                StartCoroutine("FadingIn");
-            }
+            //
         }
-        if (Input.GetMouseButton(2))
-        {
-            
-            if (InventoryManager.Instance.eventSystem.IsPointerOverGameObject(-1))
-            {
-                print("Input.GetMouseButton(2)");
-                MoveInventory();
-            }
-        }
+
 	}
+
+    public void OnDrag()
+    {
+        MoveInventory();
+    }
 
     public void ShowToolTip(GameObject slot)
     {
@@ -227,14 +241,14 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        PlayerPrefs.SetString("content", content);
-        PlayerPrefs.SetInt("slots", slot);
-        PlayerPrefs.SetInt("rows", rows);
-        PlayerPrefs.SetFloat("slotPaddingLeft", slotPaddingLeft);
-        PlayerPrefs.SetFloat("slotPaddingTop", slotPaddingTop);
-        PlayerPrefs.SetFloat("slotSize", slotSize);
-        PlayerPrefs.SetFloat("xPos", inventoryRect.position.x);
-        PlayerPrefs.SetFloat("yPos", inventoryRect.position.y);
+        PlayerPrefs.SetString(gameObject.name + "content", content);
+        PlayerPrefs.SetInt(gameObject.name + "slots", slot);
+        PlayerPrefs.SetInt(gameObject.name + "rows", rows);
+        PlayerPrefs.SetFloat(gameObject.name + "slotPaddingLeft", slotPaddingLeft);
+        PlayerPrefs.SetFloat(gameObject.name + "slotPaddingTop", slotPaddingTop);
+        PlayerPrefs.SetFloat(gameObject.name + "slotSize", slotSize);
+        PlayerPrefs.SetFloat(gameObject.name + "xPos", inventoryRect.position.x);
+        PlayerPrefs.SetFloat(gameObject.name + "yPos", inventoryRect.position.y);
 
         PlayerPrefs.Save();
 
@@ -243,15 +257,16 @@ public class Inventory : MonoBehaviour
 
     public void LoadInventory()
     {
-        string content = PlayerPrefs.GetString("content");
+        string content = PlayerPrefs.GetString(gameObject.name + "content");
         print(content);
-        slot = PlayerPrefs.GetInt("slots");
-        rows = PlayerPrefs.GetInt("rows");
-        slotPaddingLeft = PlayerPrefs.GetFloat("slotPaddingLeft");
-        slotPaddingTop = PlayerPrefs.GetFloat("slotPaddingTop");
-        slotSize = PlayerPrefs.GetFloat("slotSize");
+        slot = PlayerPrefs.GetInt(gameObject.name + "slots");
+        rows = PlayerPrefs.GetInt(gameObject.name + "rows");
+        slotPaddingLeft = PlayerPrefs.GetFloat(gameObject.name + "slotPaddingLeft");
+        slotPaddingTop = PlayerPrefs.GetFloat(gameObject.name + "slotPaddingTop");
+        slotSize = PlayerPrefs.GetFloat(gameObject.name + "slotSize");
 
-        inventoryRect.position = new Vector3(PlayerPrefs.GetFloat("xPos"), PlayerPrefs.GetFloat("yPos"), inventoryRect.position.z);
+        inventoryRect.position = new Vector3(PlayerPrefs.GetFloat(gameObject.name + "xPos"), 
+            PlayerPrefs.GetFloat(gameObject.name + "yPos"), inventoryRect.position.z);
 
         CreateLayout();
 
@@ -330,6 +345,8 @@ public class Inventory : MonoBehaviour
             {
 
                 //스롯의 x, y 포지션 값을 구하는 변수
+                print(inventoryRect.localPosition);
+
                 float xPosition = slotPaddingLeft * (x + 1) + (slotSize * x);
                 float yPosition = -slotPaddingTop * (y + 1) + -(slotSize * y);
 
@@ -340,15 +357,13 @@ public class Inventory : MonoBehaviour
                 //newSlot 이름을 Slot이라 정해준다
                 newSlot.name = "Slot";
                 //newSlot의 부모를 cavas롤 변경해준다
-                newSlot.transform.SetParent(this.transform.FindChild("Slots"));
+                newSlot.transform.SetParent(this.transform);
                 //slotRect의 포지션을 정해준다
-                slotRect.localPosition = inventoryRect.localPosition + new Vector3(xPosition, yPosition, 0);
+                slotRect.localPosition = new Vector3(xPosition, yPosition, 0);
                 //사이즈 값을 slotSize로 넣어 준다
                 slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotSize * InventoryManager.Instance.canvas.scaleFactor);
                 slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotSize * InventoryManager.Instance.canvas.scaleFactor);
 
-                //스케일값 변경때문에 다시 설정
-                //slotRect.localScale = new Vector3(1, 1, 1);
                 //allSlot에 동록한다
                 allSlots.Add(newSlot);
             }
@@ -436,25 +451,26 @@ public class Inventory : MonoBehaviour
 
             if (tmp.isEmpty)
             {
-                print("tmp.isEmpty");
                 tmp.AddItems(InventoryManager.Instance.MovingSlot.Items);
                 InventoryManager.Instance.MovingSlot.Items.Clear();
                 Destroy(GameObject.Find("Hover"));
             }
-            else if (!tmp.isEmpty && InventoryManager.Instance.MovingSlot.currentItem.type == tmp.currentItem.type && tmp.isAvailable)
+            else if (!tmp.isEmpty && InventoryManager.Instance.MovingSlot.currentItem.type == tmp.currentItem.type 
+                && tmp.isAvailable)
             {
-                print("tmp.isEmpty &&");
                 MergeStacks(InventoryManager.Instance.MovingSlot, tmp);
 
-                CreateHoverIcon();
+                //확인이 필요함!!
+                //CreateHoverIcon();
             }
         }
 
-        //from 슬롯이 비여 있고, 캔버스알파의 값이 1 그리고 왼쪽 시프트키를 누르면
-        else if (InventoryManager.Instance.From == null && canvasGroup.alpha == 1 && Input.GetKeyDown(KeyCode.LeftShift))
+        //from 슬롯이 비여 있고, chest가 열려져 있다면 그리고 왼쪽 시프트키를 누르면
+        else if (InventoryManager.Instance.From == null && clicked.transform.parent.GetComponent<Inventory>().isOpen
+            && Input.GetKeyDown(KeyCode.LeftShift))
         {
             //변수 clicked가 비여있지 않다면
-            if (!InventoryManager.Instance.Clicked.GetComponent<Slot>().isEmpty)
+            if (!clicked.GetComponent<Slot>().isEmpty && !GameObject.Find("Hover"))
             {
                 //from에 클릭 스롯을 넣어준다
                 InventoryManager.Instance.From = clicked.GetComponent<Slot>();

@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 
     public Inventory inventory;
 
+    private Inventory chest;
+
 
 	// Use this for initialization
 	void Start () 
@@ -18,21 +20,54 @@ public class Player : MonoBehaviour
 	void Update () 
     {
         HandleMovement();
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            inventory.Open();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (chest != null)
+            {
+                chest.Open();
+            }
+        }
 	}
 
-    public void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Item")
         {
             inventory.AddItem(other.GetComponent<Item>());
         }
+        if (other.tag == "Chest")
+        {
+            chest = other.GetComponent<ChestInventory>().chestInventory;
+        }
+
     }
 
-    public void OnCollisionEnter(Collider collision)
+    public void OnTriggerExit(Collider other)
     {
-        if (collision.tag == "Item")
+        if (other.tag == "Chest")
         {
-            inventory.AddItem(collision.GetComponent<Item>());
+            if (chest.IsOpen)
+            {
+                chest.Open();
+            }
+
+            chest = null;
+            
+        }
+    }
+
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            inventory.AddItem(collision.gameObject.GetComponent<Item>());
 
             Destroy(collision.gameObject);
         }

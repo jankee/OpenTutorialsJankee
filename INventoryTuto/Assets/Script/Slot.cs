@@ -20,6 +20,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     public Sprite slotEmpty;
     public Sprite slotHighlight;
 
+    public CanvasGroup canvasGroup;
+
     //스탁의 카운트가 0이면 참을 준다
     public bool isEmpty
     {
@@ -67,6 +69,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         //txtRect의 가로세로 사이즈 구한다.
         txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotRect.sizeDelta.x);
         txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotRect.sizeDelta.y);
+
+        if (transform.parent != null)
+        {
+            canvasGroup = transform.parent.GetComponent<CanvasGroup>();
+        }
 
     }
 
@@ -158,7 +165,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right || GameObject.Find("Hover"))
+        if (eventData.button == PointerEventData.InputButton.Right || GameObject.Find("Hover")
+            && canvasGroup.alpha > 0)
         {
             UseItem();
         }
