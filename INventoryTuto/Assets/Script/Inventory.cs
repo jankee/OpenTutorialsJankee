@@ -345,8 +345,6 @@ public class Inventory : MonoBehaviour
             {
 
                 //스롯의 x, y 포지션 값을 구하는 변수
-                print(inventoryRect.localPosition);
-
                 float xPosition = slotPaddingLeft * (x + 1) + (slotSize * x);
                 float yPosition = -slotPaddingTop * (y + 1) + -(slotSize * y);
 
@@ -445,9 +443,13 @@ public class Inventory : MonoBehaviour
     {
         InventoryManager.Instance.Clicked = clicked;
 
+        
+
         if (!InventoryManager.Instance.MovingSlot.isEmpty)
         {
             Slot tmp = clicked.GetComponent<Slot>();
+
+            print("moving");
 
             if (tmp.isEmpty)
             {
@@ -482,6 +484,8 @@ public class Inventory : MonoBehaviour
         }
         else if (InventoryManager.Instance.To == null && Input.GetKeyDown(KeyCode.LeftShift))
         {
+            print(InventoryManager.Instance.MovingSlot.name);
+
             InventoryManager.Instance.To = clicked.GetComponent<Slot>();
 
             Destroy(GameObject.Find("Hover"));
