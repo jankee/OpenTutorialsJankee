@@ -18,7 +18,7 @@ public enum Quality
     ARTIFACT,
 };
 
-public class Item : MonoBehaviour 
+public class ItemScript : MonoBehaviour 
 {
     public ItemType type;
 
@@ -103,7 +103,7 @@ public class Item : MonoBehaviour
             "{1}</color></i>{2}</size>", itemName, description, stats);
     }
 
-    public void SetStates(Item item)
+    public void SetStates(ItemScript item)
     {
         this.type = item.type;
         this.quality = item.quality;

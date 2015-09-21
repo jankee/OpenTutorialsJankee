@@ -126,7 +126,7 @@ public class Inventory : MonoBehaviour
                 print("eventSystem.IsPointerOverGameObject(-1)");
                 InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
 
-                foreach (Item item in InventoryManager.Instance.From.Items)
+                foreach (ItemScript item in InventoryManager.Instance.From.Items)
                 {
                     float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
 
@@ -136,7 +136,7 @@ public class Inventory : MonoBehaviour
 
                     GameObject tmpObj = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
 
-                    tmpObj.GetComponent<Item>().SetStates(item);
+                    tmpObj.GetComponent<ItemScript>().SetStates(item);
                 }
                 //from 스롯에서 item을 제거한다
                 InventoryManager.Instance.From.ClearSlot();
@@ -150,7 +150,7 @@ public class Inventory : MonoBehaviour
             else if (!InventoryManager.Instance.eventSystem.IsPointerOverGameObject(-1) && !InventoryManager.Instance.MovingSlot.isEmpty)
             {
                 print("eventSystem.IsPointerOverGameObject(-1)");
-                foreach (Item item in InventoryManager.Instance.MovingSlot.Items)
+                foreach (ItemScript item in InventoryManager.Instance.MovingSlot.Items)
                 {
                     float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
 
@@ -160,7 +160,7 @@ public class Inventory : MonoBehaviour
 
                     GameObject tmpObj = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
 
-                    tmpObj.GetComponent<Item>().SetStates(item);
+                    tmpObj.GetComponent<ItemScript>().SetStates(item);
                 }
 
                 InventoryManager.Instance.MovingSlot.ClearSlot();
@@ -296,13 +296,13 @@ public class Inventory : MonoBehaviour
                 switch (type)
                 {
                     case ItemType.MANA:
-                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.mana.GetComponent<Item>());
+                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.mana.GetComponent<ItemScript>());
                         break;
                     case ItemType.HEALTH:
-                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.health.GetComponent<Item>());
+                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.health.GetComponent<ItemScript>());
                         break;
                     case ItemType.WEAPON:
-                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.sword.GetComponent<Item>());
+                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.sword.GetComponent<ItemScript>());
                         break;
                 }
             }
@@ -368,7 +368,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool AddItem(Item item)
+    public bool AddItem(ItemScript item)
     {
         if (item.maxSize == 1)
         {
@@ -419,7 +419,7 @@ public class Inventory : MonoBehaviour
     }
 
     //비여있는 슬롯을 찾아 아이템을 넣어 준다.
-    private bool PlaceEmpty(Item item)
+    private bool PlaceEmpty(ItemScript item)
     {
         if (emptySlot > 0)
         {
@@ -493,7 +493,7 @@ public class Inventory : MonoBehaviour
 
         if (InventoryManager.Instance.To != null && InventoryManager.Instance.From != null)
         {
-            Stack<Item> tmpTo = new Stack<Item>(InventoryManager.Instance.To.Items);
+            Stack<ItemScript> tmpTo = new Stack<ItemScript>(InventoryManager.Instance.To.Items);
 
             InventoryManager.Instance.To.AddItems(InventoryManager.Instance.From.Items);
 
@@ -554,7 +554,7 @@ public class Inventory : MonoBehaviour
         {
             Destroy(GameObject.Find("Hover"));
 
-            foreach (Item item in InventoryManager.Instance.MovingSlot.Items)
+            foreach (ItemScript item in InventoryManager.Instance.MovingSlot.Items)
             {
                 InventoryManager.Instance.Clicked.GetComponent<Slot>().AddItem(item);
             }

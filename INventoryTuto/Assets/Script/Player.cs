@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Item")
         {
-            inventory.AddItem(other.GetComponent<Item>());
+            inventory.AddItem(other.GetComponent<ItemScript>());
         }
         if (other.tag == "Chest")
         {
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Item")
         {
-            inventory.AddItem(collision.gameObject.GetComponent<Item>());
+            inventory.AddItem(collision.gameObject.GetComponent<ItemScript>());
 
             Destroy(collision.gameObject);
         }

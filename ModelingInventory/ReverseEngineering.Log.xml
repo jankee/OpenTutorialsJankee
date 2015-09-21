@@ -6,63 +6,23 @@
   <MessageClass Name="Error" Label="Error" Option="Show errors" />
   <MessageClass Name="Property" Label="Property" Option="Show metadata" />
   <MessageClass Name="Diagnostic" Label="Message" Option="Show diagnostic messages" />
-  <Message Timestamp="2015-09-21T16:21:57" Importance="High" Text="Reverse Engineering Started." />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: '8c36a3c5-2dee-4694-b37a-74c68b56e5c5' -  (ClassifierTemplateParameter)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'Boolean' -  (PrimitiveType)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'Integer' -  (PrimitiveType)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory' -  (ModelStoreModel)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Item' -  (Class)   (partially reverse engineered - definition not updated) " />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Medium" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot' -  (Class)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::AddItem' -  (Operation)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::AddItem::item' -  (Parameter)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::AddItems' -  (Operation)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::AddItems::items' -  (Parameter)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::Awake' -  (Operation)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::canvasGroup' -  (Property)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::ChaingeSprite' -  (Operation)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::ChaingeSprite::highlight' -  (Parameter)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::ChaingeSprite::neutral' -  (Parameter)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::ClearSlot' -  (Operation)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::currentItem' -  (Property)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::isAvailable' -  (Property)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::isEmpty' -  (Property)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::items' -  (Property)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::Items' -  (Property)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::OnPointerClick' -  (Operation)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::OnPointerClick::eventData' -  (Parameter)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::RemoveItem' -  (Operation)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::RemoveItems' -  (Operation)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::RemoveItems::amount' -  (Parameter)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::Slot' -  (Operation)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::slotEmpty' -  (Property)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::slotHighlight' -  (Property)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::stackTxt' -  (Property)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::Start' -  (Operation)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Slot::UseItem' -  (Operation)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::System' -  (Package)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::System::Collections' -  (Package)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::System::Collections::Generic' -  (Package)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::System::Collections::Generic::Stack' -  (Class)   (partially reverse engineered - definition not updated) " />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::System::Collections::Generic::Stack&lt;Item‎&gt;' -  (Class)   (partially reverse engineered - definition not updated) " />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::UnityEngine' -  (Package)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::UnityEngine::CanvasGroup' -  (Class)   (partially reverse engineered - definition not updated) " />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::UnityEngine::EventSystems' -  (Package)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::UnityEngine::EventSystems::IPointerClickHandler' -  (Interface)   (partially reverse engineered - definition not updated) " />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::UnityEngine::EventSystems::PointerEventData' -  (Class)   (partially reverse engineered - definition not updated) " />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::UnityEngine::MonoBehaviour' -  (Class)   (partially reverse engineered - definition not updated) " />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::UnityEngine::Sprite' -  (Class)   (partially reverse engineered - definition not updated) " />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::UnityEngine::UI' -  (Package)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::UnityEngine::UI::Text' -  (Class)   (partially reverse engineered - definition not updated) " />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ModelingInventory::Slot to ModelingInventory::System::Collections::Generic::Stack&lt;Item‎&gt; (Association)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ModelingInventory::Slot to ModelingInventory::Item (Association)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ModelingInventory::Slot to ModelingInventory::UnityEngine::EventSystems::IPointerClickHandler (InterfaceRealization)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ModelingInventory::Slot to ModelingInventory::UnityEngine::MonoBehaviour (Generalization)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ModelingInventory::Item to ModelingInventory::UnityEngine::MonoBehaviour (Generalization)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ModelingInventory::Player to ModelingInventory::UnityEngine::MonoBehaviour (Generalization)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ModelingInventory::ChestInventory to ModelingInventory::UnityEngine::MonoBehaviour (Generalization)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ModelingInventory::Inventory to ModelingInventory::UnityEngine::MonoBehaviour (Generalization)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ModelingInventory::InventoryManager to ModelingInventory::UnityEngine::MonoBehaviour (Generalization)" />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="High" Text="(1) type(s) fully reverse engineered." />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="High" Text="(9) type(s) partially reverse engineered.  These types were not included in the original selection so their full definitions are not reverse engineered.  Instead, this shallow operation has simply ensured these types exist in the UML model because they are needed in order to fully describe other elements." />
-  <Message Timestamp="2015-09-21T16:21:59" Importance="High" Text="The reverse engineering operation completed with (0) error(s), and (0) warning(s)." />
+  <Message Timestamp="2015-09-21T20:35:51" Importance="High" Text="Reverse Engineering Started." />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory' -  (ModelStoreModel)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Medium" Text="Element reverse engineered into the UML model: 'ModelingInventory::Item' -  (Class)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Item::Description' -  (Property)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Item::Item' -  (Operation)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Item::ItemName' -  (Property)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Item::ItemType' -  (Property)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Item::MaxSize' -  (Property)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Item::Quality' -  (Property)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Item::SpriteHighlight' -  (Property)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Item::SpriteNeutral' -  (Property)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::ItemType' -  (Enumeration)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ModelingInventory::Quality' -  (Enumeration)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'String' -  (PrimitiveType)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ModelingInventory::Item to ModelingInventory::ItemType (Association)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ModelingInventory::Item to ModelingInventory::Quality (Association)" />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="High" Text="(1) type(s) fully reverse engineered." />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="High" Text="(2) type(s) partially reverse engineered.  These types were not included in the original selection so their full definitions are not reverse engineered.  Instead, this shallow operation has simply ensured these types exist in the UML model because they are needed in order to fully describe other elements." />
+  <Message Timestamp="2015-09-21T20:35:53" Importance="High" Text="The reverse engineering operation completed with (0) error(s), and (0) warning(s)." />
 </Log>

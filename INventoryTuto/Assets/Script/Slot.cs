@@ -7,9 +7,9 @@ using UnityEngine.EventSystems;
 public class Slot : MonoBehaviour, IPointerClickHandler
 {
 
-    private Stack<Item> items;
+    private Stack<ItemScript> items;
 
-    public Stack<Item> Items
+    public Stack<ItemScript> Items
     {
         get { return items; }
         set { items = value; }
@@ -39,7 +39,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public Item currentItem
+    public ItemScript currentItem
     {
         get
         {
@@ -50,7 +50,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     void Awake()
     {
         //아이템스를 초기화 한다
-        items = new Stack<Item>();
+        items = new Stack<ItemScript>();
     }
 
     // Use this for initialization
@@ -77,7 +77,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     }
 
-    public void AddItem(Item item)
+    public void AddItem(ItemScript item)
     {
         //리스트 아이템스에 아이템을 넣어준다.
         items.Push(item);
@@ -90,9 +90,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         ChaingeSprite(item.spriteNeutral, item.spriteHighlighted);
     }
 
-    public void AddItems(Stack<Item> items)
+    public void AddItems(Stack<ItemScript> items)
     {
-        this.items = new Stack<Item>(items);
+        this.items = new Stack<ItemScript>(items);
 
         stackTxt.text = items.Count > 1 ? items.Count.ToString() : string.Empty;
 
@@ -138,9 +138,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         stackTxt.text = string.Empty;
     }
 
-    public Stack<Item> RemoveItems(int amount)
+    public Stack<ItemScript> RemoveItems(int amount)
     {
-        Stack<Item> tmp = new Stack<Item>();
+        Stack<ItemScript> tmp = new Stack<ItemScript>();
 
         for (int i = 0; i < amount; i++)
         {
@@ -152,9 +152,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         return tmp;
     }
 
-    public Item RemoveItem()
+    public ItemScript RemoveItem()
     {
-        Item tmp;
+        ItemScript tmp;
 
         tmp = items.Pop();
 
