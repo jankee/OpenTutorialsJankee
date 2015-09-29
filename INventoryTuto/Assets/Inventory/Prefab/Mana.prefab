@@ -13,7 +13,7 @@ GameObject:
   - 23: {fileID: 2385872}
   - 114: {fileID: 11490004}
   m_Layer: 0
-  m_Name: MANA
+  m_Name: Mana
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
