@@ -3,9 +3,18 @@ using System.Collections;
 
 public enum ItemType
 {
-    MANA, 
-    HEALTH,
-    WEAPON,
+    CONSUMEABLE, 
+    MAINHAND,
+    TWOHAND,
+    OFFHAND,
+    HEAD,
+    NECK,
+    CHEST,
+    RING,
+    LEGS,
+    BRACERS,
+    BOOTS,
+    TRINKET,
 };
 
 public enum Quality
@@ -41,12 +50,12 @@ public class ItemScript : MonoBehaviour
     {
         switch (type)
         {
-            case ItemType.MANA:
-                print("I just used a mana potion");
-                break;
-            case ItemType.HEALTH:
-                print("I just used a health potion");
-                break;
+            //case ItemType.MANA:
+            //    print("I just used a mana potion");
+            //    break;
+            //case ItemType.HEALTH:
+            //    print("I just used a health potion");
+            //    break;
         }	
 	}
 
@@ -119,15 +128,15 @@ public class ItemScript : MonoBehaviour
 
         switch (type)
         {
-            case ItemType.MANA:
-                GetComponent<Renderer>().material.color = Color.blue;
-                break;
-            case ItemType.HEALTH:
-                GetComponent<Renderer>().material.color = Color.red;
-                break;
-            case ItemType.WEAPON:
-                GetComponent<Renderer>().material.color = Color.green;
-                break;
+            //case ItemType.MANA:
+            //    GetComponent<Renderer>().material.color = Color.blue;
+            //    break;
+            //case ItemType.HEALTH:
+            //    GetComponent<Renderer>().material.color = Color.red;
+            //    break;
+            //case ItemType.WEAPON:
+            //    GetComponent<Renderer>().material.color = Color.green;
+            //    break;
         }
     }
 }

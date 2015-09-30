@@ -3,14 +3,50 @@ using System.Collections;
 
 public class Equipment : Item 
 {
+    public int Intellect
+    { 
+        get; 
+        set; 
+    }
+    public int Agility
+    {
+        get;
+        set;
+    }
+    public int Stamina
+    {
+        get;
+        set;
+    }
+    public int Strength
+    {
+        get;
+        set;
+    }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public Equipment()
+    {
+
+    }
+
+    public Equipment(string itemName, string description, ItemType itemType, Quality quality,
+        string spriteNeutral, string spriteHighlighted, int maxSize, int intelliect, int agility, int stamina, int strength) :
+        base(itemName, description, itemType, quality, spriteNeutral, spriteHighlighted, maxSize)
+    {
+        this.Intellect = intelliect;
+        this.Agility = agility;
+        this.Stamina = stamina;
+        this.Strength = strength;
+    }
+
+
+    public override void Use()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override string GetTooltip()
+    {
+        return base.GetTooltip();
+    }
 }

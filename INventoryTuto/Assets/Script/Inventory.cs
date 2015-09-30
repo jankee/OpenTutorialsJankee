@@ -295,15 +295,15 @@ public class Inventory : MonoBehaviour
             {
                 switch (type)
                 {
-                    case ItemType.MANA:
-                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.mana.GetComponent<ItemScript>());
-                        break;
-                    case ItemType.HEALTH:
-                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.health.GetComponent<ItemScript>());
-                        break;
-                    case ItemType.WEAPON:
-                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.sword.GetComponent<ItemScript>());
-                        break;
+                    //case ItemType.MANA:
+                    //    allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.mana.GetComponent<ItemScript>());
+                    //    break;
+                    //case ItemType.HEALTH:
+                    //    allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.health.GetComponent<ItemScript>());
+                    //    break;
+                    //case ItemType.WEAPON:
+                    //    allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.sword.GetComponent<ItemScript>());
+                    //    break;
                 }
             }
         }
