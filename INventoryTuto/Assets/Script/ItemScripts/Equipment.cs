@@ -30,10 +30,10 @@ public class Equipment : Item
     }
 
     public Equipment(string itemName, string description, ItemType itemType, Quality quality,
-        string spriteNeutral, string spriteHighlighted, int maxSize, int intelliect, int agility, int stamina, int strength) :
+        string spriteNeutral, string spriteHighlighted, int maxSize, int intellect, int agility, int stamina, int strength) :
         base(itemName, description, itemType, quality, spriteNeutral, spriteHighlighted, maxSize)
     {
-        this.Intellect = intelliect;
+        this.Intellect = intellect;
         this.Agility = agility;
         this.Stamina = stamina;
         this.Strength = strength;

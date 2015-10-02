@@ -17,8 +17,8 @@ public class Weapon : Equipment
     }
 
     public Weapon(string itemName, string description, ItemType itemType, Quality quality,
-        string spriteNeutral, string spriteHighlighted, int maxSize, int intelliect, int agility, int stamina, int strength, float attackSpeed) :
-        base(itemName, description, itemType, quality, spriteNeutral, spriteHighlighted, maxSize, intelliect, agility, stamina, strength)
+        string spriteNeutral, string spriteHighlighted, int maxSize, int intellect, int agility, int stamina, int strength, float attackSpeed) :
+        base(itemName, description, itemType, quality, spriteNeutral, spriteHighlighted, maxSize, intellect, agility, stamina, strength)
     {
         this.AttackSpeed = attackSpeed;
     }
