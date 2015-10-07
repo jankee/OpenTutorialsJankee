@@ -429,19 +429,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229c3561d2dcfe747b1348c94f3b1fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 1
-  quality: 0
+  itemType: 2
+  quality: 3
   catagory: 1
-  spriteNeutral: 
-  spriteHighlighted: 
-  itemName: 
-  description: 
-  maxSize: 0
-  intellect: 0
-  agility: 0
-  stamina: 0
-  strength: 0
-  attackSpeed: 0
+  spriteNeutral: Weapon/SwordNomal
+  spriteHighlighted: Weapon/SwordHighlight
+  itemName: Awesome Sword
+  description: This is an Awesome Sword
+  maxSize: 1
+  intellect: 35
+  agility: 10
+  stamina: 14
+  strength: 25
+  attackSpeed: 5
   health: 0
   mana: 0
 --- !u!4 &990246029
