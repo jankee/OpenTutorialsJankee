@@ -8,6 +8,10 @@ TowerDefence/obj/
 INventoryTuto/Library/
 INventoryTuto/Temp/
 INventoryTuto/obj/
+
+EndlessRunner/Library/
+EndlessRunner/Temp/
+EndlessRunner/obj/
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -26,6 +30,15 @@ INventoryTuto/*.sln
 *.user
 *.unityproj
 *.booproj
+
+EndlessRunner/*.csproj
+*.pidb
+*.suo
+EndlessRunner/*.sln
+*.user
+*.unityproj
+*.booproj
+
 
 # ============ #
 # OS generated #
