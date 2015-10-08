@@ -29,114 +29,82 @@ public enum Quality
 
 public class ItemScript : MonoBehaviour 
 {
-    public ItemType type;
-
-    public Quality quality;
-
     public Sprite spriteNeutral;
 
     public Sprite spriteHighlighted;
 
-    public int maxSize;
+    private Item item;
+    public Item Item
+    {
+        get { return item; }
+        set 
+        { 
+            item = value;
 
-    public float strength, intellect, agility, stamina;
-
-    public string itemName;
-
-    public string description;
+            spriteNeutral = Resources.Load<Sprite>(value.SpriteNeutral);
+            spriteHighlighted = Resources.Load<Sprite>(value.SpriteHighlighted);
+        }
+    }
 
 	// Use this for initialization
 	public void Use() 
     {
-        switch (type)
-        {
-            //case ItemType.MANA:
-            //    print("I just used a mana potion");
-            //    break;
-            //case ItemType.HEALTH:
-            //    print("I just used a health potion");
-            //    break;
-        }	
+
 	}
 
     public string GetTooltip()
     {
-        string stats = string.Empty;
-        string color = string.Empty;
-        string newLine = string.Empty;
+        return item.GetTooltip();
 
-        if (description != string.Empty)
-        {
-            newLine = "\n";
-        }
+        //string stats = string.Empty;
+        //string color = string.Empty;
+        //string newLine = string.Empty;
 
-        switch (quality)
-        {
-            case Quality.COMMON:
-                color = "white";
-                break;
-            case Quality.UNCOMMON:
-                color = "lime";
-                break;
-            case Quality.RARE:
-                color = "navy";
-                break;
-            case Quality.EPIC:
-                color = "magenta";
-                break;
-            case Quality.LEGENDATY:
-                color = "orange";
-                break;
-            case Quality.ARTIFACT:
-                color = "red";
-                break;
-        }
+        //if (description != string.Empty)
+        //{
+        //    newLine = "\n";
+        //}
 
-        if (strength > 0)
-        {
-            stats += "\n" + strength.ToString() + " Strength";
-        }
-        if (intellect > 0)
-        {
-            stats += "\n" + intellect.ToString() + " Intellect";
-        }
-        if (agility > 0)
-        {
-            stats += "\n" + agility.ToString() + " Agility";
-        }
-        if (stamina > 0)
-        {
-            stats += "\n" + stamina.ToString() + " Stamina";
-        }
-        return string.Format("<color=" + color + "><size=16>{0}</size></color><size=14><i><color=lime>" + newLine + 
-            "{1}</color></i>{2}</size>", itemName, description, stats);
+        //switch (quality)
+        //{
+        //    case Quality.COMMON:
+        //        color = "white";
+        //        break;
+        //    case Quality.UNCOMMON:
+        //        color = "lime";
+        //        break;
+        //    case Quality.RARE:
+        //        color = "navy";
+        //        break;
+        //    case Quality.EPIC:
+        //        color = "magenta";
+        //        break;
+        //    case Quality.LEGENDATY:
+        //        color = "orange";
+        //        break;
+        //    case Quality.ARTIFACT:
+        //        color = "red";
+        //        break;
+        //}
+
+        //if (strength > 0)
+        //{
+        //    stats += "\n" + strength.ToString() + " Strength";
+        //}
+        //if (intellect > 0)
+        //{
+        //    stats += "\n" + intellect.ToString() + " Intellect";
+        //}
+        //if (agility > 0)
+        //{
+        //    stats += "\n" + agility.ToString() + " Agility";
+        //}
+        //if (stamina > 0)
+        //{
+        //    stats += "\n" + stamina.ToString() + " Stamina";
+        //}
+        //return string.Format("<color=" + color + "><size=16>{0}</size></color><size=14><i><color=lime>" + newLine + 
+        //    "{1}</color></i>{2}</size>", itemName, description, stats);
     }
 
-    public void SetStates(ItemScript item)
-    {
-        this.type = item.type;
-        this.quality = item.quality;
-        this.spriteNeutral = item.spriteNeutral;
-        this.spriteHighlighted = item.spriteHighlighted;
-        this.maxSize = item.maxSize;
-        this.strength = item.strength;
-        this.intellect = item.intellect;
-        this.agility = item.agility;
-        this.stamina = item.stamina;
-        this.itemName = item.itemName;
-        this.description = item.description;
-
-        switch (type)
-        {
-            //case ItemType.MANA:
-            //    GetComponent<Renderer>().material.color = Color.blue;
-            //    break;
-            //case ItemType.HEALTH:
-            //    GetComponent<Renderer>().material.color = Color.red;
-            //    break;
-            //case ItemType.WEAPON:
-            //    GetComponent<Renderer>().material.color = Color.green;
-            //    break;
-        }
-    }
 }

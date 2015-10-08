@@ -38,7 +38,42 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Item")
         {
-            inventory.AddItem(other.GetComponent<ItemScript>());
+            //Pick 0 or 1 or 2
+            int randomType = UnityEngine.Random.Range(0, 3);
+
+            GameObject tmp = Instantiate(InventoryManager.Instance.itemObject);
+
+            int randomItem;
+
+            switch (randomType)
+            {
+                case 0:
+                    tmp.AddComponent<ItemScript>();
+                    ItemScript newConsumeable = tmp.GetComponent<ItemScript>();
+                    randomItem = UnityEngine.Random.Range(0, InventoryManager.Instance.ItemContainer.Consumeables.Count);
+                    newConsumeable.Item = InventoryManager.Instance.ItemContainer.Consumeables[randomItem];
+                    inventory.AddItem(newConsumeable);
+                    Destroy(tmp);
+                    break;
+
+                case 1:
+                    tmp.AddComponent<ItemScript>();
+                    ItemScript newWeapon = tmp.GetComponent<ItemScript>();
+                    randomItem = UnityEngine.Random.Range(0, InventoryManager.Instance.ItemContainer.Weapons.Count);
+                    newWeapon.Item = InventoryManager.Instance.ItemContainer.Weapons[randomItem];
+                    inventory.AddItem(newWeapon);
+                    Destroy(tmp);
+                    break;
+
+                case 2:
+                    tmp.AddComponent<ItemScript>();
+                    ItemScript newEquitment = tmp.GetComponent<ItemScript>();
+                    randomItem = UnityEngine.Random.Range(0, InventoryManager.Instance.ItemContainer.Equipment.Count);
+                    newEquitment.Item = InventoryManager.Instance.ItemContainer.Equipment[randomItem];
+                    inventory.AddItem(newEquitment);
+                    Destroy(tmp);
+                    break;
+            }
         }
         if (other.tag == "Chest")
         {

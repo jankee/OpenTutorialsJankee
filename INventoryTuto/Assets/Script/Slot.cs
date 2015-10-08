@@ -35,7 +35,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     {
         get
         {
-            return currentItem.maxSize > items.Count;
+            return currentItem.Item.MaxSize > items.Count;
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using System.Xml.Serialization;
 using System.IO;
+using System.Text;
 
 public enum Catagory
 {
@@ -38,6 +39,8 @@ public class ItemManager : MonoBehaviour
         FileStream fs = new FileStream(Path.Combine(Application.streamingAssetsPath, "Items.xml"), FileMode.Open);
 
         XmlSerializer serializer = new XmlSerializer(typeof(ItemContainer), itemTypes);
+
+        //var encoding = Encoding.GetEncoding("UTF-8");
 
         itemContainer = (ItemContainer)serializer.Deserialize(fs);
 

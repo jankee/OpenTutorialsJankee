@@ -136,7 +136,7 @@ public class Inventory : MonoBehaviour
 
                     GameObject tmpObj = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
 
-                    tmpObj.GetComponent<ItemScript>().SetStates(item);
+                    /*Chainge The code later*/
                 }
                 //from 스롯에서 item을 제거한다
                 InventoryManager.Instance.From.ClearSlot();
@@ -160,7 +160,7 @@ public class Inventory : MonoBehaviour
 
                     GameObject tmpObj = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
 
-                    tmpObj.GetComponent<ItemScript>().SetStates(item);
+                    //tmpObj.GetComponent<ItemScript>().SetStates(item);
                 }
 
                 InventoryManager.Instance.MovingSlot.ClearSlot();
@@ -235,9 +235,7 @@ public class Inventory : MonoBehaviour
 
             if (!tmp.isEmpty)
             {
-                content += i + "-" + tmp.currentItem.type + "-" + tmp.Items.Count.ToString() + ";";
-
-                print(content);
+                content += i + "-" + tmp.currentItem.Item.ItemName.ToString() + "-" + tmp.Items.Count.ToString() + ";";
             }
         }
 
@@ -370,7 +368,7 @@ public class Inventory : MonoBehaviour
 
     public bool AddItem(ItemScript item)
     {
-        if (item.maxSize == 1)
+        if (item.Item.MaxSize == 1)
         {
             PlaceEmpty(item);
             return true;
@@ -383,7 +381,7 @@ public class Inventory : MonoBehaviour
 
                 if (!tmp.isEmpty)
                 {
-                    if (tmp.currentItem.type == item.type && tmp.isAvailable)
+                    if (tmp.currentItem.Item.ItemName == item.Item.ItemName && tmp.isAvailable)
                     {
                         if (!InventoryManager.Instance.MovingSlot.isEmpty && InventoryManager.Instance.Clicked.GetComponent<Slot>() == tmp.GetComponent<Slot>())
                         {
@@ -447,9 +445,8 @@ public class Inventory : MonoBehaviour
 
         if (!InventoryManager.Instance.MovingSlot.isEmpty)
         {
+            //클릭했을 때 참조 스롯을 불러온다
             Slot tmp = clicked.GetComponent<Slot>();
-
-            print("moving");
 
             if (tmp.isEmpty)
             {
@@ -457,7 +454,7 @@ public class Inventory : MonoBehaviour
                 InventoryManager.Instance.MovingSlot.Items.Clear();
                 Destroy(GameObject.Find("Hover"));
             }
-            else if (!tmp.isEmpty && InventoryManager.Instance.MovingSlot.currentItem.type == tmp.currentItem.type 
+            else if (!tmp.isEmpty && InventoryManager.Instance.MovingSlot.currentItem.Item.ItemName == tmp.currentItem.Item.ItemName
                 && tmp.isAvailable)
             {
                 MergeStacks(InventoryManager.Instance.MovingSlot, tmp);
@@ -493,18 +490,39 @@ public class Inventory : MonoBehaviour
 
         if (InventoryManager.Instance.To != null && InventoryManager.Instance.From != null)
         {
-            Stack<ItemScript> tmpTo = new Stack<ItemScript>(InventoryManager.Instance.To.Items);
-
-            InventoryManager.Instance.To.AddItems(InventoryManager.Instance.From.Items);
-
-            if (tmpTo.Count == 0)
+            if (!InventoryManager.Instance.To.isEmpty && InventoryManager.Instance.From.currentItem.Item.ItemName
+                == InventoryManager.Instance.To.currentItem.Item.ItemName && InventoryManager.Instance.To.isAvailable)
             {
-                InventoryManager.Instance.From.ClearSlot();
+                MergeStacks(InventoryManager.Instance.From, InventoryManager.Instance.To);
             }
             else
             {
-                InventoryManager.Instance.From.AddItems(tmpTo);
+                Stack<ItemScript> tmpTo = new Stack<ItemScript>(InventoryManager.Instance.To.Items);
+
+                //from 스롯에서 to 스롯으로 저장한다
+                InventoryManager.Instance.To.AddItems(InventoryManager.Instance.From.Items);
+
+                if (tmpTo.Count == 0)
+                {
+                    InventoryManager.Instance.From.ClearSlot();
+                }
+                else
+                {
+                    InventoryManager.Instance.From.AddItems(tmpTo);
+                }
             }
+            //Stack<ItemScript> tmpTo = new Stack<ItemScript>(InventoryManager.Instance.To.Items);
+
+            //InventoryManager.Instance.To.AddItems(InventoryManager.Instance.From.Items);
+
+            //if (tmpTo.Count == 0)
+            //{
+            //    InventoryManager.Instance.From.ClearSlot();
+            //}
+            //else
+            //{
+            //    InventoryManager.Instance.From.AddItems(tmpTo);
+            //}
 
             InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
 
@@ -602,7 +620,7 @@ public class Inventory : MonoBehaviour
 
     public void MergeStacks(Slot source, Slot destination)
     {
-        int max = destination.currentItem.maxSize - destination.Items.Count;
+        int max = destination.currentItem.Item.MaxSize- destination.Items.Count;
 
         int count = source.Items.Count < max ? source.Items.Count : max;
 

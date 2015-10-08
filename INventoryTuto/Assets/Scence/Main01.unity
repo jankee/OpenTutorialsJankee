@@ -429,19 +429,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229c3561d2dcfe747b1348c94f3b1fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
+  itemType: 4
   quality: 3
-  catagory: 1
-  spriteNeutral: Weapon/SwordNomal
-  spriteHighlighted: Weapon/SwordHighlight
-  itemName: Awesome Sword
-  description: This is an Awesome Sword
+  catagory: 0
+  spriteNeutral: Equipment/HelmetNormal
+  spriteHighlighted: Equipment/HelmetHighlight
+  itemName: Strong helmet
+  description: This is a good helmet
   maxSize: 1
-  intellect: 35
-  agility: 10
-  stamina: 14
-  strength: 25
-  attackSpeed: 5
+  intellect: 2
+  agility: 4
+  stamina: 5
+  strength: 6
+  attackSpeed: 0
   health: 0
   mana: 0
 --- !u!4 &990246029
@@ -530,7 +530,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1922622551}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 990246028}
+        m_MethodName: CreateItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1922622551

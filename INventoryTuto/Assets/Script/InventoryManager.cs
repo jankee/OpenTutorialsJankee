@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
+using System.Xml.Serialization;
+using System.IO;
 
 public class InventoryManager : MonoBehaviour 
 {
@@ -24,6 +27,8 @@ public class InventoryManager : MonoBehaviour
     //아이콘 이미지를 등록한다.
     public GameObject iconPrefab;
 
+    public GameObject itemObject;
+
     //등록된 아이콘이미지를 관리할 스테틱 변수
     private GameObject hoverObject;
     public GameObject HoverObject
@@ -31,10 +36,6 @@ public class InventoryManager : MonoBehaviour
         get { return hoverObject; }
         set { hoverObject = value; }
     }
-
-    public GameObject mana;
-    public GameObject health;
-    public GameObject sword;
 
     public GameObject dropItem;
 
@@ -102,6 +103,25 @@ public class InventoryManager : MonoBehaviour
     }
 
     public EventSystem eventSystem;
+
+    private ItemContainer itemContainer = new ItemContainer();
+
+    public ItemContainer ItemContainer
+    {
+        get { return itemContainer; }
+        set { itemContainer = value; }
+    }
+
+    public void Start()
+    {
+        Type[] itemType = { typeof(Equipment), typeof(Weapon), typeof(Consumeable) };
+
+        XmlSerializer serializer = new XmlSerializer(typeof(ItemContainer), itemType);
+        TextReader textReader = new StreamReader(Application.streamingAssetsPath + "/Items.xml");
+        itemContainer = (ItemContainer)serializer.Deserialize(textReader);
+        textReader.Close();
+    }
+
 
     /// <summary>
     /// 스탁 인포를 셋팅, 얼만큼의 아이템을 없애수 있는 알수 있다.
