@@ -35,6 +35,19 @@ public class Consumeable : Item
 
     public override string GetTooltip()
     {
-        return base.GetTooltip();
+        string stats = string.Empty;
+
+        if (Health > 0)
+        {
+            stats += "\n Restores" + Health.ToString() + " Health";
+        }
+        if (Mana > 0)
+        {
+            stats += "\n Restores" + Mana.ToString() + " Mana";
+        }
+
+        string itemTip = base.GetTooltip();
+
+        return string.Format("{0}" + "<size=14> {1} </size>", itemTip, stats);
     }
 }

@@ -21,7 +21,6 @@ public abstract class Item
         set;
     }
 
-
     public string SpriteHighlighted
     {
         get;
@@ -65,7 +64,41 @@ public abstract class Item
 
     public virtual string GetTooltip()
     {
-        return null;
+        string stats = string.Empty;
+        string color = string.Empty;
+        string newLine = string.Empty;
+
+        if (Description != string.Empty)
+        {
+            newLine = "\n";
+        }
+
+        switch (Quality)
+        {
+            case Quality.COMMON:
+                color = "white";
+                break;
+            case Quality.UNCOMMON:
+                color = "lime";
+                break;
+            case Quality.RARE:
+                color = "navy";
+                break;
+            case Quality.EPIC:
+                color = "magenta";
+                break;
+            case Quality.LEGENDATY:
+                color = "orange";
+                break;
+            case Quality.ARTIFACT:
+                color = "red";
+                break;
+        }
+
+        return string.Format("<color=" + color + "><size=16>{0}</size></color><size=14><i><color=lime>" + newLine +
+            "{1}</color></i>{2}</size>", ItemName, Description);
+
+        //return null;
     }
 
     public abstract void Use();

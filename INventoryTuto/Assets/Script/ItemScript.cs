@@ -56,37 +56,6 @@ public class ItemScript : MonoBehaviour
     {
         return item.GetTooltip();
 
-        //string stats = string.Empty;
-        //string color = string.Empty;
-        //string newLine = string.Empty;
-
-        //if (description != string.Empty)
-        //{
-        //    newLine = "\n";
-        //}
-
-        //switch (quality)
-        //{
-        //    case Quality.COMMON:
-        //        color = "white";
-        //        break;
-        //    case Quality.UNCOMMON:
-        //        color = "lime";
-        //        break;
-        //    case Quality.RARE:
-        //        color = "navy";
-        //        break;
-        //    case Quality.EPIC:
-        //        color = "magenta";
-        //        break;
-        //    case Quality.LEGENDATY:
-        //        color = "orange";
-        //        break;
-        //    case Quality.ARTIFACT:
-        //        color = "red";
-        //        break;
-        //}
-
         //if (strength > 0)
         //{
         //    stats += "\n" + strength.ToString() + " Strength";
