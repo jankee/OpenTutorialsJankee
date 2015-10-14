@@ -21,12 +21,10 @@ public class PlayerScript : MonoBehaviour
             if (dir == Vector3.forward)
             {
                 dir = Vector3.left;
-                print("left");
             }
             else
             {
                 dir = Vector3.forward;
-                print("forward");
             }
         }
 
