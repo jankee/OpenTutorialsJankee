@@ -24,13 +24,31 @@ public class TileScript : MonoBehaviour
         {
             TileManager.Instance.SpawnTile();
             StartCoroutine("FallDown");
+
+            //PlayerScript.Instance.speed += -0.1f;
         }
     }
 
     IEnumerator FallDown()
     {
-        print("HI");
         yield return new WaitForSeconds(delayTime);
         GetComponent<Rigidbody>().isKinematic = false;
+
+        yield return new WaitForSeconds(2);
+
+        switch (gameObject.name)
+        {
+            case "LeftTile":
+                TileManager.Instance.LeftTiles.Push(gameObject);
+                GetComponent<Rigidbody>().isKinematic = true;
+                gameObject.SetActive(true);
+                break;
+
+            case "TopTile":
+                TileManager.Instance.TopTiles.Push(gameObject);
+                GetComponent<Rigidbody>().isKinematic = true;
+                gameObject.SetActive(true);
+                break;
+        }
     }
 }
