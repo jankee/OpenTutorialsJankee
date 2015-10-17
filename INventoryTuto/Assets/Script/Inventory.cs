@@ -285,24 +285,33 @@ public class Inventory : MonoBehaviour
 
             //print(splitValues[1]);
 
-            ItemType type = (ItemType)Enum.Parse(typeof(ItemType), splitValues[1], true);       //"MANA"
+            string itemName = splitValues[1];                                                   //"MANA"
 
             int amount = int.Parse(splitValues[2]);                                             //"3"
 
+            Item tmp = null;
+
             for (int i = 0; i < amount; i++)
             {
-                switch (type)
+                GameObject loadedItem = Instantiate(InventoryManager.Instance.itemObject);
+
+                if (tmp == null)
                 {
-                    //case ItemType.MANA:
-                    //    allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.mana.GetComponent<ItemScript>());
-                    //    break;
-                    //case ItemType.HEALTH:
-                    //    allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.health.GetComponent<ItemScript>());
-                    //    break;
-                    //case ItemType.WEAPON:
-                    //    allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.sword.GetComponent<ItemScript>());
-                    //    break;
+                    tmp = InventoryManager.Instance.ItemContainer.Consumeables.Find(item => item.ItemName == itemName);
                 }
+                if (tmp == null)
+                {
+                    tmp = InventoryManager.Instance.ItemContainer.Equipment.Find(item => item.ItemName == itemName);
+                }
+                if (tmp == null)
+                {
+                    tmp = InventoryManager.Instance.ItemContainer.Weapons.Find(item => item.ItemName == itemName);
+                }
+
+                loadedItem.AddComponent<ItemScript>();
+                loadedItem.GetComponent<ItemScript>().Item = tmp;
+                allSlots[index].GetComponent<Slot>().AddItem(loadedItem.GetComponent<ItemScript>());
+                Destroy(loadedItem);
             }
         }
     } 

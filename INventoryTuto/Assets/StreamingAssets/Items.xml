@@ -50,7 +50,7 @@
       <Quality>COMMON</Quality>
       <SpriteNeutral>Consumeable/Health</SpriteNeutral>
       <SpriteHighlighted>Consumeable/HealthSelect</SpriteHighlighted>
-      <MaxSize>1</MaxSize>
+      <MaxSize>5</MaxSize>
       <ItemName>Health potion</ItemName>
       <Description>This potion restores health</Description>
       <Health>10</Health>
@@ -61,7 +61,7 @@
       <Quality>COMMON</Quality>
       <SpriteNeutral>Consumeable/Mana</SpriteNeutral>
       <SpriteHighlighted>Consumeable/ManaSelect</SpriteHighlighted>
-      <MaxSize>1</MaxSize>
+      <MaxSize>5</MaxSize>
       <ItemName>Mana potion</ItemName>
       <Description>This potion restores mana</Description>
       <Health>0</Health>

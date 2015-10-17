@@ -47,6 +47,27 @@ public class Equipment : Item
 
     public override string GetTooltip()
     {
-        return base.GetTooltip();
+        string stats = string.Empty;
+
+        if (Strength > 0)
+        {
+            stats += "\n" + Strength.ToString() + " Strength";
+        }
+        if (Intellect > 0)
+        {
+            stats += "\n" + Intellect.ToString() + " Intellect";
+        }
+        if (Agility > 0)
+        {
+            stats += "\n" + Agility.ToString() + " Agility";
+        }
+        if (Stamina > 0)
+        {
+            stats += "\n" + Stamina.ToString() + " Stamina";
+        }
+
+        string itemTip = base.GetTooltip();
+
+        return string.Format("{0}" + "<size=14> {1} </size>", itemTip, stats);
     }
 }

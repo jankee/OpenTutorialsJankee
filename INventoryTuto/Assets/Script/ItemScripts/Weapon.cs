@@ -25,7 +25,16 @@ public class Weapon : Equipment
 
     public override string GetTooltip()
     {
-        return base.GetTooltip();
+        string equipmentTip = base.GetTooltip();
+
+        string stats = string.Empty;
+
+        //if (AttackSpeed > 0)
+        //{
+        //    stats += "\n Restores" + AttackSpeed.ToString() + " Attack Speed";
+        //}
+
+        return string.Format("{0}" + "<size=14> {1} </size>", equipmentTip, AttackSpeed);
     }
 
 }
