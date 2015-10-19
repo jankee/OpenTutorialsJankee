@@ -12,6 +12,14 @@ INventoryTuto/obj/
 EndlessRunner/Library/
 EndlessRunner/Temp/
 EndlessRunner/obj/
+
+ScrollingCombatText/Library/
+ScrollingCombatText/Temp/
+ScrollingCombatText/obj/
+
+GrandTour/Library/
+GrandTour/Temp/
+GrandTour/obj/
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -39,6 +47,23 @@ EndlessRunner/*.sln
 *.unityproj
 *.booproj
 
+
+ScrollingCombatText/*.csproj
+*.pidb
+*.suo
+ScrollingCombatText/*.sln
+*.user
+*.unityproj
+*.booproj
+
+
+GrandTour/*.csproj
+*.pidb
+*.suo
+GrandTour/*.sln
+*.user
+*.unityproj
+*.booproj
 
 # ============ #
 # OS generated #
