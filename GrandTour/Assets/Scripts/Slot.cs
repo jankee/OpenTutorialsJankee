@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour 
+public class Slot : MonoBehaviour, IPointerClickHandler
 {
 
     private Stack<Item> items;
@@ -14,13 +15,40 @@ public class Slot : MonoBehaviour
 
     public Sprite slotHighlight;
 
+    public bool IsEmpty
+    {
+        get 
+        { 
+            return items.Count == 0;
+        }
+    }
+
+    //currentItem의 maxSize 스탁 items의 카운트 갯수와 비교하여 maxSize값이 크면 참이다.
+    public bool IsAvailable
+    {
+        get
+        {
+            return currentItem.maxSize > items.Count;
+        }
+    }
+
+    
+    //스탁 items에서 하나를 선택하여 currentItem에 넣어 준다
+    public Item currentItem
+    {
+        get
+        {
+            return items.Peek();
+        }
+    }
+
 	// Use this for initialization
 	void Start () 
     {
         items = new Stack<Item>();
 
         RectTransform slotRect = GetComponent<RectTransform>();
-        RectTransform txtRect = GetComponent<RectTransform>();
+        RectTransform txtRect = stackTxt.GetComponent<RectTransform>();
 
         //text의 리사이즈텍스트에 사용 할 변수를 만든다.
         int txtScaleFactor = (int)(slotRect.sizeDelta.x * 0.6f);
@@ -40,6 +68,7 @@ public class Slot : MonoBehaviour
 	
 	}
 
+    //스롯에 스탁 items에 item을 저장한다.  
     public void AddItem(Item item)
     {
         //item을 받아서 items안에 넣는다.
@@ -51,10 +80,13 @@ public class Slot : MonoBehaviour
             stackTxt.text = items.Count.ToString();
         }
 
-        print(items.Count);
+        ChaingeSprite(item.spriteNormal, item.spriteHighlight);
+
+        //아이템의 타잎과 사용을 해보았다.
+        //item.Use(item.itemType);
     }
 
-    public void ChaingeSprite(Sprite normal, Sprite highlight)
+    private void ChaingeSprite(Sprite normal, Sprite highlight)
     {
         //이미지 컴포넌트 스프라이트에 노말이미지를 넣어 준다.
         GetComponent<Image>().sprite = normal;
@@ -69,5 +101,29 @@ public class Slot : MonoBehaviour
 
         //버튼 컴퍼넌트의 spriteState에 st를 넣어준다.
         GetComponent<Button>().spriteState = st;
+    }
+
+    private void UseItem()
+    {
+        if (!IsEmpty)
+        {
+            items.Pop().Use();
+
+            stackTxt.text = items.Count > 1 ? items.Count.ToString() : string.Empty;
+        }
+        if (IsEmpty)
+        {
+            print("Empty");
+            ChaingeSprite(slotNormal, slotHighlight);
+            Inventory.EmptySlot++;
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            UseItem();
+        }
     }
 }

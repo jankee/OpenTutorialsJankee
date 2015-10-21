@@ -8,7 +8,8 @@ public enum ItemType
 }
 
 
-public class Item : MonoBehaviour {
+public class Item : MonoBehaviour 
+{
 
     public ItemType itemType;
 
@@ -17,7 +18,7 @@ public class Item : MonoBehaviour {
 
     public int maxSize;
     
-    public void Use(ItemType itemType)
+    public void Use()
     {
         switch (itemType)
         {
