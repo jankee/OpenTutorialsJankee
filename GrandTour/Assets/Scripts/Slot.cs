@@ -9,6 +9,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     private Stack<Item> items;
 
+    public Stack<Item> Items
+    {
+        get { return items; }
+        set { items = value; }
+    }
+
     public Text stackTxt;
 
     public Sprite slotNormal;
@@ -17,8 +23,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     public bool IsEmpty
     {
-        get 
-        { 
+        get
+        {
             return items.Count == 0;
         }
     }
@@ -32,7 +38,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    
+
     //스탁 items에서 하나를 선택하여 currentItem에 넣어 준다
     public Item currentItem
     {
@@ -42,8 +48,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start()
     {
         items = new Stack<Item>();
 
@@ -60,13 +66,13 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotRect.sizeDelta.x);
         txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotRect.sizeDelta.y);
 
-	}
-	
-	// Update is called once per frame
-	void Update () 
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-	
-	}
+
+    }
 
     //스롯에 스탁 items에 item을 저장한다.  
     public void AddItem(Item item)
@@ -80,13 +86,35 @@ public class Slot : MonoBehaviour, IPointerClickHandler
             stackTxt.text = items.Count.ToString();
         }
 
-        ChaingeSprite(item.spriteNormal, item.spriteHighlight);
+        ChangeSprite(item.spriteNormal, item.spriteHighlight);
 
         //아이템의 타잎과 사용을 해보았다.
         //item.Use(item.itemType);
     }
 
-    private void ChaingeSprite(Sprite normal, Sprite highlight)
+    public void AddItems(Stack<Item> items)
+    {
+        //기존 items에 인자로 받은 items로 초기화 해준다.
+        this.items = new Stack<Item>(items);
+
+        //stackTxt의 Text에 item 갯수를 표시한다.
+        stackTxt.text = items.Count > 1 ? items.Count.ToString() : string.Empty;
+
+        //스프라이트 이미지를 currentItem의 이미지로 교체한다.
+        ChangeSprite(currentItem.spriteNormal, currentItem.spriteHighlight);
+    }
+
+    public void ClearSlot()
+    {
+        items.Clear();
+
+        stackTxt.text = string.Empty;
+
+        ChangeSprite(slotNormal, slotHighlight);
+
+    }
+
+    private void ChangeSprite(Sprite normal, Sprite highlight)
     {
         //이미지 컴포넌트 스프라이트에 노말이미지를 넣어 준다.
         GetComponent<Image>().sprite = normal;
@@ -114,15 +142,18 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         if (IsEmpty)
         {
             print("Empty");
-            ChaingeSprite(slotNormal, slotHighlight);
+            ChangeSprite(slotNormal, slotHighlight);
             Inventory.EmptySlot++;
         }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right)
+        //오른쪽 클릭을 했을 때 Hover를 못찾았을 때 캔버스그릅의 알파가 0 이상일때
+        if (eventData.button == PointerEventData.InputButton.Right && !GameObject.Find("Hover")
+            && Inventory.CanvasGroup.alpha > 0)
         {
+            //slot에 item을 사용한다
             UseItem();
         }
     }
