@@ -48,11 +48,14 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void Awake()
+    {
+        items = new Stack<Item>();
+    }
+
     // Use this for initialization
     void Start()
     {
-        items = new Stack<Item>();
-
         RectTransform slotRect = GetComponent<RectTransform>();
         RectTransform txtRect = stackTxt.GetComponent<RectTransform>();
 
@@ -147,14 +150,68 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public Stack<Item> RemoveItems(int amount)
+    {
+        Stack<Item> tmp = new Stack<Item>();
+
+        for (int i = 0; i < amount; i++)
+        {
+            tmp.Push(items.Pop());
+        }
+
+        print(tmp.Count);
+
+        stackTxt.text = items.Count > 1 ? items.Count.ToString() : string.Empty;
+
+        return tmp;
+    }
+
+    public Item RemoveItem()
+    {
+        Item tmp;
+
+        tmp = items.Pop();
+
+        stackTxt.text = items.Count > 1 ? items.Count.ToString() : string.Empty;
+
+        return tmp;
+    }
+
+
+
     public void OnPointerClick(PointerEventData eventData)
     {
         //오른쪽 클릭을 했을 때 Hover를 못찾았을 때 캔버스그릅의 알파가 0 이상일때
         if (eventData.button == PointerEventData.InputButton.Right && !GameObject.Find("Hover")
             && Inventory.CanvasGroup.alpha > 0)
         {
+
+            //print(items.Count);
+
+            //Item tmp = RemoveItem();
+
+            //print(tmp.name);
+            //RemoveItems(2);
+
             //slot에 item을 사용한다
+
             UseItem();
+        }
+        else if (eventData.button == PointerEventData.InputButton.Left && Input.GetKey(KeyCode.LeftShift)
+            && !IsEmpty && !GameObject.Find("Hover"))
+        {
+            //&& 
+            //!IsEmpty && !GameObject.Find("Hover")
+            print("Shift");
+            Vector2 position;
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(Inventory.Instance.canvas.transform as RectTransform,
+                Input.mousePosition, Inventory.Instance.canvas.worldCamera, out position);
+
+            Inventory.Instance.selectStackSize.transform.position = Inventory.Instance.canvas.transform.TransformPoint(position);
+
+            Inventory.Instance.SetStackInfo(items.Count);
+
         }
     }
 }

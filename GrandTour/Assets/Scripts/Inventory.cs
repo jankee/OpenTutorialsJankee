@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class Inventory : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class Inventory : MonoBehaviour
     public GameObject slotPrefab;
 
     public GameObject iconPrefab;
+
+    private static GameObject clicked;
 
     private static GameObject hoverObj;
 
@@ -45,9 +48,34 @@ public class Inventory : MonoBehaviour
         get { return Inventory.canvasGroup; }
     }
 
+    private static Inventory instance;
+
+    public static Inventory Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<Inventory>();
+            }
+            return instance;
+        }
+    }
+
     private bool fadingOut, fadingIn;
 
     public float fadingTime;
+
+    public GameObject selectStackSize;
+
+    public Text stackText;
+
+    private int splitAmount;
+    private int maxStackCount;
+
+    private static Slot movingSlot;
+
+    public GameObject mana, health;
 
     public static int EmptySlot
     {
@@ -61,11 +89,14 @@ public class Inventory : MonoBehaviour
         canvasGroup = gameObject.transform.parent.GetComponent<CanvasGroup>();
 
         CreateLayout();
+
+        movingSlot = GameObject.Find("MovingSlot").GetComponent<Slot>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //인벤토리 밖에서 클릭을 했을 때
         if (Input.GetMouseButtonUp(0))
         {
             if (!eventSystem.IsPointerOverGameObject(-1) && from != null)
@@ -76,8 +107,13 @@ public class Inventory : MonoBehaviour
 
                 to = null;
                 from = null;
-                hoverObj = null;
                 emptySlot++;
+            }
+            else if (!eventSystem.IsPointerOverGameObject(-1) && !movingSlot.IsEmpty)
+            {
+                PutItemBack();
+                movingSlot.ClearSlot();
+                Destroy(GameObject.Find("Hover"));
             }
         }
 
@@ -107,9 +143,9 @@ public class Inventory : MonoBehaviour
 
                 if (!tmp.IsEmpty)
                 {
-                    MoveItem(tmp.GetComponent<GameObject>());
+                    MoveItem(tmp.gameObject);
 
-                    
+
                 }
             }
         }
@@ -118,8 +154,8 @@ public class Inventory : MonoBehaviour
         {
             if (canvasGroup.alpha > 0)
             {
-                print("Hi");
                 StartCoroutine("FadeOut");
+                PutItemBack();
             }
             else
             {
@@ -127,15 +163,89 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    Slot tmp = 
-        //}
+        if (Input.GetMouseButton(2))
+        {
+            if (eventSystem.IsPointerOverGameObject(-1))
+            {
+                MoveInventory();
+            }
+        }
+    }
+
+    public void SaveInventory()
+    {
+        string content = "";
+
+        for (int i = 0; i < allSlots.Count; i++)
+        {
+            Slot tmp = allSlots[i].GetComponent<Slot>();
+
+            if (!tmp.IsEmpty)
+            {
+                content += i + "-" + tmp.currentItem.itemType.ToString() + "-" + tmp.Items.Count.ToString() + ";";
+            }
+        }
+
+        PlayerPrefs.SetString("content", content);
+        PlayerPrefs.SetInt("slots", slots);
+        PlayerPrefs.SetInt("rows", rows);
+        PlayerPrefs.SetFloat("slotPaddingLeft", slotPaddingLeft);
+        PlayerPrefs.SetFloat("slotPaddingTop", slotPaddingTop);
+        PlayerPrefs.SetFloat("slotSize", slotSize);
+        PlayerPrefs.SetFloat("xPos", inventoryRect.position.x);
+        PlayerPrefs.SetFloat("yPos", inventoryRect.position.y);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadInventory()
+    {
+        string content = PlayerPrefs.GetString("content");
+
+        slots = PlayerPrefs.GetInt("slots");
+        rows = PlayerPrefs.GetInt("rows");
+        slotPaddingLeft = PlayerPrefs.GetFloat("slotPaddingLeft");
+        slotPaddingTop = PlayerPrefs.GetFloat("slotPaddingTop");
+        slotSize = PlayerPrefs.GetFloat("slotSize");
+        inventoryRect.position = new Vector2( PlayerPrefs.GetFloat("xPos"), PlayerPrefs.GetFloat("yPos"));
+
+        CreateLayout();
+
+        string[] splitContant = content.Split(';');
+
+        for (int x = 0; x < splitContant.Length - 1; x++)
+        {
+            string[] splitValues = splitContant[x].Split('-');
+
+            int index = Int32.Parse(splitValues[0]);
+
+            ItemType type = (ItemType)Enum.Parse(typeof(ItemType), splitValues[1]);
+
+            int amount = Int32.Parse(splitValues[2]);
+
+            for (int i = 0; i < amount; i++)
+            {
+                switch (type)
+                {
+                    case ItemType.MANA:
+                        allSlots[index].GetComponent<Slot>().AddItem(mana.GetComponent<Item>());
+                        break;
+                    case ItemType.HEALTH:
+                        allSlots[index].GetComponent<Slot>().AddItem(health.GetComponent<Item>());
+                        break;
+                }
+            }
+        }
     }
 
     private void CreateLayout()
     {
-
+        if (allSlots != null)
+        {
+            foreach (GameObject go in allSlots)
+            {
+                Destroy(go);
+            }
+        }
         allSlots = new List<GameObject>();
 
         hoverOffset = slotSize * 0.1f;
@@ -164,7 +274,7 @@ public class Inventory : MonoBehaviour
 
                 newSlot.name = "Slot";
 
-                newSlot.transform.SetParent(this.transform.parent);
+                newSlot.transform.SetParent(this.transform.FindChild("SlotParent"));
 
                 slotRect.localPosition = inventoryRect.localPosition + new Vector3(slotPaddingLeft * (x + 1) + (slotSize * x),
                     -slotPaddingTop * (y + 1) - (slotSize * y));
@@ -174,6 +284,66 @@ public class Inventory : MonoBehaviour
 
                 allSlots.Add(newSlot);
             }
+        }
+    }
+
+    public void SetStackInfo(int maxStackCount)
+    {
+        selectStackSize.SetActive(true);
+        splitAmount = 0;
+        this.maxStackCount = maxStackCount;
+        stackText.text = splitAmount.ToString();
+    }
+
+    public void SplitStack()
+    {
+        selectStackSize.SetActive(false);
+
+        if (splitAmount == maxStackCount)
+        {
+            MoveItem(clicked);
+        }
+        else if (splitAmount > 0)
+        {
+            movingSlot.Items = clicked.GetComponent<Slot>().RemoveItems(splitAmount);
+
+            CreateHover();
+        }
+    }
+
+    public void ChangeStackText(int i)
+    {
+        splitAmount += i;
+
+        if (splitAmount < 0)
+        {
+            splitAmount = 0;
+        }
+        if (splitAmount > maxStackCount)
+        {
+            splitAmount = maxStackCount;
+        }
+
+        stackText.text = splitAmount.ToString();
+    }
+
+    public void MergeStacks(Slot source, Slot destination)
+    {
+        int max = destination.currentItem.maxSize - destination.Items.Count;
+
+        int count = source.Items.Count < max ? source.Items.Count : max;
+
+        for (int i = 0; i < count; i++)
+        {
+            destination.AddItem(source.RemoveItem());
+            hoverObj.transform.GetChild(0).GetComponent<Text>().text = movingSlot.Items.Count > 1 ? movingSlot.Items.Count.ToString()
+            : string.Empty;
+        }
+
+        if (source.Items.Count == 0)
+        {
+            source.ClearSlot();
+            Destroy(GameObject.Find("Hover"));
         }
     }
 
@@ -199,10 +369,15 @@ public class Inventory : MonoBehaviour
                     //아이템 타입이 같고 maxSize가 여유가 있다면
                     if (tmp.currentItem.itemType == item.itemType && tmp.IsAvailable)
                     {
-                        //슬롯의 AddItem으로 아이템을 넣어 준다.
-                        tmp.AddItem(item);
-
-                        return true;
+                        if (!movingSlot.IsEmpty && clicked.GetComponent<Slot>() == tmp.GetComponent<Slot>())
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            tmp.AddItem(item);
+                            return true;
+                        }
                     }
                 }
             }
@@ -210,7 +385,6 @@ public class Inventory : MonoBehaviour
             if (emptySlot > 0)
             {
                 PlaceEmpty(item);
-
             }
         }
         return false;
@@ -237,44 +411,68 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
+    public void PutItemBack()
+    {
+        if (from != null)
+        {
+            Destroy(GameObject.Find("Hover"));
+            from.GetComponent<Image>().color = Color.white;
+            from = null;
+        }
+        else if (!movingSlot.IsEmpty)
+        {
+            Destroy(GameObject.Find("Hover"));
+
+            foreach (Item item in movingSlot.Items)
+            {
+                clicked.GetComponent<Slot>().AddItem(item);
+            }
+
+            movingSlot.ClearSlot();
+        }
+
+        selectStackSize.SetActive(false);
+    }
+
     public void MoveItem(GameObject clicked)
     {
 
-        Slot tmp = clicked.GetComponent<Slot>();
+        Inventory.clicked = clicked;
 
-        //print(clicked.transform.name);
-
-        //from이 비여있을때
-        if (from == null)
+        if (!movingSlot.IsEmpty)
         {
-            //인자 clicked가 비여있지 않다면
-            if (!clicked.GetComponent<Slot>().IsEmpty)
+            Slot tmp = clicked.GetComponent<Slot>();
+
+            if (tmp.IsEmpty)
             {
-                //from에 clicked 인자를 넣어 준다
+                tmp.AddItems(movingSlot.Items);
+                movingSlot.Items.Clear();
+                Destroy(GameObject.Find("Hover"));
+            }
+            else if (!tmp.IsEmpty && movingSlot.currentItem.itemType == tmp.currentItem.itemType
+                && tmp.IsAvailable)
+            {
+                MergeStacks(movingSlot, tmp);
+            }
+
+        }
+        else if (from == null && canvasGroup.alpha == 1 && !Input.GetKey(KeyCode.LeftShift))
+        {
+            if (!clicked.GetComponent<Slot>().IsEmpty && !GameObject.Find("Hover"))
+            {
                 from = clicked.GetComponent<Slot>();
-                //from의 Image컨퍼넌트를 이용하여 컬러를 회색으로 바꾸어 준다
-                from.GetComponent<Image>().color = Color.grey;
 
-                hoverObj = (GameObject)Instantiate(iconPrefab);
-                hoverObj.GetComponent<Image>().sprite = clicked.GetComponent<Image>().sprite;
-                hoverObj.gameObject.name = "Hover";
+                from.GetComponent<Image>().color = Color.gray;
 
-                RectTransform hoverTransform = hoverObj.GetComponent<RectTransform>();
-                RectTransform clickedTransform = clicked.GetComponent<RectTransform>();
-
-                hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, clickedTransform.sizeDelta.x);
-                hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, clickedTransform.sizeDelta.y);
-
-                hoverObj.transform.SetParent(GameObject.Find("Canvas").transform, true);
+                CreateHover();
             }
         }
-        //to가 비여있다면
-        else if (to == null)
+        else if (to == null && !Input.GetKey(KeyCode.LeftShift))
         {
-            //to에 인자로 받은 clicked를 넣어 준다
             to = clicked.GetComponent<Slot>();
             Destroy(GameObject.Find("Hover"));
         }
+
         //to, from 둘 다 비여있다면
         if (from != null && to != null)
         {
@@ -300,10 +498,43 @@ public class Inventory : MonoBehaviour
             //to, from을 비워준다
             to = null;
             from = null;
-            hoverObj = null;
+            Destroy(GameObject.Find("Hover"));
             //나름 설정을 해본 것
             //Destroy(hoverObj);
         }
+    }
+
+    public void MoveInventory()
+    {
+        Vector2 mousePos;
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
+            new Vector2(Input.mousePosition.x - (inventoryRect.sizeDelta.x / 2 * canvas.scaleFactor), Input.mousePosition.y +
+            (inventoryRect.sizeDelta.y / 2 * canvas.scaleFactor)), canvas.worldCamera, out mousePos);
+
+        transform.position = canvas.transform.TransformPoint(mousePos);
+    }
+
+    public void CreateHover()
+    {
+
+
+        hoverObj = (GameObject)Instantiate(iconPrefab);
+        hoverObj.GetComponent<Image>().sprite = clicked.GetComponent<Image>().sprite;
+        hoverObj.gameObject.name = "Hover";
+
+        RectTransform hoverTransform = hoverObj.GetComponent<RectTransform>();
+        RectTransform clickedTransform = clicked.GetComponent<RectTransform>();
+
+        hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, clickedTransform.sizeDelta.x);
+        hoverTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, clickedTransform.sizeDelta.y);
+
+        hoverObj.transform.SetParent(GameObject.Find("Canvas").transform, true);
+
+        hoverObj.transform.localScale = clicked.gameObject.transform.localScale;
+
+        hoverObj.transform.GetChild(0).GetComponent<Text>().text = movingSlot.Items.Count > 1 ? movingSlot.Items.Count.ToString()
+            : string.Empty;
     }
 
     private IEnumerator FadeOut()
