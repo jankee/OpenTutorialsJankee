@@ -68,6 +68,8 @@ public class Inventory : MonoBehaviour
 
     public GameObject selectStackSize;
 
+    private static GameObject selectStackSizeStatic;
+
     public Text stackText;
 
     private int splitAmount;
@@ -83,9 +85,27 @@ public class Inventory : MonoBehaviour
         set { emptySlot = value; }
     }
 
+    public GameObject toolTipObj;
+    private static GameObject toolTip;
+
+    public Text sizeTxtObj;
+    private static Text sizeTxt;
+
+    public Text visualTxtObj;
+    private static Text visualTxt;
+
     // Use this for initialization
     void Start()
     {
+
+        toolTip = toolTipObj;
+
+        sizeTxt = sizeTxtObj;
+
+        visualTxt = visualTxtObj;
+
+        selectStackSizeStatic = selectStackSize;
+
         canvasGroup = gameObject.transform.parent.GetComponent<CanvasGroup>();
 
         CreateLayout();
@@ -170,6 +190,33 @@ public class Inventory : MonoBehaviour
                 MoveInventory();
             }
         }
+    }
+
+    public void ShowToolTip(GameObject slot)
+    {
+        Slot tmpSlot = slot.GetComponent<Slot>();
+
+        
+
+        if (!tmpSlot.IsEmpty && hoverObj == null == !selectStackSizeStatic.activeSelf)
+        {
+            visualTxt.text = tmpSlot.currentItem.GetToolTip();
+            sizeTxt.text = visualTxt.text;
+
+            toolTip.SetActive(true);
+
+            float xPos = slot.transform.position.x;
+            float yPos = slot.transform.position.y - slot.GetComponent<RectTransform>().sizeDelta.y;
+
+            toolTip.transform.position = new Vector2(xPos, yPos);
+        }
+
+        
+    }
+
+    public void HideToolTip(GameObject slot)
+    {
+        toolTip.SetActive(false);
     }
 
     public void SaveInventory()
@@ -289,7 +336,8 @@ public class Inventory : MonoBehaviour
 
     public void SetStackInfo(int maxStackCount)
     {
-        selectStackSize.SetActive(true);
+        selectStackSizeStatic.SetActive(true);
+        toolTip.SetActive(false);
         splitAmount = 0;
         this.maxStackCount = maxStackCount;
         stackText.text = splitAmount.ToString();
@@ -297,7 +345,7 @@ public class Inventory : MonoBehaviour
 
     public void SplitStack()
     {
-        selectStackSize.SetActive(false);
+        selectStackSizeStatic.SetActive(false);
 
         if (splitAmount == maxStackCount)
         {
