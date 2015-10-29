@@ -94,6 +94,10 @@ public class Inventory : MonoBehaviour
     public Text visualTxtObj;
     private static Text visualTxt;
 
+    public GameObject dropItem;
+
+    private static GameObject playerRef;
+
     // Use this for initialization
     void Start()
     {
@@ -105,6 +109,8 @@ public class Inventory : MonoBehaviour
         visualTxt = visualTxtObj;
 
         selectStackSizeStatic = selectStackSize;
+
+        playerRef = GameObject.Find("Player");
 
         canvasGroup = gameObject.transform.parent.GetComponent<CanvasGroup>();
 
@@ -121,6 +127,25 @@ public class Inventory : MonoBehaviour
         {
             if (!eventSystem.IsPointerOverGameObject(-1) && from != null)
             {
+                foreach (Item item in from.Items)
+                {
+                    float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
+
+                    print(angle);
+
+                    Vector3 v = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
+
+                    print(v);
+
+                    //v *= 30;
+
+                    //print(v);
+
+                    GameObject tmpDrop = (GameObject)GameObject.Instantiate(dropItem, playerRef.transform.position - v, Quaternion.identity);
+
+                    tmpDrop.GetComponent<Item>().SetStats(item);
+                }                
+                
                 from.GetComponent<Image>().color = Color.white;
                 from.ClearSlot();
                 Destroy(GameObject.Find("Hover"));
@@ -131,7 +156,25 @@ public class Inventory : MonoBehaviour
             }
             else if (!eventSystem.IsPointerOverGameObject(-1) && !movingSlot.IsEmpty)
             {
-                PutItemBack();
+                foreach (Item item in movingSlot.Items)
+                {
+                    float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
+
+                    print(angle);
+
+                    Vector3 v = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
+
+                    print(v);
+
+                    //v *= 30;
+
+                    //print(v);
+
+                    GameObject tmpDrop = (GameObject)GameObject.Instantiate(dropItem, playerRef.transform.position - v, Quaternion.identity);
+
+                    tmpDrop.GetComponent<Item>().SetStats(item);
+                }
+
                 movingSlot.ClearSlot();
                 Destroy(GameObject.Find("Hover"));
             }

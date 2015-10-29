@@ -34,4 +34,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            inventory.AddItem(collision.gameObject.GetComponent<Item>());
+
+            Destroy(collision.gameObject);
+        }
+    }
 }

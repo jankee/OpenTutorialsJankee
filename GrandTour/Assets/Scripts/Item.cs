@@ -5,6 +5,7 @@ public enum ItemType
 {
     MANA,
     HEALTH,
+    WEAPON,
 }
 
 public enum Quality
@@ -102,4 +103,43 @@ public class Item : MonoBehaviour
         return string .Format("<color=" + color + "><size=16><b>{0}</b></size></color><size=14><i><color=lime>"
             + newLine + "{1}</color></i>{2}</size>", itemName, description, state);
     }
+
+    public void SetStats(Item item)
+    {
+        this.itemType = item.itemType;
+
+        this.quality = item.quality;
+
+        this.spriteNormal = item.spriteNormal;
+
+        this.spriteHighlight = item.spriteHighlight;
+
+        this.maxSize = item.maxSize;
+
+        this.strength = item.strength;
+
+        this.intellect = item.intellect;
+
+        this.agility = item.agility;
+
+        this.stamina = item.stamina;
+
+        this.itemName = item.itemName;
+
+        this.description = item.description;
+
+        switch (itemType)
+        {
+            case ItemType.MANA:
+                GetComponent<Renderer>().material.color = Color.blue;
+                break;
+            case ItemType.HEALTH:
+                GetComponent<Renderer>().material.color = Color.red;
+                break;
+            case ItemType.WEAPON:
+                GetComponent<Renderer>().material.color = Color.green;
+                break;
+        }
+    }
+
 }
