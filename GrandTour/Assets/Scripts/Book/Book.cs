@@ -8,14 +8,16 @@ public class Book : MonoBehaviour
     //인스턴스 변수
     private string title;
     private string auther;
-    private int year;
+    private string year;
 
     //생성자 constructor
-    public Book(string _title, string _auther, int _year)
+    public Book(string _title, string _auther, string _year)
     {
         title = _title;
         auther = _auther;
         year = _year;
+
+        numberOfBooks++;
     }
 
     public string GetTitle()
@@ -28,7 +30,7 @@ public class Book : MonoBehaviour
         return auther;
     }
 
-    public int GetYear()
+    public string GetYear()
     {
         return year;
     }
