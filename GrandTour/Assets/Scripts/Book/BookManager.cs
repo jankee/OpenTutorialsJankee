@@ -3,13 +3,23 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
 
 public class BookManager : MonoBehaviour
 {
 
     //public Book[] books = new Book[4];
 
-    public static List<Book> library = new List<Book>();
+    public static List<Book> Library
+    {
+        get;
+        set;
+    }
+
+    public BookManager()
+    {
+        Library = new List<Book>();
+    }
 
     MainClass instance = new MainClass();
 
@@ -55,7 +65,7 @@ public class BookManager : MonoBehaviour
         }
         else if (choice == 4)
         {
-            foreach (Book item in library)
+            foreach (Book item in Library)
             {
                 print(item._ToString());    
             }
@@ -120,7 +130,7 @@ public class BookManager : MonoBehaviour
 
                 print(b._ToString());
 
-                library.Add(b);
+                Library.Add(b);
 
                 count = 0;
 
@@ -150,21 +160,21 @@ public class BookManager : MonoBehaviour
                 count++;
             }
 
-            print(library.Count);
+            print(Library.Count);
         }
     }
 
     public void ListBooks()
     {
         print("ListBooks");
-        foreach (Book item in library)
+        foreach (Book item in Library)
         {
             print(item._ToString());
 
             //MainClass.TestText1.text = item._ToString();
         }
 
-        print(library.Count);
+        print(Library.Count);
     }
 
     private void SaveToFile()
@@ -172,9 +182,9 @@ public class BookManager : MonoBehaviour
         print("save file");
         StreamWriter writer = new StreamWriter(@"\Books.txt");
 
-        foreach(Book b in library)
+        foreach(Book b in Library)
         {
-            string output = b.GetTitle() + "\t" + b.GetAuther() + "\t" + b.GetYear();
+            string output = b.Title + "\t" + b.Auther + "\t" + b.Year;
             writer.WriteLine(output);
         }
 
@@ -196,8 +206,8 @@ public class BookManager : MonoBehaviour
             print("ReadFromFile");
             char[] delimiter = { '\t' };
             string[] fields = s.Split(delimiter);
-            library.Add(new Book(fields[0], fields[1], fields[2]));
-            print(library.Count);
+            Library.Add(new Book(fields[0], fields[1], fields[2]));
+            print(Library.Count);
             s = reader.ReadLine();
         }
     }
