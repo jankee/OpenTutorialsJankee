@@ -185,30 +185,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Right && !GameObject.Find("Hover")
             && Inventory.CanvasGroup.alpha > 0)
         {
-
-            //print(items.Count);
-
-            //Item tmp = RemoveItem();
-
-            //print(tmp.name);
-            //RemoveItems(2);
-
-            //slot에 item을 사용한다
-
             UseItem();
         }
         else if (eventData.button == PointerEventData.InputButton.Left && Input.GetKey(KeyCode.LeftShift)
             && !IsEmpty && !GameObject.Find("Hover"))
         {
-            //&& 
-            //!IsEmpty && !GameObject.Find("Hover")
-            print("Shift");
             Vector2 position;
 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(Inventory.Instance.canvas.transform as RectTransform,
-                Input.mousePosition, Inventory.Instance.canvas.worldCamera, out position);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(InventoryManager.Instance.canvas.transform as RectTransform,
+                Input.mousePosition, InventoryManager.Instance.canvas.worldCamera, out position);
 
-            Inventory.Instance.selectStackSize.transform.position = Inventory.Instance.canvas.transform.TransformPoint(position);
+            InventoryManager.Instance.selectStackSize.transform.position = InventoryManager.Instance.canvas.transform.TransformPoint(position);
 
             Inventory.Instance.SetStackInfo(items.Count);
 
