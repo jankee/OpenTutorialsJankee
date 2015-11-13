@@ -27,12 +27,7 @@ public class Inventory : MonoBehaviour
 
     private float hoverOffset;
 
-    private static CanvasGroup canvasGroup;
-
-    public static CanvasGroup CanvasGroup
-    {
-        get { return Inventory.canvasGroup; }
-    }
+    private CanvasGroup canvasGroup;
 
     private static Inventory instance;
 
@@ -52,7 +47,7 @@ public class Inventory : MonoBehaviour
 
     public float fadingTime;
 
-    
+
 
     //private static GameObject selectStackSizeStatic;
 
@@ -78,7 +73,7 @@ public class Inventory : MonoBehaviour
 
         playerRef = GameObject.Find("Player");
 
-        canvasGroup = gameObject.transform.parent.GetComponent<CanvasGroup>();
+        canvasGroup = gameObject.GetComponent<CanvasGroup>();
 
         CreateLayout();
 
@@ -110,8 +105,8 @@ public class Inventory : MonoBehaviour
                     GameObject tmpDrop = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
 
                     tmpDrop.GetComponent<Item>().SetStats(item);
-                }                
-                
+                }
+
                 InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
                 InventoryManager.Instance.From.ClearSlot();
                 Destroy(GameObject.Find("Hover"));
@@ -173,22 +168,7 @@ public class Inventory : MonoBehaviour
                 if (!tmp.IsEmpty)
                 {
                     MoveItem(tmp.gameObject);
-
-
                 }
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (canvasGroup.alpha > 0)
-            {
-                StartCoroutine("FadeOut");
-                PutItemBack();
-            }
-            else
-            {
-                StartCoroutine("FadeIn");
             }
         }
 
@@ -201,11 +181,24 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void Open()
+    {
+        if (canvasGroup.alpha > 0)
+        {
+            StartCoroutine("FadeOut");
+            PutItemBack();
+        }
+        else
+        {
+            StartCoroutine("FadeIn");
+        }
+    }
+
     public void ShowToolTip(GameObject slot)
     {
         Slot tmpSlot = slot.GetComponent<Slot>();
 
-        
+
 
         if (!tmpSlot.IsEmpty && InventoryManager.Instance.HoverObj == null == !InventoryManager.Instance.selectStackSize.activeSelf)
         {
@@ -220,7 +213,7 @@ public class Inventory : MonoBehaviour
             InventoryManager.Instance.toolTipObj.transform.position = new Vector2(xPos, yPos);
         }
 
-        
+
     }
 
     public void HideToolTip(GameObject slot)
@@ -262,7 +255,7 @@ public class Inventory : MonoBehaviour
         slotPaddingLeft = PlayerPrefs.GetFloat("slotPaddingLeft");
         slotPaddingTop = PlayerPrefs.GetFloat("slotPaddingTop");
         slotSize = PlayerPrefs.GetFloat("slotSize");
-        inventoryRect.position = new Vector2( PlayerPrefs.GetFloat("xPos"), PlayerPrefs.GetFloat("yPos"));
+        inventoryRect.position = new Vector2(PlayerPrefs.GetFloat("xPos"), PlayerPrefs.GetFloat("yPos"));
 
         CreateLayout();
 
@@ -330,9 +323,9 @@ public class Inventory : MonoBehaviour
 
                 newSlot.name = "Slot";
 
-                newSlot.transform.SetParent(this.transform.FindChild("SlotParent"));
+                newSlot.transform.SetParent(this.transform);
 
-                slotRect.localPosition = inventoryRect.localPosition + new Vector3(slotPaddingLeft * (x + 1) + (slotSize * x),
+                slotRect.localPosition = new Vector2(slotPaddingLeft * (x + 1) + (slotSize * x),
                     -slotPaddingTop * (y + 1) - (slotSize * y));
 
                 slotRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotSize * InventoryManager.Instance.canvas.scaleFactor);
@@ -343,7 +336,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    
+
 
     public void SplitStack()
     {
@@ -355,7 +348,7 @@ public class Inventory : MonoBehaviour
         }
         else if (InventoryManager.Instance.SplitAmount > 0)
         {
-            InventoryManager.Instance.MovingSlot.Items = 
+            InventoryManager.Instance.MovingSlot.Items =
                 InventoryManager.Instance.Clicked.GetComponent<Slot>().RemoveItems(InventoryManager.Instance.SplitAmount);
 
             CreateHover();
@@ -387,7 +380,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             destination.AddItem(source.RemoveItem());
-            InventoryManager.Instance.HoverObj.transform.GetChild(0).GetComponent<Text>().text = 
+            InventoryManager.Instance.HoverObj.transform.GetChild(0).GetComponent<Text>().text =
                 InventoryManager.Instance.MovingSlot.Items.Count > 1 ? InventoryManager.Instance.MovingSlot.Items.Count.ToString()
             : string.Empty;
         }
@@ -421,7 +414,7 @@ public class Inventory : MonoBehaviour
                     //아이템 타입이 같고 maxSize가 여유가 있다면
                     if (tmp.currentItem.itemType == item.itemType && tmp.IsAvailable)
                     {
-                        if (!InventoryManager.Instance.MovingSlot.IsEmpty && 
+                        if (!InventoryManager.Instance.MovingSlot.IsEmpty &&
                             InventoryManager.Instance.Clicked.GetComponent<Slot>() == tmp.GetComponent<Slot>())
                         {
                             continue;

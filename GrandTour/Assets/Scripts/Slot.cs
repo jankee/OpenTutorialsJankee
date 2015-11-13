@@ -21,6 +21,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     public Sprite slotHighlight;
 
+    private CanvasGroup canvasGroup;
+
     public bool IsEmpty
     {
         get
@@ -69,6 +71,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotRect.sizeDelta.x);
         txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotRect.sizeDelta.y);
 
+        if (transform.parent != null)
+        {
+            canvasGroup = transform.parent.GetComponent<CanvasGroup>();    
+        }
     }
 
     // Update is called once per frame
@@ -183,7 +189,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     {
         //오른쪽 클릭을 했을 때 Hover를 못찾았을 때 캔버스그릅의 알파가 0 이상일때
         if (eventData.button == PointerEventData.InputButton.Right && !GameObject.Find("Hover")
-            && Inventory.CanvasGroup.alpha > 0)
+            && canvasGroup.alpha > 0)
         {
             UseItem();
         }
