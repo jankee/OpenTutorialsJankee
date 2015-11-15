@@ -172,13 +172,11 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButton(2))
-        {
-            if (InventoryManager.Instance.eventSystem.IsPointerOverGameObject(-1))
-            {
-                MoveInventory();
-            }
-        }
+    }
+
+    public void OnDrag()
+    {
+        MoveInventory();
     }
 
     public void Open()
