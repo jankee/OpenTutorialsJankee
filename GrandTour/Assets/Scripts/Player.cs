@@ -59,6 +59,10 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Chest")
         {
+            if (chest.IsOpen)
+            {
+                chest.Open();
+            }
             chest = null;    
         }
     }

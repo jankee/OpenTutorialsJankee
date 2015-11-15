@@ -47,7 +47,13 @@ public class Inventory : MonoBehaviour
 
     public float fadingTime;
 
+    private bool isOpen;
 
+    public bool IsOpen
+    {
+        get { return isOpen; }
+        set { isOpen = value; }
+    }
 
     //private static GameObject selectStackSizeStatic;
 
@@ -62,14 +68,7 @@ public class Inventory : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-        //toolTip = toolTipObj;
-
-        //sizeTxt = sizeTxtObj;
-
-        //visualTxt = visualTxtObj;
-
-        //selectStackSizeStatic = InventoryManager.Instance.selectStackSize;
+        isOpen = false;
 
         playerRef = GameObject.Find("Player");
 
@@ -185,10 +184,14 @@ public class Inventory : MonoBehaviour
         {
             StartCoroutine("FadeOut");
             PutItemBack();
+
+            isOpen = false;
         }
         else
         {
             StartCoroutine("FadeIn");
+
+            isOpen = true;
         }
     }
 
@@ -230,6 +233,7 @@ public class Inventory : MonoBehaviour
             if (!tmp.IsEmpty)
             {
                 content += i + "-" + tmp.currentItem.itemType.ToString() + "-" + tmp.Items.Count.ToString() + ";";
+                //print(content);
             }
         }
 
@@ -266,6 +270,7 @@ public class Inventory : MonoBehaviour
             int index = Int32.Parse(splitValues[0]);
 
             ItemType type = (ItemType)Enum.Parse(typeof(ItemType), splitValues[1]);
+            print(type);
 
             int amount = Int32.Parse(splitValues[2]);
 
@@ -278,6 +283,9 @@ public class Inventory : MonoBehaviour
                         break;
                     case ItemType.HEALTH:
                         allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.health.GetComponent<Item>());
+                        break;
+                    case ItemType.WEAPON:
+                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.weapon.GetComponent<Item>());
                         break;
                 }
             }
@@ -522,8 +530,9 @@ public class Inventory : MonoBehaviour
             }
 
         }
-        else if (InventoryManager.Instance.From == null && canvasGroup.alpha == 1 && !Input.GetKey(KeyCode.LeftShift))
+        else if (InventoryManager.Instance.From == null && clicked.transform.parent.GetComponent<Inventory>().isOpen && !Input.GetKey(KeyCode.LeftShift))  //&& canvasGroup.alpha == 1
         {
+
             if (!InventoryManager.Instance.Clicked.GetComponent<Slot>().IsEmpty && !GameObject.Find("Hover"))
             {
                 InventoryManager.Instance.From = InventoryManager.Instance.Clicked.GetComponent<Slot>();
