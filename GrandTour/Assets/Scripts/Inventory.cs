@@ -170,7 +170,6 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void OnDrag()
@@ -224,6 +223,7 @@ public class Inventory : MonoBehaviour
 
     public void SaveInventory()
     {
+        print(gameObject.name);
         string content = "";
 
         for (int i = 0; i < allSlots.Count; i++)
@@ -233,31 +233,32 @@ public class Inventory : MonoBehaviour
             if (!tmp.IsEmpty)
             {
                 content += i + "-" + tmp.currentItem.itemType.ToString() + "-" + tmp.Items.Count.ToString() + ";";
-                //print(content);
+                print(content);
             }
         }
 
-        PlayerPrefs.SetString("content", content);
-        PlayerPrefs.SetInt("slots", slots);
-        PlayerPrefs.SetInt("rows", rows);
-        PlayerPrefs.SetFloat("slotPaddingLeft", slotPaddingLeft);
-        PlayerPrefs.SetFloat("slotPaddingTop", slotPaddingTop);
-        PlayerPrefs.SetFloat("slotSize", slotSize);
-        PlayerPrefs.SetFloat("xPos", inventoryRect.position.x);
-        PlayerPrefs.SetFloat("yPos", inventoryRect.position.y);
+        PlayerPrefs.SetString(gameObject.name + "content", content);
+        PlayerPrefs.SetInt(gameObject.name + "slots", slots);
+        PlayerPrefs.SetInt(gameObject.name + "rows", rows);
+        PlayerPrefs.SetFloat(gameObject.name + "slotPaddingLeft", slotPaddingLeft);
+        PlayerPrefs.SetFloat(gameObject.name + "slotPaddingTop", slotPaddingTop);
+        PlayerPrefs.SetFloat(gameObject.name + "slotSize", slotSize);
+        PlayerPrefs.SetFloat(gameObject.name + "xPos", inventoryRect.position.x);
+        PlayerPrefs.SetFloat(gameObject.name + "yPos", inventoryRect.position.y);
         PlayerPrefs.Save();
     }
 
     public void LoadInventory()
     {
-        string content = PlayerPrefs.GetString("content");
+        print(gameObject.name);
+        string content = PlayerPrefs.GetString(gameObject.name + "content");
 
-        slots = PlayerPrefs.GetInt("slots");
-        rows = PlayerPrefs.GetInt("rows");
-        slotPaddingLeft = PlayerPrefs.GetFloat("slotPaddingLeft");
-        slotPaddingTop = PlayerPrefs.GetFloat("slotPaddingTop");
-        slotSize = PlayerPrefs.GetFloat("slotSize");
-        inventoryRect.position = new Vector2(PlayerPrefs.GetFloat("xPos"), PlayerPrefs.GetFloat("yPos"));
+        slots = PlayerPrefs.GetInt(gameObject.name + "slots");
+        rows = PlayerPrefs.GetInt(gameObject.name + "rows");
+        slotPaddingLeft = PlayerPrefs.GetFloat(gameObject.name + "slotPaddingLeft");
+        slotPaddingTop = PlayerPrefs.GetFloat(gameObject.name + "slotPaddingTop");
+        slotSize = PlayerPrefs.GetFloat(gameObject.name + "slotSize");
+        inventoryRect.position = new Vector2(PlayerPrefs.GetFloat(gameObject.name + "xPos"), PlayerPrefs.GetFloat(gameObject.name + "yPos"));
 
         CreateLayout();
 
@@ -270,7 +271,6 @@ public class Inventory : MonoBehaviour
             int index = Int32.Parse(splitValues[0]);
 
             ItemType type = (ItemType)Enum.Parse(typeof(ItemType), splitValues[1]);
-            print(type);
 
             int amount = Int32.Parse(splitValues[2]);
 

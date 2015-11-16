@@ -108,4 +108,24 @@ public class InventoryManager : MonoBehaviour
 
     public EventSystem eventSystem;
 
+    public void Save()
+    {
+        GameObject[] inventories = GameObject.FindGameObjectsWithTag("Inventory");
+
+        foreach (GameObject item in inventories)
+        {
+            item.GetComponent<Inventory>().SaveInventory();
+        }
+    }
+
+    public void Load()
+    {
+        GameObject[] inventories = GameObject.FindGameObjectsWithTag("Inventory");
+
+        foreach (GameObject item in inventories)
+        {
+            item.GetComponent<Inventory>().LoadInventory();
+        }
+    }
+
 }
