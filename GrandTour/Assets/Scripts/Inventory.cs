@@ -87,24 +87,18 @@ public class Inventory : MonoBehaviour
         {
             if (!InventoryManager.Instance.eventSystem.IsPointerOverGameObject(-1) && InventoryManager.Instance.From != null)
             {
-                foreach (Item item in InventoryManager.Instance.From.Items)
-                {
-                    float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
+                //foreach (Item item in InventoryManager.Instance.From.Items)
+                //{
+                //    float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
 
-                    print(angle);
+                //    print(angle);
 
-                    Vector3 v = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
+                //    Vector3 v = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
 
-                    print(v);
+                //    GameObject tmpDrop = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
 
-                    //v *= 30;
-
-                    //print(v);
-
-                    GameObject tmpDrop = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
-
-                    tmpDrop.GetComponent<Item>().SetStats(item);
-                }
+                //    tmpDrop.GetComponent<Item>().SetStats(item);
+                //}
 
                 InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
                 InventoryManager.Instance.From.ClearSlot();
@@ -116,24 +110,24 @@ public class Inventory : MonoBehaviour
             }
             else if (!InventoryManager.Instance.eventSystem.IsPointerOverGameObject(-1) && !InventoryManager.Instance.MovingSlot.IsEmpty)
             {
-                foreach (Item item in InventoryManager.Instance.MovingSlot.Items)
-                {
-                    float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
+                //foreach (Item item in InventoryManager.Instance.MovingSlot.Items)
+                //{
+                //    float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
 
-                    print(angle);
+                //    print(angle);
 
-                    Vector3 v = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
+                //    Vector3 v = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
 
-                    print(v);
+                //    print(v);
 
-                    //v *= 30;
+                //    //v *= 30;
 
-                    //print(v);
+                //    //print(v);
 
-                    GameObject tmpDrop = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
+                //    GameObject tmpDrop = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
 
-                    tmpDrop.GetComponent<Item>().SetStats(item);
-                }
+                //    tmpDrop.GetComponent<Item>().SetStats(item);
+                //}
 
                 InventoryManager.Instance.MovingSlot.ClearSlot();
                 Destroy(GameObject.Find("Hover"));
@@ -154,23 +148,22 @@ public class Inventory : MonoBehaviour
             //hoverObj.transform.position += new Vector3(5, -5, 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //Slot slot = GameObject.FindObjectOfType<Slot>();
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    //Slot slot = GameObject.FindObjectOfType<Slot>();
 
-            //Slot from = GameObject.Find("Mana").GetComponent<Slot>();
+        //    //Slot from = GameObject.Find("Mana").GetComponent<Slot>();
 
-            foreach (GameObject item in allSlots)
-            {
-                Slot tmp = item.GetComponent<Slot>();
+        //    foreach (GameObject item in allSlots)
+        //    {
+        //        Slot tmp = item.GetComponent<Slot>();
 
-                if (!tmp.IsEmpty)
-                {
-                    MoveItem(tmp.gameObject);
-                }
-            }
-        }
-
+        //        if (!tmp.IsEmpty)
+        //        {
+        //            MoveItem(tmp.gameObject);
+        //        }
+        //    }
+        //}
     }
 
     public void OnDrag()
@@ -183,7 +176,7 @@ public class Inventory : MonoBehaviour
         if (canvasGroup.alpha > 0)
         {
             StartCoroutine("FadeOut");
-            PutItemBack();
+            //PutItemBack();
 
             isOpen = false;
         }
@@ -224,6 +217,7 @@ public class Inventory : MonoBehaviour
 
     public void SaveInventory()
     {
+        print(gameObject.name);
         string content = "";
 
         for (int i = 0; i < allSlots.Count; i++)
@@ -233,31 +227,32 @@ public class Inventory : MonoBehaviour
             if (!tmp.IsEmpty)
             {
                 content += i + "-" + tmp.currentItem.itemType.ToString() + "-" + tmp.Items.Count.ToString() + ";";
-                //print(content);
+                print(content);
             }
         }
 
-        PlayerPrefs.SetString("content", content);
-        PlayerPrefs.SetInt("slots", slots);
-        PlayerPrefs.SetInt("rows", rows);
-        PlayerPrefs.SetFloat("slotPaddingLeft", slotPaddingLeft);
-        PlayerPrefs.SetFloat("slotPaddingTop", slotPaddingTop);
-        PlayerPrefs.SetFloat("slotSize", slotSize);
-        PlayerPrefs.SetFloat("xPos", inventoryRect.position.x);
-        PlayerPrefs.SetFloat("yPos", inventoryRect.position.y);
+        PlayerPrefs.SetString(gameObject.name + "content", content);
+        PlayerPrefs.SetInt(gameObject.name + "slots", slots);
+        PlayerPrefs.SetInt(gameObject.name + "rows", rows);
+        PlayerPrefs.SetFloat(gameObject.name + "slotPaddingLeft", slotPaddingLeft);
+        PlayerPrefs.SetFloat(gameObject.name + "slotPaddingTop", slotPaddingTop);
+        PlayerPrefs.SetFloat(gameObject.name + "slotSize", slotSize);
+        PlayerPrefs.SetFloat(gameObject.name + "xPos", inventoryRect.position.x);
+        PlayerPrefs.SetFloat(gameObject.name + "yPos", inventoryRect.position.y);
         PlayerPrefs.Save();
     }
 
     public void LoadInventory()
     {
-        string content = PlayerPrefs.GetString("content");
+        print(gameObject.name);
+        string content = PlayerPrefs.GetString(gameObject.name + "content");
 
-        slots = PlayerPrefs.GetInt("slots");
-        rows = PlayerPrefs.GetInt("rows");
-        slotPaddingLeft = PlayerPrefs.GetFloat("slotPaddingLeft");
-        slotPaddingTop = PlayerPrefs.GetFloat("slotPaddingTop");
-        slotSize = PlayerPrefs.GetFloat("slotSize");
-        inventoryRect.position = new Vector2(PlayerPrefs.GetFloat("xPos"), PlayerPrefs.GetFloat("yPos"));
+        slots = PlayerPrefs.GetInt(gameObject.name + "slots");
+        rows = PlayerPrefs.GetInt(gameObject.name + "rows");
+        slotPaddingLeft = PlayerPrefs.GetFloat(gameObject.name + "slotPaddingLeft");
+        slotPaddingTop = PlayerPrefs.GetFloat(gameObject.name + "slotPaddingTop");
+        slotSize = PlayerPrefs.GetFloat(gameObject.name + "slotSize");
+        inventoryRect.position = new Vector2(PlayerPrefs.GetFloat(gameObject.name + "xPos"), PlayerPrefs.GetFloat(gameObject.name + "yPos"));
 
         CreateLayout();
 
@@ -270,25 +265,24 @@ public class Inventory : MonoBehaviour
             int index = Int32.Parse(splitValues[0]);
 
             ItemType type = (ItemType)Enum.Parse(typeof(ItemType), splitValues[1]);
-            print(type);
 
             int amount = Int32.Parse(splitValues[2]);
 
-            for (int i = 0; i < amount; i++)
-            {
-                switch (type)
-                {
-                    case ItemType.MANA:
-                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.mana.GetComponent<Item>());
-                        break;
-                    case ItemType.HEALTH:
-                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.health.GetComponent<Item>());
-                        break;
-                    case ItemType.WEAPON:
-                        allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.weapon.GetComponent<Item>());
-                        break;
-                }
-            }
+            //for (int i = 0; i < amount; i++)
+            //{
+            //    switch (type)
+            //    {
+            //        case ItemType.MANA:
+            //            allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.mana.GetComponent<Item>());
+            //            break;
+            //        case ItemType.HEALTH:
+            //            allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.health.GetComponent<Item>());
+            //            break;
+            //        case ItemType.WEAPON:
+            //            allSlots[index].GetComponent<Slot>().AddItem(InventoryManager.Instance.weapon.GetComponent<Item>());
+            //            break;
+            //    }
+            //}
         }
     }
 
@@ -350,7 +344,7 @@ public class Inventory : MonoBehaviour
 
         if (InventoryManager.Instance.SplitAmount == InventoryManager.Instance.MaxStackCount)
         {
-            MoveItem(InventoryManager.Instance.Clicked);
+            //MoveItem(InventoryManager.Instance.Clicked);
         }
         else if (InventoryManager.Instance.SplitAmount > 0)
         {
@@ -399,92 +393,92 @@ public class Inventory : MonoBehaviour
     }
 
 
-    public bool AddItem(Item item)
-    {
-        //item의 maxSize가 1일때 빈 스롯에 찾아서 넣어 준다
-        if (item.maxSize == 1)
-        {
-            //빈 슬롯 함수에 아이템을 넘겨 준다.
-            PlaceEmpty(item);
-            return true;
-        }
-        else
-        {
-            //모든 슬롯중에 아이템이 들어 있는 슬롯을 찾아 현채 아이템 같으면 추가를 해준다.
-            foreach (GameObject slot in allSlots)
-            {
-                Slot tmp = slot.GetComponent<Slot>();
-                //비여있지 않은 슬롯이면
-                if (!tmp.IsEmpty)
-                {
-                    //아이템 타입이 같고 maxSize가 여유가 있다면
-                    if (tmp.currentItem.itemType == item.itemType && tmp.IsAvailable)
-                    {
-                        if (!InventoryManager.Instance.MovingSlot.IsEmpty &&
-                            InventoryManager.Instance.Clicked.GetComponent<Slot>() == tmp.GetComponent<Slot>())
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            tmp.AddItem(item);
-                            return true;
-                        }
-                    }
-                }
-            }
+    //public bool AddItem(Item item)
+    //{
+    //    //item의 maxSize가 1일때 빈 스롯에 찾아서 넣어 준다
+    //    if (item.maxSize == 1)
+    //    {
+    //        //빈 슬롯 함수에 아이템을 넘겨 준다.
+    //        PlaceEmpty(item);
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        //모든 슬롯중에 아이템이 들어 있는 슬롯을 찾아 현채 아이템 같으면 추가를 해준다.
+    //        foreach (GameObject slot in allSlots)
+    //        {
+    //            Slot tmp = slot.GetComponent<Slot>();
+    //            //비여있지 않은 슬롯이면
+    //            if (!tmp.IsEmpty)
+    //            {
+    //                //아이템 타입이 같고 maxSize가 여유가 있다면
+    //                if (tmp.currentItem.itemType == item.itemType && tmp.IsAvailable)
+    //                {
+    //                    if (!InventoryManager.Instance.MovingSlot.IsEmpty &&
+    //                        InventoryManager.Instance.Clicked.GetComponent<Slot>() == tmp.GetComponent<Slot>())
+    //                    {
+    //                        continue;
+    //                    }
+    //                    else
+    //                    {
+    //                        tmp.AddItem(item);
+    //                        return true;
+    //                    }
+    //                }
+    //            }
+    //        }
 
-            if (emptySlot > 0)
-            {
-                PlaceEmpty(item);
-            }
-        }
-        return false;
-    }
+    //        if (emptySlot > 0)
+    //        {
+    //            PlaceEmpty(item);
+    //        }
+    //    }
+    //    return false;
+    //}
 
 
-    private bool PlaceEmpty(Item item)
-    {
-        if (emptySlot > 0)
-        {
-            foreach (GameObject slot in allSlots)
-            {
-                Slot tmp = slot.GetComponent<Slot>();
+    //private bool PlaceEmpty(Item item)
+    //{
+    //    if (emptySlot > 0)
+    //    {
+    //        foreach (GameObject slot in allSlots)
+    //        {
+    //            Slot tmp = slot.GetComponent<Slot>();
 
-                if (tmp.IsEmpty)
-                {
-                    tmp.AddItem(item);
-                    emptySlot--;
-                    return true;
-                }
-            }
-        }
+    //            if (tmp.IsEmpty)
+    //            {
+    //                tmp.AddItem(item);
+    //                emptySlot--;
+    //                return true;
+    //            }
+    //        }
+    //    }
 
-        return false;
-    }
+    //    return false;
+    //}
 
-    public void PutItemBack()
-    {
-        if (InventoryManager.Instance.From != null)
-        {
-            Destroy(GameObject.Find("Hover"));
-            InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
-            InventoryManager.Instance.From = null;
-        }
-        else if (!InventoryManager.Instance.MovingSlot.IsEmpty)
-        {
-            Destroy(GameObject.Find("Hover"));
+    //public void PutItemBack()
+    //{
+    //    if (InventoryManager.Instance.From != null)
+    //    {
+    //        Destroy(GameObject.Find("Hover"));
+    //        InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
+    //        InventoryManager.Instance.From = null;
+    //    }
+    //    else if (!InventoryManager.Instance.MovingSlot.IsEmpty)
+    //    {
+    //        Destroy(GameObject.Find("Hover"));
 
-            foreach (Item item in InventoryManager.Instance.MovingSlot.Items)
-            {
-                InventoryManager.Instance.Clicked.GetComponent<Slot>().AddItem(item);
-            }
+    //        foreach (Item item in InventoryManager.Instance.MovingSlot.Items)
+    //        {
+    //            InventoryManager.Instance.Clicked.GetComponent<Slot>().AddItem(item);
+    //        }
 
-            InventoryManager.Instance.MovingSlot.ClearSlot();
-        }
+    //        InventoryManager.Instance.MovingSlot.ClearSlot();
+    //    }
 
-        InventoryManager.Instance.selectStackSize.SetActive(false);
-    }
+    //    InventoryManager.Instance.selectStackSize.SetActive(false);
+    //}
 
     /// <summary>
     /// 얼마나 많은 아이템을 지울수 있는지 알려준다
@@ -508,76 +502,76 @@ public class Inventory : MonoBehaviour
         InventoryManager.Instance.stackText.text = InventoryManager.Instance.SplitAmount.ToString();
     }
 
-    public void MoveItem(GameObject clicked)
-    {
+    //public void MoveItem(GameObject clicked)
+    //{
 
-        InventoryManager.Instance.Clicked = clicked;
+    //    InventoryManager.Instance.Clicked = clicked;
 
-        if (!InventoryManager.Instance.MovingSlot.IsEmpty)
-        {
-            Slot tmp = InventoryManager.Instance.Clicked.GetComponent<Slot>();
+    //    if (!InventoryManager.Instance.MovingSlot.IsEmpty)
+    //    {
+    //        Slot tmp = InventoryManager.Instance.Clicked.GetComponent<Slot>();
 
-            if (tmp.IsEmpty)
-            {
-                tmp.AddItems(InventoryManager.Instance.MovingSlot.Items);
-                InventoryManager.Instance.MovingSlot.Items.Clear();
-                Destroy(GameObject.Find("Hover"));
-            }
-            else if (!tmp.IsEmpty && InventoryManager.Instance.MovingSlot.currentItem.itemType == tmp.currentItem.itemType
-                && tmp.IsAvailable)
-            {
-                MergeStacks(InventoryManager.Instance.MovingSlot, tmp);
-            }
+    //        if (tmp.IsEmpty)
+    //        {
+    //            tmp.AddItems(InventoryManager.Instance.MovingSlot.Items);
+    //            InventoryManager.Instance.MovingSlot.Items.Clear();
+    //            Destroy(GameObject.Find("Hover"));
+    //        }
+    //        else if (!tmp.IsEmpty && InventoryManager.Instance.MovingSlot.currentItem.itemType == tmp.currentItem.itemType
+    //            && tmp.IsAvailable)
+    //        {
+    //            MergeStacks(InventoryManager.Instance.MovingSlot, tmp);
+    //        }
 
-        }
-        else if (InventoryManager.Instance.From == null && clicked.transform.parent.GetComponent<Inventory>().isOpen && !Input.GetKey(KeyCode.LeftShift))  //&& canvasGroup.alpha == 1
-        {
+    //    }
+    //    else if (InventoryManager.Instance.From == null && clicked.transform.parent.GetComponent<Inventory>().isOpen && !Input.GetKey(KeyCode.LeftShift))  //&& canvasGroup.alpha == 1
+    //    {
 
-            if (!InventoryManager.Instance.Clicked.GetComponent<Slot>().IsEmpty && !GameObject.Find("Hover"))
-            {
-                InventoryManager.Instance.From = InventoryManager.Instance.Clicked.GetComponent<Slot>();
+    //        if (!InventoryManager.Instance.Clicked.GetComponent<Slot>().IsEmpty && !GameObject.Find("Hover"))
+    //        {
+    //            InventoryManager.Instance.From = InventoryManager.Instance.Clicked.GetComponent<Slot>();
 
-                InventoryManager.Instance.From.GetComponent<Image>().color = Color.gray;
+    //            InventoryManager.Instance.From.GetComponent<Image>().color = Color.gray;
 
-                CreateHover();
-            }
-        }
-        else if (InventoryManager.Instance.To == null && !Input.GetKey(KeyCode.LeftShift))
-        {
-            InventoryManager.Instance.To = InventoryManager.Instance.Clicked.GetComponent<Slot>();
-            Destroy(GameObject.Find("Hover"));
-        }
+    //            CreateHover();
+    //        }
+    //    }
+    //    else if (InventoryManager.Instance.To == null && !Input.GetKey(KeyCode.LeftShift))
+    //    {
+    //        InventoryManager.Instance.To = InventoryManager.Instance.Clicked.GetComponent<Slot>();
+    //        Destroy(GameObject.Find("Hover"));
+    //    }
 
-        //to, from 둘 다 비여있다면
-        if (InventoryManager.Instance.From != null && InventoryManager.Instance.To != null)
-        {
-            //tmpTo에 to를 넣어 준다
-            Stack<Item> tmpTo = new Stack<Item>(InventoryManager.Instance.To.Items);
-            //to에 from을 넣어 준다
-            InventoryManager.Instance.To.AddItems(InventoryManager.Instance.From.Items);
+    //    //to, from 둘 다 비여있다면
+    //    if (InventoryManager.Instance.From != null && InventoryManager.Instance.To != null)
+    //    {
+    //        //tmpTo에 to를 넣어 준다
+    //        Stack<Item> tmpTo = new Stack<Item>(InventoryManager.Instance.To.Items);
+    //        //to에 from을 넣어 준다
+    //        InventoryManager.Instance.To.AddItems(InventoryManager.Instance.From.Items);
 
-            //tmpTo의 갯수가 0 일때
-            if (tmpTo.Count == 0)
-            {
-                //from에 slot을 지워 준다
-                InventoryManager.Instance.From.ClearSlot();
-            }
-            else
-            {
-                //tmpTo가 0이 아닐때 from에 tmpTo를 넣어준다
-                InventoryManager.Instance.From.AddItems(tmpTo);
-            }
+    //        //tmpTo의 갯수가 0 일때
+    //        if (tmpTo.Count == 0)
+    //        {
+    //            //from에 slot을 지워 준다
+    //            InventoryManager.Instance.From.ClearSlot();
+    //        }
+    //        else
+    //        {
+    //            //tmpTo가 0이 아닐때 from에 tmpTo를 넣어준다
+    //            InventoryManager.Instance.From.AddItems(tmpTo);
+    //        }
 
-            //from에 이미지 컴포넌트를 이용하여 컬러를 화이트로 바꿔준다
-            InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
-            //to, from을 비워준다
-            InventoryManager.Instance.To = null;
-            InventoryManager.Instance.From = null;
-            Destroy(GameObject.Find("Hover"));
-            //나름 설정을 해본 것
-            //Destroy(hoverObj);
-        }
-    }
+    //        //from에 이미지 컴포넌트를 이용하여 컬러를 화이트로 바꿔준다
+    //        InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
+    //        //to, from을 비워준다
+    //        InventoryManager.Instance.To = null;
+    //        InventoryManager.Instance.From = null;
+    //        Destroy(GameObject.Find("Hover"));
+    //        //나름 설정을 해본 것
+    //        //Destroy(hoverObj);
+    //    }
+    //}
 
     public void MoveInventory()
     {

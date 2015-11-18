@@ -19,7 +19,7 @@ public enum Quality
 }
 
 
-public class Item : MonoBehaviour 
+public class ItemScript : MonoBehaviour 
 {
 
     public ItemType itemType;

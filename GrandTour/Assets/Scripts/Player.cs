@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
         {
             if (chest != null)
             {
-                print("null");
+                print(chest.name);
                 chest.Open();
             }
         }
