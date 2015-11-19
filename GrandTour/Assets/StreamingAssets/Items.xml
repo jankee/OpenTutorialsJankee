@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ks_c_5601-1987"?>
+<ItemContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Weapons>
+    <Item xsi:type="Weapon">
+      <ItemType>TWOHAND</ItemType>
+      <Quality>EPIC</Quality>
+      <SpriteNeutral>Weapon\SwordNormal</SpriteNeutral>
+      <SpriteHighlight>Weapon\SwordHighlight</SpriteHighlight>
+      <MaxSize>1</MaxSize>
+      <ItemName>Epic Weapon</ItemName>
+      <Description>This is an epic weapon</Description>
+      <Intellect>10</Intellect>
+      <Agility>10</Agility>
+      <Stamina>14</Stamina>
+      <Strength>15</Strength>
+      <AttackSpeed>10</AttackSpeed>
+    </Item>
+    <Item xsi:type="Weapon">
+      <ItemType>TWOHAND</ItemType>
+      <Quality>EPIC</Quality>
+      <SpriteNeutral>SwordNormal</SpriteNeutral>
+      <SpriteHighlight>SwordHighlight</SpriteHighlight>
+      <MaxSize>1</MaxSize>
+      <ItemName>Epic Weapon</ItemName>
+      <Description>This is an epic weapon</Description>
+      <Intellect>10</Intellect>
+      <Agility>10</Agility>
+      <Stamina>14</Stamina>
+      <Strength>15</Strength>
+      <AttackSpeed>10</AttackSpeed>
+    </Item>
+  </Weapons>
+  <Eqipment />
+  <Consumeables />
+</ItemContainer>

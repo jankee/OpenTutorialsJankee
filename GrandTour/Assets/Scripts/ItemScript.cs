@@ -3,9 +3,18 @@ using System.Collections;
 
 public enum ItemType
 {
-    MANA,
-    HEALTH,
-    WEAPON,
+    CONSUMEABLE,
+    MAINHAND,
+    TWOHAND,
+    OFFHAND,
+    HEAD,
+    NECK,
+    CHEST,
+    RING,
+    LEGS,
+    BRACERS,
+    BOOTS,
+    TRINKET,
 }
 
 public enum Quality
@@ -41,12 +50,12 @@ public class ItemScript : MonoBehaviour
     {
         switch (itemType)
         {
-            case ItemType.MANA:
-                print("I just used a mana potion");
-                break;
-            case ItemType.HEALTH:
-                print("I just used a health potion");
-                break;
+            //case ItemType.MANA:
+            //    print("I just used a mana potion");
+            //    break;
+            //case ItemType.HEALTH:
+            //    print("I just used a health potion");
+            //    break;
         }
     }
 
@@ -106,39 +115,39 @@ public class ItemScript : MonoBehaviour
 
     public void SetStats(Item item)
     {
-        this.itemType = item.itemType;
+        //this.itemType = item.itemType;
 
-        this.quality = item.quality;
+        //this.quality = item.quality;
 
-        this.spriteNormal = item.spriteNormal;
+        //this.spriteNormal = item.spriteNormal;
 
-        this.spriteHighlight = item.spriteHighlight;
+        //this.spriteHighlight = item.spriteHighlight;
 
-        this.maxSize = item.maxSize;
+        //this.maxSize = item.maxSize;
 
-        this.strength = item.strength;
+        //this.strength = item.strength;
 
-        this.intellect = item.intellect;
+        //this.intellect = item.intellect;
 
-        this.agility = item.agility;
+        //this.agility = item.agility;
 
-        this.stamina = item.stamina;
+        //this.stamina = item.stamina;
 
-        this.itemName = item.itemName;
+        //this.itemName = item.itemName;
 
-        this.description = item.description;
+        //this.description = item.description;
 
         switch (itemType)
         {
-            case ItemType.MANA:
-                GetComponent<Renderer>().material.color = Color.blue;
-                break;
-            case ItemType.HEALTH:
-                GetComponent<Renderer>().material.color = Color.red;
-                break;
-            case ItemType.WEAPON:
-                GetComponent<Renderer>().material.color = Color.green;
-                break;
+            //case ItemType.MANA:
+            //    GetComponent<Renderer>().material.color = Color.blue;
+            //    break;
+            //case ItemType.HEALTH:
+            //    GetComponent<Renderer>().material.color = Color.red;
+            //    break;
+            //case ItemType.WEAPON:
+            //    GetComponent<Renderer>().material.color = Color.green;
+            //    break;
         }
     }
 

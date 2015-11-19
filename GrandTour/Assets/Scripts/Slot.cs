@@ -32,13 +32,13 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     }
 
     //currentItem의 maxSize 스탁 items의 카운트 갯수와 비교하여 maxSize값이 크면 참이다.
-    public bool IsAvailable
-    {
-        get
-        {
-            return currentItem.maxSize > items.Count;
-        }
-    }
+    //public bool IsAvailable
+    //{
+    //    get
+    //    {
+    //        return currentItem.maxSize > items.Count;
+    //    }
+    //}
 
 
     //스탁 items에서 하나를 선택하여 currentItem에 넣어 준다
@@ -95,7 +95,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
             stackTxt.text = items.Count.ToString();
         }
 
-        ChangeSprite(item.spriteNormal, item.spriteHighlight);
+        //ChangeSprite(item.spriteNormal, item.spriteHighlight);
 
         //아이템의 타잎과 사용을 해보았다.
         //item.Use(item.itemType);
@@ -110,7 +110,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         stackTxt.text = items.Count > 1 ? items.Count.ToString() : string.Empty;
 
         //스프라이트 이미지를 currentItem의 이미지로 교체한다.
-        ChangeSprite(currentItem.spriteNormal, currentItem.spriteHighlight);
+        //ChangeSprite(currentItem.spriteNormal, currentItem.spriteHighlight);
     }
 
     public void ClearSlot()

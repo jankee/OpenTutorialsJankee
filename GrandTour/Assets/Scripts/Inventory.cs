@@ -226,8 +226,8 @@ public class Inventory : MonoBehaviour
 
             if (!tmp.IsEmpty)
             {
-                content += i + "-" + tmp.currentItem.itemType.ToString() + "-" + tmp.Items.Count.ToString() + ";";
-                print(content);
+                //content += i + "-" + tmp.currentItem.itemType.ToString() + "-" + tmp.Items.Count.ToString() + ";";
+                //print(content);
             }
         }
 
@@ -373,23 +373,23 @@ public class Inventory : MonoBehaviour
 
     public void MergeStacks(Slot source, Slot destination)
     {
-        int max = destination.currentItem.maxSize - destination.Items.Count;
+        //int max = destination.currentItem.maxSize - destination.Items.Count;
 
-        int count = source.Items.Count < max ? source.Items.Count : max;
+        //int count = source.Items.Count < max ? source.Items.Count : max;
 
-        for (int i = 0; i < count; i++)
-        {
-            destination.AddItem(source.RemoveItem());
-            InventoryManager.Instance.HoverObj.transform.GetChild(0).GetComponent<Text>().text =
-                InventoryManager.Instance.MovingSlot.Items.Count > 1 ? InventoryManager.Instance.MovingSlot.Items.Count.ToString()
-            : string.Empty;
-        }
+        //for (int i = 0; i < count; i++)
+        //{
+        //    destination.AddItem(source.RemoveItem());
+        //    InventoryManager.Instance.HoverObj.transform.GetChild(0).GetComponent<Text>().text =
+        //        InventoryManager.Instance.MovingSlot.Items.Count > 1 ? InventoryManager.Instance.MovingSlot.Items.Count.ToString()
+        //    : string.Empty;
+        //}
 
-        if (source.Items.Count == 0)
-        {
-            source.ClearSlot();
-            Destroy(GameObject.Find("Hover"));
-        }
+        //if (source.Items.Count == 0)
+        //{
+        //    source.ClearSlot();
+        //    Destroy(GameObject.Find("Hover"));
+        //}
     }
 
 

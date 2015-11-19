@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Item 
+public abstract class Item
 {
     public ItemType ItemType { get; set; }
 
@@ -22,7 +22,8 @@ public abstract class Item
 
     }
 
-    public Item(string itemName, string description, ItemType itemType, Quality quality, string spriteNeutral, string spriteHighlight, int maxSize )
+    public Item(string itemName, string description, ItemType itemType, Quality quality, string spriteNeutral,
+        string spriteHighlight, int maxSize )
     {
         ItemName = itemName;
         Description = description;
@@ -33,13 +34,10 @@ public abstract class Item
         MaxSize = maxSize;
     }
 
-    public string GetToolTip()
+    public abstract void Use();
+
+    public virtual string GetToolTip()
     {
         return null;
-    }
-
-    public abstract void Use()
-    {
-
     }
 }
