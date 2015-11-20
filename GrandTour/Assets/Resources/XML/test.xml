@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="ks_c_5601-1987"?>
 <ArrayOfCharacterInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CharacterInfo>
-    <id>3082</id>
-    <name>Char3082</name>
-    <level>22</level>
+    <id>9774</id>
+    <name>Char9774</name>
+    <level>65</level>
     <Skills>
       <SkillInfo>
-        <id>37227</id>
-        <name>Skill37227</name>
+        <id>52302</id>
+        <name>Skill52302</name>
       </SkillInfo>
       <SkillInfo>
-        <id>79571</id>
-        <name>Skill79571</name>
+        <id>26275</id>
+        <name>Skill26275</name>
       </SkillInfo>
     </Skills>
   </CharacterInfo>
   <CharacterInfo>
-    <id>3786</id>
-    <name>Char3786</name>
-    <level>97</level>
+    <id>7733</id>
+    <name>Char7733</name>
+    <level>27</level>
     <Skills>
       <SkillInfo>
-        <id>41212</id>
-        <name>Skill41212</name>
+        <id>40544</id>
+        <name>Skill40544</name>
       </SkillInfo>
       <SkillInfo>
-        <id>10833</id>
-        <name>Skill10833</name>
+        <id>49525</id>
+        <name>Skill49525</name>
       </SkillInfo>
     </Skills>
   </CharacterInfo>
   <CharacterInfo>
-    <id>9228</id>
-    <name>Char9228</name>
-    <level>67</level>
+    <id>4278</id>
+    <name>Char4278</name>
+    <level>20</level>
     <Skills>
       <SkillInfo>
-        <id>22287</id>
-        <name>Skill22287</name>
+        <id>41378</id>
+        <name>Skill41378</name>
       </SkillInfo>
       <SkillInfo>
-        <id>20522</id>
-        <name>Skill20522</name>
+        <id>15394</id>
+        <name>Skill15394</name>
       </SkillInfo>
     </Skills>
   </CharacterInfo>
   <CharacterInfo>
-    <id>2062</id>
-    <name>Char2062</name>
-    <level>97</level>
+    <id>5160</id>
+    <name>Char5160</name>
+    <level>17</level>
     <Skills>
       <SkillInfo>
-        <id>46514</id>
-        <name>Skill46514</name>
+        <id>54951</id>
+        <name>Skill54951</name>
       </SkillInfo>
       <SkillInfo>
-        <id>21288</id>
-        <name>Skill21288</name>
+        <id>86734</id>
+        <name>Skill86734</name>
       </SkillInfo>
     </Skills>
   </CharacterInfo>
   <CharacterInfo>
-    <id>7594</id>
-    <name>Char7594</name>
-    <level>16</level>
+    <id>7402</id>
+    <name>Char7402</name>
+    <level>21</level>
     <Skills>
       <SkillInfo>
-        <id>47838</id>
-        <name>Skill47838</name>
+        <id>36017</id>
+        <name>Skill36017</name>
       </SkillInfo>
       <SkillInfo>
-        <id>88756</id>
-        <name>Skill88756</name>
+        <id>86037</id>
+        <name>Skill86037</name>
       </SkillInfo>
     </Skills>
   </CharacterInfo>
