@@ -15,7 +15,7 @@
       <Strength>15</Strength>
       <AttackSpeed>10</AttackSpeed>
     </Item>
-    <Item xsi:type="Consumeable">
+    <Item xsi:type="Weapon">
       <ItemType>TWOHAND</ItemType>
       <Quality>EPIC</Quality>
       <SpriteNeutral>SwordNormal</SpriteNeutral>

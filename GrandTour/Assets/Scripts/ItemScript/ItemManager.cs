@@ -54,7 +54,8 @@ public class ItemManager : MonoBehaviour
 
         string result = string.Empty;
 
-        XmlItemLoadUTF8(path);
+        ItemContainer itemContainer = XmlItemLoadUTF8(path);
+
 
         //var test = XmlItemLoadUTF8(path);
 
@@ -102,7 +103,7 @@ public class ItemManager : MonoBehaviour
         //fs.Close();
     }
 
-    void XmlItemLoadUTF8(string path)
+    ItemContainer XmlItemLoadUTF8(string path)
     {
         ItemContainer itemContainer = new ItemContainer();
 
@@ -114,21 +115,26 @@ public class ItemManager : MonoBehaviour
 
         itemContainer = (ItemContainer)serializer.Deserialize(stream);
 
-        string strEnd = itemContainer.Consumeables.Count.ToString();
+        print(itemContainer.Weapons.Count);
 
-        //StreamReader streamReader = new StreamReader(stream, System.Text.Encoding.UTF8);
+        switch (catagoty)
+        {
+            case Catagory.EQUIPMENT:
+                break;
+            case Catagory.CONSUMEABLE:
+                print("Consumeable");
+                break;
+            case Catagory.WEAPON:
+                itemContainer.Weapons.Add(new Weapon(itemName, description, itemType, quality, spriteNeutral, spriteHighlight,
+                    maxSize, intellect, agility, stamina, strength, attackSpeed));
 
-        //string strEnd = streamReader.ReadToEnd();
+                print("Weapon" + itemName + description);
 
-        //string strEnd01 = itemContainer.Consumeables[0].ItemName;
+                break;
+        }
 
-        print(strEnd );
+        print(itemContainer.Weapons.Count);
+        return itemContainer;
 
-        //string testFile = (List<ItemContainer>)serializer.Deserialize(streamReader);
-
-        //print(streamReader);
-        //return (List<ItemContainer>)serializer.Deserialize(itemContainer);
-        
-        
     }
 }
