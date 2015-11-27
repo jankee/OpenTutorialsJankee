@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ks_c_5601-1987"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ItemContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Weapons>
     <Item xsi:type="Weapon">
@@ -15,7 +15,7 @@
       <Strength>15</Strength>
       <AttackSpeed>10</AttackSpeed>
     </Item>
-    <Item xsi:type="Weapon">
+    <Item xsi:type="Consumeable">
       <ItemType>TWOHAND</ItemType>
       <Quality>EPIC</Quality>
       <SpriteNeutral>SwordNormal</SpriteNeutral>
