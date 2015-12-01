@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ItemContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Weapons>
     <Item xsi:type="Weapon">
@@ -31,5 +31,28 @@
     </Item>
   </Weapons>
   <Eqipment />
-  <Consumeables />
+  <Consumeables>
+    <Item xsi:type="Consumeable">
+      <ItemType>TWOHAND</ItemType>
+      <Quality>EPIC</Quality>
+      <SpriteNeutral>SwordNormal</SpriteNeutral>
+      <SpriteHighlight>SwordHighlight</SpriteHighlight>
+      <MaxSize>1</MaxSize>
+      <ItemName>Epic Weapon</ItemName>
+      <Description>This is an epic weapon</Description>
+      <Health>0</Health>
+      <Mana>0</Mana>
+    </Item>
+    <Item xsi:type="Consumeable">
+      <ItemType>TWOHAND</ItemType>
+      <Quality>EPIC</Quality>
+      <SpriteNeutral>Swordpapa</SpriteNeutral>
+      <SpriteHighlight>SwordHighlightTl</SpriteHighlight>
+      <MaxSize>1</MaxSize>
+      <ItemName>Epic Weapon</ItemName>
+      <Description>This is an epic weapon</Description>
+      <Health>60</Health>
+      <Mana>60</Mana>
+    </Item>
+  </Consumeables>
 </ItemContainer>

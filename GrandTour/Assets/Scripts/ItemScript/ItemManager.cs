@@ -111,17 +111,21 @@ public class ItemManager : MonoBehaviour
         
         FileStream stream = new FileStream(path, FileMode.Open);
 
+        StreamReader streamReader = new StreamReader(stream, System.Text.Encoding.UTF8);
+
         XmlSerializer serializer = new XmlSerializer(typeof(ItemContainer), itemTypes);
 
-        itemContainer = (ItemContainer)serializer.Deserialize(stream);
+        itemContainer = (ItemContainer)serializer.Deserialize(streamReader);
 
-        print(itemContainer.Weapons.Count);
+        stream.Close();
 
         switch (catagoty)
         {
             case Catagory.EQUIPMENT:
                 break;
             case Catagory.CONSUMEABLE:
+                itemContainer.Consumeables.Add(new Consumeable(itemName, description, itemType, quality, spriteNeutral,
+                    spriteHighlight, maxSize, health, mana));
                 print("Consumeable");
                 break;
             case Catagory.WEAPON:
@@ -132,6 +136,13 @@ public class ItemManager : MonoBehaviour
 
                 break;
         }
+
+        stream = new FileStream(path, FileMode.Create);
+        StreamWriter streamWriter = new StreamWriter(stream, System.Text.Encoding.UTF8);
+
+        serializer.Serialize(streamWriter, itemContainer);
+
+        stream.Close();
 
         print(itemContainer.Weapons.Count);
         return itemContainer;
