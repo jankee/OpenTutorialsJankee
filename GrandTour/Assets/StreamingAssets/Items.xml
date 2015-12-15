@@ -30,7 +30,34 @@
       <AttackSpeed>10</AttackSpeed>
     </Item>
   </Weapons>
-  <Eqipment />
+  <Eqipment>
+    <Item xsi:type="Equipment">
+      <ItemType>TWOHAND</ItemType>
+      <Quality>EPIC</Quality>
+      <SpriteNeutral>SwordNormal</SpriteNeutral>
+      <SpriteHighlight>SwordHighlight</SpriteHighlight>
+      <MaxSize>1</MaxSize>
+      <ItemName>Epic Weapon</ItemName>
+      <Description>This is an epic weapon</Description>
+      <Intellect>10</Intellect>
+      <Agility>10</Agility>
+      <Stamina>14</Stamina>
+      <Strength>15</Strength>
+    </Item>
+    <Item xsi:type="Equipment">
+      <ItemType>TWOHAND</ItemType>
+      <Quality>EPIC</Quality>
+      <SpriteNeutral>SwordNormal</SpriteNeutral>
+      <SpriteHighlight>SwordHighlight</SpriteHighlight>
+      <MaxSize>1</MaxSize>
+      <ItemName>Epic Weapon</ItemName>
+      <Description>This is an epic weapon</Description>
+      <Intellect>80</Intellect>
+      <Agility>80</Agility>
+      <Stamina>80</Stamina>
+      <Strength>80</Strength>
+    </Item>
+  </Eqipment>
   <Consumeables>
     <Item xsi:type="Consumeable">
       <ItemType>TWOHAND</ItemType>
