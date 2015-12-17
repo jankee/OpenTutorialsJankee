@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
+using System.Xml.Serialization;
+using System.IO;
 
 public class InventoryManager : MonoBehaviour 
 {
@@ -107,6 +110,18 @@ public class InventoryManager : MonoBehaviour
     }
 
     public EventSystem eventSystem;
+
+    private ItemContainer itemContain = new ItemContainer();
+
+    public void Start()
+    {
+        Type[] itemTypes = { typeof(Equipment), typeof(Weapon), typeof(Consumeable) };
+        XmlSerializer serializer = new XmlSerializer(typeof(ItemContainer), itemTypes);
+        TextReader textReader = new StreamReader(Application.streamingAssetsPath + "/Items.xml");
+        itemContain = (ItemContainer)serializer.Deserialize(textReader);
+        textReader.Close();
+    }
+
 
     public void Save()
     {

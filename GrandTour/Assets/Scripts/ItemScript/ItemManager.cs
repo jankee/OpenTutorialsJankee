@@ -48,6 +48,7 @@ public class ItemManager : MonoBehaviour
 
     string path;
 
+
     public void CreateItem()
     {
         path = Application.streamingAssetsPath + "/Items.xml";
