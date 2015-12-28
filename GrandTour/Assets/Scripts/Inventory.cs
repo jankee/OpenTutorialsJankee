@@ -85,20 +85,23 @@ public class Inventory : MonoBehaviour
         //인벤토리 밖에서 클릭을 했을 때
         if (Input.GetMouseButtonUp(0))
         {
+            //인벤토리에서 선택된 item을 제거 한다.
+
             if (!InventoryManager.Instance.eventSystem.IsPointerOverGameObject(-1) && InventoryManager.Instance.From != null)
             {
-                //foreach (Item item in InventoryManager.Instance.From.Items)
-                //{
-                //    float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
+                foreach (Item item in InventoryManager.Instance.From.Items)
+                {
+                    float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
 
-                //    print(angle);
+                    print(angle);
 
-                //    Vector3 v = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
+                    Vector3 v = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
 
-                //    GameObject tmpDrop = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
+                    GameObject tmpDrop = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
 
-                //    tmpDrop.GetComponent<Item>().SetStats(item);
-                //}
+                    /* 나중에 바꿀 코드*/
+                    //tmpDrop.GetComponent<Item>().SetStats(item);
+                }
 
                 InventoryManager.Instance.From.GetComponent<Image>().color = Color.white;
                 InventoryManager.Instance.From.ClearSlot();
@@ -126,6 +129,7 @@ public class Inventory : MonoBehaviour
 
                 //    GameObject tmpDrop = (GameObject)GameObject.Instantiate(InventoryManager.Instance.dropItem, playerRef.transform.position - v, Quaternion.identity);
 
+                //나중에 바꿀 코드
                 //    tmpDrop.GetComponent<Item>().SetStats(item);
                 //}
 
@@ -226,7 +230,7 @@ public class Inventory : MonoBehaviour
 
             if (!tmp.IsEmpty)
             {
-                //content += i + "-" + tmp.currentItem.itemType.ToString() + "-" + tmp.Items.Count.ToString() + ";";
+                content += i + "-" + tmp.currentItem.ItemName.ToString() + "-" + tmp.Items.Count.ToString() + ";";
                 //print(content);
             }
         }
@@ -393,69 +397,69 @@ public class Inventory : MonoBehaviour
     }
 
 
-    //public bool AddItem(Item item)
-    //{
-    //    //item의 maxSize가 1일때 빈 스롯에 찾아서 넣어 준다
-    //    if (item.maxSize == 1)
-    //    {
-    //        //빈 슬롯 함수에 아이템을 넘겨 준다.
-    //        PlaceEmpty(item);
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        //모든 슬롯중에 아이템이 들어 있는 슬롯을 찾아 현채 아이템 같으면 추가를 해준다.
-    //        foreach (GameObject slot in allSlots)
-    //        {
-    //            Slot tmp = slot.GetComponent<Slot>();
-    //            //비여있지 않은 슬롯이면
-    //            if (!tmp.IsEmpty)
-    //            {
-    //                //아이템 타입이 같고 maxSize가 여유가 있다면
-    //                if (tmp.currentItem.itemType == item.itemType && tmp.IsAvailable)
-    //                {
-    //                    if (!InventoryManager.Instance.MovingSlot.IsEmpty &&
-    //                        InventoryManager.Instance.Clicked.GetComponent<Slot>() == tmp.GetComponent<Slot>())
-    //                    {
-    //                        continue;
-    //                    }
-    //                    else
-    //                    {
-    //                        tmp.AddItem(item);
-    //                        return true;
-    //                    }
-    //                }
-    //            }
-    //        }
+    public bool AddItem(ItemScript item)
+    {
+        //item의 maxSize가 1일때 빈 스롯에 찾아서 넣어 준다
+        if (item.Item.MaxSize == 1)
+        {
+            //빈 슬롯 함수에 아이템을 넘겨 준다.
+            PlaceEmpty(item);
+            return true;
+        }
+        else
+        {
+            //모든 슬롯중에 아이템이 들어 있는 슬롯을 찾아 현채 아이템 같으면 추가를 해준다.
+            foreach (GameObject slot in allSlots)
+            {
+                Slot tmp = slot.GetComponent<Slot>();
+                //비여있지 않은 슬롯이면
+                if (!tmp.IsEmpty)
+                {
+                    //아이템 타입이 같고 maxSize가 여유가 있다면
+                    if (tmp.currentItem.ItemName == item.Item.ItemName && tmp.IsAvailable)
+                    {
+                        if (!InventoryManager.Instance.MovingSlot.IsEmpty &&
+                            InventoryManager.Instance.Clicked.GetComponent<Slot>() == tmp.GetComponent<Slot>())
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            tmp.AddItem(item);
+                            return true;
+                        }
+                    }
+                }
+            }
 
-    //        if (emptySlot > 0)
-    //        {
-    //            PlaceEmpty(item);
-    //        }
-    //    }
-    //    return false;
-    //}
+            if (emptySlot > 0)
+            {
+                PlaceEmpty(item);
+            }
+        }
+        return false;
+    }
 
 
-    //private bool PlaceEmpty(Item item)
-    //{
-    //    if (emptySlot > 0)
-    //    {
-    //        foreach (GameObject slot in allSlots)
-    //        {
-    //            Slot tmp = slot.GetComponent<Slot>();
+    private bool PlaceEmpty(ItemScript item)
+    {
+        if (emptySlot > 0)
+        {
+            foreach (GameObject slot in allSlots)
+            {
+                Slot tmp = slot.GetComponent<Slot>();
 
-    //            if (tmp.IsEmpty)
-    //            {
-    //                tmp.AddItem(item);
-    //                emptySlot--;
-    //                return true;
-    //            }
-    //        }
-    //    }
+                if (tmp.IsEmpty)
+                {
+                    tmp.AddItem(item);
+                    emptySlot--;
+                    return true;
+                }
+            }
+        }
 
-    //    return false;
-    //}
+        return false;
+    }
 
     //public void PutItemBack()
     //{
