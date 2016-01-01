@@ -68,7 +68,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AchievementManager.cs" />
+    <Compile Include="Assets\Scripts\AchievmentButton.cs" />
+    <Compile Include="Assets\Scripts\AchievmentManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>
