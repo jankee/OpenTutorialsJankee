@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class AchievmentManager : MonoBehaviour 
 {
@@ -14,22 +15,18 @@ public class AchievmentManager : MonoBehaviour
 
     public GameObject achievmentMenu;
 
+    public GameObject visualAchievment;
+
+    public Dictionary<string, Achievment> achievments = new Dictionary<string, Achievment>();
+
 	// Use this for initialization
 	void Start () 
     {
+        //Example
+        //achievments.Add("RunAchievment", new Achievment("Run", "He ran", 10, 0, this.gameObject));
+
         activeButton = GameObject.Find("GeneralBtn").GetComponent<AchievmentButton>();
-
-        CreateAchievment("General", "Test", "This is the Description", 15, 0);
-        CreateAchievment("General", "Test", "This is the Description", 15, 0);
-        CreateAchievment("General", "Test", "This is the Description", 15, 0);
-        CreateAchievment("General", "Test", "This is the Description", 15, 0);
-        CreateAchievment("General", "Test", "This is the Description", 15, 0);
-
-        CreateAchievment("Other", "Test", "This is the Description", 15, 0);
-        CreateAchievment("Other", "Test", "This is the Description", 15, 0);
-        CreateAchievment("Other", "Test", "This is the Description", 15, 0);
-        CreateAchievment("Other", "Test", "This is the Description", 15, 0);
-        CreateAchievment("Other", "Test", "This is the Description", 15, 0);
+        CreateAchievment("Genaral", "Press W", "Press W to unlock this achievment", 5, 0);
 
         foreach (GameObject achievment in GameObject.FindGameObjectsWithTag("AchievmentList"))
         {
@@ -48,23 +45,49 @@ public class AchievmentManager : MonoBehaviour
         {
             achievmentMenu.SetActive(!achievmentMenu.activeSelf);
         }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            EarnAchievment("Press W");
+        }
 	}
 
-    public void CreateAchievment(string catagory, string title, string description, int points, int spriteIndex)
+    public void EarnAchievment(string title)
+    {
+        if (achievments[title].EarnAchievment())
+        {
+            //DO SOMETHING AWESOME!
+            GameObject achievment = (GameObject)Instantiate(visualAchievment);
+            SetAchievmentInfo("EarnCanvas", achievment, title);
+
+            StartCoroutine(HideAchievment(achievment));
+        }
+    }
+
+    public IEnumerator HideAchievment(GameObject achiement)
+    {
+        yield return new WaitForSeconds(3);
+        Destroy(achiement);
+    }
+
+    public void CreateAchievment(string parent, string title, string description, int points, int spriteIndex)
     {
         GameObject achievment = (GameObject)Instantiate(achievmentPrefab);
 
-        SetAchievmentInfo(catagory, achievment, title, description, points, spriteIndex);
+        Achievment newAchievment = new Achievment(name, description, points, spriteIndex, achievment);
+
+        achievments.Add(title, newAchievment);
+
+        SetAchievmentInfo(parent, achievment, title);
     }
 
-    public void SetAchievmentInfo(string catagory, GameObject achievment, string title, string description, int points, int spriteIndex)
+    public void SetAchievmentInfo(string parent, GameObject achievment, string title)
     {
-        achievment.transform.SetParent(GameObject.Find(catagory).transform);
+        achievment.transform.SetParent(GameObject.Find(parent).transform);
         achievment.transform.localScale = new Vector3(1, 1, 1);
         achievment.transform.GetChild(0).GetComponent<Text>().text = title;
-        achievment.transform.GetChild(1).GetComponent<Text>().text = description;
-        achievment.transform.GetChild(2).GetComponent<Text>().text = points.ToString();
-        achievment.transform.GetChild(3).GetComponent<Image>().sprite = sprites[spriteIndex];
+        achievment.transform.GetChild(1).GetComponent<Text>().text = achievments[title].Description;
+        achievment.transform.GetChild(2).GetComponent<Text>().text = achievments[title].Point.ToString();
+        achievment.transform.GetChild(3).GetComponent<Image>().sprite = sprites[achievments[title].SpriteIndex];
     }
 
     public void ChageCatagory(Button button)
