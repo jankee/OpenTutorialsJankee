@@ -198,8 +198,8 @@ public class GameManager : MonoBehaviour
         if (checkResearchAble(p))
         {
             //bgGrid.textTest();
-            bgGrid.refreshCellDisplay();
-            researchPathUnits();
+            bgGrid.textTest();
+            //researchPathUnits();
         }
         else
         {

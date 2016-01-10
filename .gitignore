@@ -1,2 +1,77 @@
-/TowerDefence/Temp
-/TowerDefence/Library
+# =============== #
+# Unity generated #
+# =============== #
+TowerDefence/Temp/
+TowerDefence/Library/
+TowerDefence/obj/
+
+INventoryTuto/Library/
+INventoryTuto/Temp/
+INventoryTuto/obj/
+
+EndlessRunner/Library/
+EndlessRunner/Temp/
+EndlessRunner/obj/
+
+ScrollingCombatText/Library/
+ScrollingCombatText/Temp/
+ScrollingCombatText/obj/
+
+GrandTour/Library/
+GrandTour/Temp/
+GrandTour/obj/
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+TowerDefence/*.csproj
+*.pidb
+*.suo
+TowerDefence/*.sln
+*.user
+*.unityproj
+*.booproj
+
+INventoryTuto/*.csproj
+*.pidb
+*.suo
+INventoryTuto/*.sln
+*.user
+*.unityproj
+*.booproj
+
+EndlessRunner/*.csproj
+*.pidb
+*.suo
+EndlessRunner/*.sln
+*.user
+*.unityproj
+*.booproj
+
+
+ScrollingCombatText/*.csproj
+*.pidb
+*.suo
+ScrollingCombatText/*.sln
+*.user
+*.unityproj
+*.booproj
+
+
+GrandTour/*.csproj
+*.pidb
+*.suo
+GrandTour/*.sln
+*.user
+*.unityproj
+*.booproj
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
