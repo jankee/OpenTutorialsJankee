@@ -4,7 +4,7 @@ using System.Collections;
 public class Achievment
 {
     private string name;
-
+    //name의 캡슐화
     public string Name
     {
         get { return name; }
@@ -12,7 +12,7 @@ public class Achievment
     }
 
     private string description;
-
+    //description의 캡슐화
     public string Description
     {
         get { return description; }
@@ -57,7 +57,7 @@ public class Achievment
 
     public bool EarnAchievment()
     {
-        if (unlocked == false)
+        if (!unlocked)
         {
             unlocked = true;
             return true;
