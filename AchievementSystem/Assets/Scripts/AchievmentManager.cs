@@ -21,6 +21,25 @@ public class AchievmentManager : MonoBehaviour
 
     public Dictionary<string, Achievment> achievments = new Dictionary<string, Achievment>();
 
+    public Sprite unlockedSprite;
+
+    //https://youtu.be/272UGSKcMd8?t=138
+    private static AchievmentManager instance;
+
+    public Text pointText;
+
+    public static AchievmentManager Instance
+    {
+        get 
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<AchievmentManager>();
+            }
+            return AchievmentManager.instance; 
+        }
+    }
+
 	// Use this for initialization
 	void Start () 
     {
@@ -29,17 +48,16 @@ public class AchievmentManager : MonoBehaviour
 
         activeButton = GameObject.Find("GeneralBtn").GetComponent<AchievmentButton>();
 
-        CreateAchievment("Genaral", "Press W", "Press W to unlock this achievment", 5, 0);
+        CreateAchievment("General", "Press W", "Press W to unlock this achievment", 5, 0);
 
-        // TODO 주석을 풀것
-        //foreach (GameObject achievment in GameObject.FindGameObjectsWithTag("AchievmentList"))
-        //{
-        //    achievment.SetActive(false);
-        //}
+        foreach (GameObject achievment in GameObject.FindGameObjectsWithTag("AchievmentList"))
+        {
+            achievment.SetActive(false);
+        }
 
-        //activeButton.Click();
+        activeButton.Click();
 
-        //achievmentMenu.SetActive(false);
+        achievmentMenu.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -83,19 +101,21 @@ public class AchievmentManager : MonoBehaviour
         //Achievment 클레스인 newAchievment 인스턴스를 생성한다.
         //newAchievment를 생성할때 name 아니라 title인것 같아 변경한다.
         //https://youtu.be/eJo0rYlxajk?t=843
-        Achievment newAchievment = new Achievment(title, description, points, spriteIndex, achievment);
+        Achievment newAchievment = new Achievment(name, description, points, spriteIndex, achievment);
 
         print(newAchievment.Name);
 
         //생각한거와 다르게 tile은 여기서 넘겨 주는 것 같다.
         achievments.Add(title, newAchievment);
 
-        //SetAchievmentInfo(category, achievment, title);
+        SetAchievmentInfo(category, achievment, title);
     }
 
     public void SetAchievmentInfo(string parent, GameObject achievment, string title)
     {
+        
         achievment.transform.SetParent(GameObject.Find(parent).transform);
+        print(parent);
         achievment.transform.localScale = new Vector3(1, 1, 1);
         achievment.transform.GetChild(0).GetComponent<Text>().text = title;
         achievment.transform.GetChild(1).GetComponent<Text>().text = achievments[title].Description;
