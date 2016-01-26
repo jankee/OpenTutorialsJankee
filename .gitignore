@@ -65,6 +65,15 @@ GrandTour/*.sln
 *.unityproj
 *.booproj
 
+
+AchievementSystem/*.csproj
+*.pidb
+*.suo
+GrandTour/*.sln
+*.user
+*.unityproj
+*.booproj
+
 # ============ #
 # OS generated #
 # ============ #
