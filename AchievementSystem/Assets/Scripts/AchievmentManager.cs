@@ -93,7 +93,8 @@ public class AchievmentManager : MonoBehaviour
         Destroy(achiement);
     }
 
-    public void CreateAchievment(string category, string title, string description, int points, int spriteIndex)
+    //https://youtu.be/r-xEVUPeCB8?t=381
+    public void CreateAchievment(string category, string title, string description, int points, int spriteIndex, string[] dependencies = null)
     {
         //instance achievmentPrefab을 achievment로 생성한다.
         GameObject achievment = (GameObject)Instantiate(achievmentPrefab);

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Achievment
 {
@@ -46,6 +47,10 @@ public class Achievment
 
     private GameObject achievmentRef;
 
+    private List<Achievment> dependencies = new List<Achievment>();
+
+    private string child;
+
 	public Achievment(string name, string description, int point, int spriteIndex, GameObject achievmentRef)
     {
         this.name = name;
@@ -57,18 +62,31 @@ public class Achievment
         Debug.Log("HI");
     }
 
+    //https://youtu.be/r-xEVUPeCB8?t=132
+    public void AddDependency(Achievment dependency)
+    {
+        dependencies.Add(dependency);
+    }
+
     public bool EarnAchievment()
     {
-        if (!unlocked)
+        if (!unlocked && !dependencies.Exists(x => x.unlocked == false))
         {
             //https://youtu.be/272UGSKcMd8?t=381
-            PlayerPrefs.SetInt("Points", 10);
-            PlayerPrefs.Save();
-            int myPoints = PlayerPrefs.GetInt("Points");
+            //PlayerPrefs.SetInt("Points", 10);
+            //PlayerPrefs.Save();
+            //int myPoints = PlayerPrefs.GetInt("Points");
 
             //https://youtu.be/272UGSKcMd8?t=242
             achievmentRef.GetComponent<Image>().sprite = AchievmentManager.Instance.unlockedSprite;
-            unlocked = true;
+            SaveAchivment(true);
+            //unlocked = true;
+
+            if (child != null)
+            {
+                AchievmentManager.Instance.EarnAchievment(child);
+            }
+
             return true;
         }
 
