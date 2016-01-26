@@ -20,6 +20,11 @@ ScrollingCombatText/obj/
 GrandTour/Library/
 GrandTour/Temp/
 GrandTour/obj/
+
+AchievementSystem/Library/
+AchievementSystem/Temp/
+AchievementSystem/obj/
+
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -69,7 +74,7 @@ GrandTour/*.sln
 AchievementSystem/*.csproj
 *.pidb
 *.suo
-GrandTour/*.sln
+AchievementSystem/*.sln
 *.user
 *.unityproj
 *.booproj
