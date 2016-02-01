@@ -25,6 +25,10 @@ AchievementSystem/Library/
 AchievementSystem/Temp/
 AchievementSystem/obj/
 
+Beehive Management/Library/
+Beehive Management/Temp/
+Beehive Management/obj/
+
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -72,6 +76,14 @@ GrandTour/*.sln
 
 
 AchievementSystem/*.csproj
+*.pidb
+*.suo
+AchievementSystem/*.sln
+*.user
+*.unityproj
+*.booproj
+
+Beehive Management/*.csproj
 *.pidb
 *.suo
 AchievementSystem/*.sln
