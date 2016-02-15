@@ -25,6 +25,8 @@ public class HiveManager : MonoBehaviour
     {
         print(workerBeeJob.options);
 
+        queen.AssingWork("HI", 3);
+
         //if (queen.AssingWork()
         //{
             
