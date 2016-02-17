@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEngine.UI;
 
 public class MyDropdown : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -47,4 +48,6 @@ public class MyDropdown : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         isOpen = false;
     }
+
+    
 }

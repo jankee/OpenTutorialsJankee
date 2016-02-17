@@ -8,7 +8,9 @@ public class HiveManager : MonoBehaviour
 
     private Queen queen;
 
-    public Dropdown workerBeeJob;
+    public Button workerBeeJob;
+
+    public static bool checkButton = false;
 
 	// Use this for initialization
 	void Start () 
@@ -23,7 +25,7 @@ public class HiveManager : MonoBehaviour
 	
     public void AssignJob()
     {
-        print(workerBeeJob.options);
+        print(workerBeeJob.GetComponentInChildren<Text>().text);
 
         queen.AssingWork("HI", 3);
 
