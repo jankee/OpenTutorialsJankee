@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Queen : MonoBehaviour 
+public class Queen : Bee
 {
     private Worker[] workers;
-    public Queen(Worker[] workers)
+
+    private int shiftNumber = 0;
+
+    //여왕벌 생성자
+    public Queen(Worker[] workers) : base(275)
     {
         this.workers = workers;
 
-
-        print(WorkTheNextShift());
-
-        WorkTheNextShift();
+        //WorkTheNextShift();
     }
-
-    private int shiftNumber = 0;
 
     public bool AssingWork(string job, int numberOfShifts)
     {
@@ -31,6 +30,16 @@ public class Queen : MonoBehaviour
 
     public string WorkTheNextShift()
     {
+        double totalConsumption = 0;
+        
+        //각 벌들의 꿀 소비량을 더함
+        for (int i = 0; i < workers.Length; i++)
+        {
+            totalConsumption += workers[i].GetHoneyConsumption();
+        }
+        //여왕의 꿀 소비량까지 더함
+        totalConsumption += GetHoneyConsumption();
+
         shiftNumber++;
 
         print(workers.Length);
@@ -48,9 +57,9 @@ public class Queen : MonoBehaviour
             }
             else
             {
-                if (workers[i].ShiftsLeft > 0)
+                if (workers[i].shiftsLeft > 0)
                 {
-                    report += "Worker #" + (i + 1) + " is doing '" + workers[i].Currentjob + "' for " + workers[i].ShiftsLeft + " more shifts\n";
+                    report += "Worker #" + (i + 1) + " is doing '" + workers[i].Currentjob + "' for " + workers[i].shiftsLeft + " more shifts\n";
                 }
                 else
                 {
@@ -59,6 +68,43 @@ public class Queen : MonoBehaviour
             }
         }
 
+        report += "Total Honey consumption : " + totalConsumption + " units";
+
         return report;
+    }
+
+    public override double GetHoneyConsumption()
+    {
+        double consumption = 0;
+        double largestWorkerConsumption = 0;
+        int workersDoingJobs = 0;
+
+        for (int i = 0; i < workers.Length; i++)
+        {
+            if (workers[i].GetHoneyConsumption() > largestWorkerConsumption)
+            {
+                largestWorkerConsumption = workers[i].GetHoneyConsumption();
+            }
+
+            //일하고 있는 벌들을 찾는다
+            if (workers[i].shiftsLeft > 0)
+            {
+                workersDoingJobs++;
+            }
+        }
+        //가장 길게 일한는 벌에 소비량을 넣어 준다.
+        consumption += largestWorkerConsumption;
+
+        //일하고 있는 벌이 3명 이상일 때 여왕의 소비량에 30, 3명이하면 20을 더 한다.
+        if (workersDoingJobs >= 3)
+        {
+            consumption += 30;
+        }
+        else
+        {
+            consumption += 20;
+        }
+
+        return consumption;
     }
 }

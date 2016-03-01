@@ -13,11 +13,6 @@ public class ButtonText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         transform.parent.parent.GetComponentInChildren<Text>().text = GetComponentInChildren<Text>().text; 
     }
 
-    public void ButtonResetText()
-    {
-        
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!HiveManager.checkButton)
@@ -29,7 +24,6 @@ public class ButtonText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        print(HiveManager.checkButton);
         if (!HiveManager.checkButton)
         {
             transform.parent.parent.GetComponentInChildren<Text>().text = "Please Select!";    

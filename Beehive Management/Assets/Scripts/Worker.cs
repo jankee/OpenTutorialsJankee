@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Worker : MonoBehaviour 
+public class Worker : Bee
 {
     private string currentjob = "";
     public string Currentjob
@@ -11,11 +11,13 @@ public class Worker : MonoBehaviour
 
     private string[] jobsICanDo;
 
+    //일 해야 하는 시간
     private int shiftsToWork;
+    //일한 시간
     private int shiftsWorked;
 
     //ShiftsLeft는 읽기 전용으로 지금하고 있는 일을 몇시간 단위를 계산해서 알려준다.
-    public int ShiftsLeft
+    public override int shiftsLeft
     {
         get
         {
@@ -23,9 +25,12 @@ public class Worker : MonoBehaviour
         }
     }
 
-    public Worker(string[] jobsICanDo)
+    // Worker 생산자
+    public Worker(string[] jobsICanDo, int weight) : base(weight)
     {
         this.jobsICanDo = jobsICanDo;
+
+        
 
         //확인 작업
         string checkJob = "";
@@ -40,9 +45,16 @@ public class Worker : MonoBehaviour
 	// Use this for initialization
 	public bool DoThisJob (string job, int numberOfShifts) 
     {
+        for (int i = 0; i < this.jobsICanDo.Length; i++)
+        {
+            print(jobsICanDo[i]);
+        }
+
         if (!string.IsNullOrEmpty(currentjob))
         {
-            return false;   
+            print(currentjob);
+
+            return false;
         }
 
         for (int i = 0; i < jobsICanDo.Length; i++)

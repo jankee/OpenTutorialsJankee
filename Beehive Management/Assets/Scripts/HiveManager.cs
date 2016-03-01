@@ -10,33 +10,46 @@ public class HiveManager : MonoBehaviour
 
     public Button workerBeeJob;
 
+
+    public InputField shifts;
+
+    public Text report;
+
     public static bool checkButton = false;
 
 	// Use this for initialization
 	void Start () 
     {
-        workers[0] = new Worker(new string[] { "Nectar collector", "Honey manufacturing" });
-        workers[1] = new Worker(new string[] { "Egg care", "Baby bee tutoring" });
-        workers[2] = new Worker(new string[] { "Hive maintenance", "Sting patrol" });
-        workers[3] = new Worker(new string[] { "Nectar collector", "Honey manufacturing", "Egg care", "Baby bee tutoring", "Hive maintenance", "Sting patrol" });
+        workers[0] = new Worker(new string[] { "Nectar collector", "Honey manufacturing" }, 175);
+        workers[1] = new Worker(new string[] { "Egg care", "Baby bee tutoring" }, 114);
+        workers[2] = new Worker(new string[] { "Hive maintenance", "Sting patrol" }, 149);
+        workers[3] = new Worker(new string[] { "Nectar collector", "Honey manufacturing", "Egg care", "Baby bee tutoring", "Hive maintenance", "Sting patrol" }, 155);
 
         queen = new Queen(workers);
+
+        workerBeeJob.transform.FindChild("Container").gameObject.SetActive(true);
 	}
-	
+
     public void AssignJob()
     {
-        print(workerBeeJob.GetComponentInChildren<Text>().text);
+        //print(queen.AssingWork(workerBeeJob.GetComponentInChildren<Text>().text, int.Parse(shifts.text)));
 
-        queen.AssingWork("HI", 3);
+        if (queen.AssingWork(workerBeeJob.GetComponentInChildren<Text>().text, int.Parse(shifts.text)) == false)
+        {
+            report.text = "No workers are available to do the job '" + workerBeeJob.GetComponentInChildren<Text>().text + "'\n" + "The queen bee says....";
+        }
+        else
+        {
+            report.text = "The job '" + workerBeeJob.GetComponentInChildren<Text>().text + "' will be done in " + shifts.text + " shifts\n" + "The queen bee says....";
+        }
 
-        //if (queen.AssingWork()
-        //{
-            
-        //}
+        //자식을 찾을 때
+        //Button dropDown = transform.FindChild("DropDown");
+
     }
 
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void nextShift()
+    {
+        report.text = queen.WorkTheNextShift();
+    }
 }
