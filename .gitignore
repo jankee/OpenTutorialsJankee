@@ -29,6 +29,10 @@ Beehive Management/Library/
 Beehive Management/Temp/
 Beehive Management/obj/
 
+2DPlatformer/Library/
+2DPlatformer/Temp/
+2DPlatformer/obj/
+
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -84,6 +88,14 @@ AchievementSystem/*.sln
 *.booproj
 
 Beehive Management/*.csproj
+*.pidb
+*.suo
+AchievementSystem/*.sln
+*.user
+*.unityproj
+*.booproj
+
+2DPlatformer/*.csproj
 *.pidb
 *.suo
 AchievementSystem/*.sln
