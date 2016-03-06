@@ -6,8 +6,12 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D myRigidbody;
 
+    private Animator myAnimator;
+
     [SerializeField]
     private float movementSpeed;
+
+    private bool attack;
 
     private bool facingRight;
 
@@ -18,7 +22,14 @@ public class Player : MonoBehaviour
         facingRight = true;
 
         myRigidbody = GetComponent<Rigidbody2D>();
+
+        myAnimator = GetComponent<Animator>();
 	}
+
+    void Update()
+    {
+        HandleInput();
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () 
@@ -26,9 +37,11 @@ public class Player : MonoBehaviour
 
         float horizontal = Input.GetAxis("Horizontal");
 
-        print(horizontal);
+        myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
 
         HandleMovement(horizontal);
+
+        HandleAttack();
 
         Flip(horizontal);
 	}
@@ -41,15 +54,32 @@ public class Player : MonoBehaviour
         // Vector2.left;     x = -1
     }
 
+    private void HandleAttack()
+    {
+        if (attack)
+        {
+            myAnimator.SetTrigger("attack");
+            attack = false;
+        }
+    }
+
+    private void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            attack = true;
+        }
+    }
+
     private void Flip(float horizontal)
     {
-        if (horizontal > 0 && facingRight == false || horizontal < 0 && facingRight == true)
+        if (horizontal > 0 && !facingRight || horizontal < 0 && facingRight)
         {
             facingRight = !facingRight;
 
             Vector3 theScale = this.transform.localScale;
 
-            theScale.x = -1;
+            theScale.x *= -1;
 
             this.transform.localScale = theScale;
         }
