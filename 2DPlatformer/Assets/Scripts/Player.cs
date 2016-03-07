@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
 
     private bool attack;
 
+    private bool slide;
+
     private bool facingRight;
 
 
@@ -43,23 +45,38 @@ public class Player : MonoBehaviour
 
         HandleAttack();
 
+        ResetValue();
+
         Flip(horizontal);
 	}
 
     private void HandleMovement(float horizontal)
     {
+        if (!myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        {
+            myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);     
+        }
 
-        myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y); 
-            
+        if (slide && !myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Slide"))
+        {
+            myAnimator.SetBool("slide", true);
+        }
+        else if (slide && !myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Slide"))
+        {
+            myAnimator.SetBool("slide", false);
+        }
+        
         // Vector2.left;     x = -1
     }
 
     private void HandleAttack()
     {
-        if (attack)
+        if (attack && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
             myAnimator.SetTrigger("attack");
-            attack = false;
+
+            myRigidbody.velocity = Vector2.zero;
+            //attack = false;
         }
     }
 
@@ -69,11 +86,16 @@ public class Player : MonoBehaviour
         {
             attack = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            slide = true;
+        }
     }
 
     private void Flip(float horizontal)
     {
-        if (horizontal > 0 && !facingRight || horizontal < 0 && facingRight)
+        if (horizontal > 0 && facingRight == false || horizontal < 0 && facingRight == true)
         {
             facingRight = !facingRight;
 
@@ -104,5 +126,11 @@ public class Player : MonoBehaviour
 
         //    this.transform.localScale = theScale;
         //}
+    }
+
+    private void ResetValue()
+    {
+        attack = false;
+        slide = false;
     }
 }
