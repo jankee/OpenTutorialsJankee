@@ -17,6 +17,24 @@ public class Player : MonoBehaviour
 
     private bool facingRight;
 
+    [SerializeField]
+    private Transform[] groundPoints;
+
+    [SerializeField]
+    private float groundRadius;
+
+    [SerializeField]
+    private LayerMask whatIsGround;
+
+    private bool isGrounded;
+
+    private bool jump;
+
+    [SerializeField]
+    private bool airControl;
+
+    [SerializeField]
+    private float jumpForce;
 
 	// Use this for initialization
 	void Start () 
@@ -41,6 +59,8 @@ public class Player : MonoBehaviour
 
         myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
 
+        isGrounded = IsGrounded();
+
         HandleMovement(horizontal);
 
         HandleAttack();
@@ -48,13 +68,36 @@ public class Player : MonoBehaviour
         ResetValue();
 
         Flip(horizontal);
+
+
+        //test 방법
+        //Collider2D test = Physics2D.OverlapCircle(groundPoints[0].position, groundRadius, whatIsGround);
+
+        //if (test.gameObject != gameObject)
+        //{
+        //    jump = true;
+        //}
+        //jump = false;
+
+        //print(jump);
 	}
 
     private void HandleMovement(float horizontal)
     {
-        if (!myAnimator.GetBool("slide") && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        if (!myAnimator.GetBool("slide") && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && isGrounded)
         {
             myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);     
+        }
+
+        
+
+        if (isGrounded && jump)
+        {
+            print("jump : " + isGrounded);
+
+            isGrounded = false;
+
+            myRigidbody.AddForce(new Vector2(0, jumpForce));
         }
 
         if (slide && !myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Slide"))
@@ -90,6 +133,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             slide = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jump = true;
         }
     }
 
@@ -132,5 +180,26 @@ public class Player : MonoBehaviour
     {
         attack = false;
         slide = false;
+        jump = false;
+    }
+
+    private bool IsGrounded()
+    {
+        if (myRigidbody.velocity.y <= 0)
+        {
+            foreach (Transform point in groundPoints)
+            {
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
+
+                for (int i = 0; i < colliders.Length; i++)
+                {
+                    if (colliders[i].gameObject != gameObject)
+                    {
+                        return true;
+                    }
+                }
+            }    
+        }
+        return false;
     }
 }
