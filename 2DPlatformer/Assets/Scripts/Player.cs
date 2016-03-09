@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
 
     private bool jump;
 
+    private bool jumpAttack;
+
     [SerializeField]
     private bool airControl;
 
@@ -65,10 +67,13 @@ public class Player : MonoBehaviour
 
         HandleAttack();
 
-        ResetValue();
+        HandleLayers();    
 
         Flip(horizontal);
 
+        ResetValue();
+
+        print(jumpAttack);
 
         //test 방법
         //Collider2D test = Physics2D.OverlapCircle(groundPoints[0].position, groundRadius, whatIsGround);
@@ -84,12 +89,14 @@ public class Player : MonoBehaviour
 
     private void HandleMovement(float horizontal)
     {
+        if (myRigidbody.velocity.y < 0)
+        {
+            myAnimator.SetBool("land", true);
+        }
         if (!myAnimator.GetBool("slide") && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && isGrounded)
         {
             myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);     
         }
-
-        
 
         if (isGrounded && jump)
         {
@@ -98,6 +105,7 @@ public class Player : MonoBehaviour
             isGrounded = false;
 
             myRigidbody.AddForce(new Vector2(0, jumpForce));
+            myAnimator.SetTrigger("jump");
         }
 
         if (slide && !myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Slide"))
@@ -114,12 +122,20 @@ public class Player : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (attack && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        if (attack && isGrounded && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
             myAnimator.SetTrigger("attack");
 
             myRigidbody.velocity = Vector2.zero;
-            //attack = false;
+        }
+
+        if (jumpAttack && !isGrounded && myAnimator.GetCurrentAnimatorStateInfo(1).IsName("JumpAttack"))
+        {
+            myAnimator.SetBool("jumpAttack", true);
+        }
+        if (!jumpAttack && !myAnimator.GetCurrentAnimatorStateInfo(1).IsName("JumpAttack"))
+        {
+            myAnimator.SetBool("jumpAttack", false);
         }
     }
 
@@ -128,6 +144,8 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             attack = true;
+            jumpAttack = true;
+            print(jumpAttack);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -181,6 +199,7 @@ public class Player : MonoBehaviour
         attack = false;
         slide = false;
         jump = false;
+        jumpAttack = false;
     }
 
     private bool IsGrounded()
@@ -195,11 +214,27 @@ public class Player : MonoBehaviour
                 {
                     if (colliders[i].gameObject != gameObject)
                     {
+                        myAnimator.ResetTrigger("jump");
+                        myAnimator.SetBool("land", false);
                         return true;
                     }
                 }
             }    
         }
         return false;
+    }
+
+    private void HandleLayers()
+    {
+        if (!isGrounded)
+        {
+            print("jump");
+            myAnimator.SetLayerWeight(1, 1);
+        }
+        else
+        {
+            print("land");
+            myAnimator.SetLayerWeight(1, 0);
+        }
     }
 }
