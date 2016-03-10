@@ -73,8 +73,6 @@ public class Player : MonoBehaviour
 
         ResetValue();
 
-        print(jumpAttack);
-
         //test 방법
         //Collider2D test = Physics2D.OverlapCircle(groundPoints[0].position, groundRadius, whatIsGround);
 
@@ -129,11 +127,11 @@ public class Player : MonoBehaviour
             myRigidbody.velocity = Vector2.zero;
         }
 
-        if (jumpAttack && !isGrounded && myAnimator.GetCurrentAnimatorStateInfo(1).IsName("JumpAttack"))
+        if (jumpAttack && !isGrounded && !myAnimator.GetCurrentAnimatorStateInfo(1).IsName("JumpAttack"))
         {
             myAnimator.SetBool("jumpAttack", true);
         }
-        if (!jumpAttack && !myAnimator.GetCurrentAnimatorStateInfo(1).IsName("JumpAttack"))
+        if (!jumpAttack && myAnimator.GetCurrentAnimatorStateInfo(1).IsName("JumpAttack"))
         {
             myAnimator.SetBool("jumpAttack", false);
         }
@@ -194,6 +192,7 @@ public class Player : MonoBehaviour
         //}
     }
 
+    //부울 값들을 리셋한다.
     private void ResetValue()
     {
         attack = false;
@@ -226,14 +225,12 @@ public class Player : MonoBehaviour
 
     private void HandleLayers()
     {
-        if (!isGrounded)
+        if (!isGrounded && jump)
         {
-            print("jump");
             myAnimator.SetLayerWeight(1, 1);
         }
-        else
+        else if (isGrounded && !jump)
         {
-            print("land");
             myAnimator.SetLayerWeight(1, 0);
         }
     }
