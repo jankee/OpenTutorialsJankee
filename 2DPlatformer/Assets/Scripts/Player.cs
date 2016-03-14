@@ -4,7 +4,15 @@ using System.Collections;
 public class Player : MonoBehaviour 
 {
 
-    private Rigidbody2D myRigidbody;
+    public Rigidbody2D MyRigibody { get; set; }
+
+    public bool Attack { get; set; }
+
+    public bool Slide { get; set; }
+
+    public bool Jump { get; set; }
+
+    public bool OnGround { get; set; }
 
     private Animator myAnimator;
 
@@ -26,12 +34,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private LayerMask whatIsGround;
 
-    private bool isGrounded;
-
-    private bool jump;
-
-    private bool jumpAttack;
-
     [SerializeField]
     private bool airControl;
 
@@ -43,7 +45,7 @@ public class Player : MonoBehaviour
     {
         facingRight = true;
 
-        myRigidbody = GetComponent<Rigidbody2D>();
+        MyRigibody = GetComponent<Rigidbody2D>();
 
         myAnimator = GetComponent<Animator>();
 	}
@@ -61,17 +63,11 @@ public class Player : MonoBehaviour
 
         myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
 
-        isGrounded = IsGrounded();
-
-        HandleMovement(horizontal);
-
-        HandleAttack();
+        OnGround = IsGrounded();
 
         HandleLayers();    
 
         Flip(horizontal);
-
-        ResetValue();
 
         //test 방법
         //Collider2D test = Physics2D.OverlapCircle(groundPoints[0].position, groundRadius, whatIsGround);
@@ -85,75 +81,18 @@ public class Player : MonoBehaviour
         //print(jump);
 	}
 
-    private void HandleMovement(float horizontal)
-    {
-        if (myRigidbody.velocity.y < 0)
-        {
-            myAnimator.SetBool("land", true);
-        }
-        if (!myAnimator.GetBool("slide") && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && isGrounded)
-        {
-            myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);     
-        }
-
-        if (isGrounded && jump)
-        {
-            print("jump : " + isGrounded);
-
-            isGrounded = false;
-
-            myRigidbody.AddForce(new Vector2(0, jumpForce));
-            myAnimator.SetTrigger("jump");
-        }
-
-        if (slide && !myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Slide"))
-        {
-            myAnimator.SetBool("slide", true);
-        }
-        else if (!myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Slide"))
-        {
-            myAnimator.SetBool("slide", false);
-        }
-        
-        // Vector2.left;     x = -1
-    }
-
-    private void HandleAttack()
-    {
-        if (attack && isGrounded && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
-        {
-            myAnimator.SetTrigger("attack");
-
-            myRigidbody.velocity = Vector2.zero;
-        }
-
-        if (jumpAttack && !isGrounded && !myAnimator.GetCurrentAnimatorStateInfo(1).IsName("JumpAttack"))
-        {
-            myAnimator.SetBool("jumpAttack", true);
-        }
-        if (!jumpAttack && myAnimator.GetCurrentAnimatorStateInfo(1).IsName("JumpAttack"))
-        {
-            myAnimator.SetBool("jumpAttack", false);
-        }
-    }
-
     private void HandleInput()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            attack = true;
-            jumpAttack = true;
-            print(jumpAttack);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            slide = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            jump = true;
         }
     }
 
@@ -193,17 +132,10 @@ public class Player : MonoBehaviour
     }
 
     //부울 값들을 리셋한다.
-    private void ResetValue()
-    {
-        attack = false;
-        slide = false;
-        jump = false;
-        jumpAttack = false;
-    }
 
     private bool IsGrounded()
     {
-        if (myRigidbody.velocity.y <= 0)
+        if (MyRigibody.velocity.y <= 0)
         {
             foreach (Transform point in groundPoints)
             {
@@ -225,11 +157,11 @@ public class Player : MonoBehaviour
 
     private void HandleLayers()
     {
-        if (!isGrounded && jump)
+        if (!OnGround && Jump)
         {
             myAnimator.SetLayerWeight(1, 1);
         }
-        else if (isGrounded && !jump)
+        else if (OnGround && !Jump)
         {
             myAnimator.SetLayerWeight(1, 0);
         }
