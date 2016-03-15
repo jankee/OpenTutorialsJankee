@@ -81,6 +81,14 @@ public class Player : MonoBehaviour
         //print(jump);
 	}
 
+    private void HandleMovement()
+    {
+        if (MyRigibody.velocity.y < 0)
+        {
+            myAnimator.SetBool("land", true);
+        }
+    }
+
     private void HandleInput()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
