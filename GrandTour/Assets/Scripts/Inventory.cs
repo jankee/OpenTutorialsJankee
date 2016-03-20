@@ -416,7 +416,7 @@ public class Inventory : MonoBehaviour
                 if (!tmp.IsEmpty)
                 {
                     //아이템 타입이 같고 maxSize가 여유가 있다면
-                    if (tmp.currentItem.ItemName == item.Item.ItemName && tmp.IsAvailable)
+                    //if (tmp.currentItem.ItemName == item.Item.ItemName && tmp.IsAvailable)
                     {
                         if (!InventoryManager.Instance.MovingSlot.IsEmpty &&
                             InventoryManager.Instance.Clicked.GetComponent<Slot>() == tmp.GetComponent<Slot>())
@@ -425,7 +425,7 @@ public class Inventory : MonoBehaviour
                         }
                         else
                         {
-                            tmp.AddItem(item);
+                            //tmp.AddItem(item);
                             return true;
                         }
                     }
@@ -451,7 +451,7 @@ public class Inventory : MonoBehaviour
 
                 if (tmp.IsEmpty)
                 {
-                    tmp.AddItem(item);
+                    //tmp.AddItem(item);
                     emptySlot--;
                     return true;
                 }
