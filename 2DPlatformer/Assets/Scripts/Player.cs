@@ -139,7 +139,6 @@ public class Player : MonoBehaviour
         //}
     }
 
-    //부울 값들을 리셋한다.
 
     private bool IsGrounded()
     {
