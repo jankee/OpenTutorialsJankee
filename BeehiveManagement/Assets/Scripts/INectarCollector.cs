@@ -1,16 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class INectarCollector : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+﻿
+public interface INectarCollector : IWorker
+{
+    void FindFlower();
+    void GatherNectar();
+    void ReturnToHive();
 }

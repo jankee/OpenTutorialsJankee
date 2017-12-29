@@ -5,6 +5,8 @@ using UnityEngine;
 public class Worker : Bee
 {
 
+
+
     private string currentJob = "";
     public string CurrentJob
     {
@@ -34,7 +36,6 @@ public class Worker : Bee
     public int shiftsWorked;
 
     private GameManager gameManager;
-
 
     //생성자
     public Worker(WorkType type1, WorkType type2, float weight):base(weight)

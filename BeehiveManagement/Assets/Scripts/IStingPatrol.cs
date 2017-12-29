@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IStingPatrol : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public interface IStingPatrol : IWorker
+{
+    int AlertLevel { get; }
+    int StingerLength { get; }
+    bool LookForEnemies();
+    int SharpenStinger(int length);
 }

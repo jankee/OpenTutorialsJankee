@@ -5,6 +5,10 @@ BeehiveManagement/Temp/
 BeehiveManagement/Library/
 BeehiveManagement/obj/
 
+NewProject001/Temp/
+NewProject001/Library/
+NewProject001/obj/
+
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -17,6 +21,13 @@ BeehiveManagement/*.sln
 *.unityproj
 *.booproj
 
+NewProject001/*.csproj
+*.pidb
+*.suo
+NewProject001/*.sln
+*.user
+*.unityproj
+*.booproj
 
 # ============ #
 # OS generated #
