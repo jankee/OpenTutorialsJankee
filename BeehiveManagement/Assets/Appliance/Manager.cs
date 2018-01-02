@@ -4,49 +4,35 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    Appliance[] kitchenWare = new Appliance[2];
+    RoomWithDoor livingRoom;
+    RoomWithDoor kitchen;
 
-    CoffeeMaker misterCoffee = new CoffeeMaker();
-    Oven oldToasty = new Oven();
+    Room diningRoom;
 
+    OutsideWithDoor frontYard;
+    OutsideWithDoor backYard;
+
+    OutSide garden;
 
     private void Start()
     {
-        kitchenWare[0] = misterCoffee;
-        kitchenWare[1] = oldToasty;
+        livingRoom = new RoomWithDoor("LivingRoom");
+        kitchen = new RoomWithDoor("Kitchen");
 
-        Appliance powerConsumer = new CoffeeMaker();
+        diningRoom = new Room("DiningRoom");
 
-        powerConsumer.ConsumePower();
+        frontYard = new OutsideWithDoor("FrontYard");
+        backYard = new OutsideWithDoor("BackYard");
 
-        if (powerConsumer is CoffeeMaker)
-        {
-            CoffeeMaker javeJoe = powerConsumer as CoffeeMaker;
+        garden = new OutSide("Garden");
 
-            javeJoe.MakeCoffee();
-        }
-
-        Oven misterToasty = new Oven();
-
-        ICooksFood cooker;
-
-        if (misterToasty is ICooksFood)
-        {
-            cooker = misterToasty as ICooksFood;
-
-            cooker.Reheat();
-        }
-
-        Appliance powerConsumerTest;
-
-        if (misterToasty is Oven)
-        {
-            powerConsumerTest = misterToasty;
-
-            //powerConsumerTest.pluggedIn;
-        }
     }
 
-
-
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            print(livingRoom.RoomName);
+        }
+    }
 }
