@@ -13,15 +13,16 @@ public class Room : Location
         }
     }
 
-    public Room(string name) : base(name)
+    public Room(string name, string decoration) : base(name)
     {
+        this.decoration = decoration;
     }
 
     public override string Description
     {
         get
         {
-            return base.Description;
+            return base.Description + "You see " + Decoration + ".";
         }
     }
 }

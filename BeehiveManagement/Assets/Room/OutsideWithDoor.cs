@@ -5,26 +5,38 @@ using UnityEngine;
 
 public class OutsideWithDoor : OutSide, IHasExteriorDoor
 {
-    public OutsideWithDoor(string name):base(name)
+    public OutsideWithDoor(string name, bool hot, string doorDescription):base(name, hot)
     {
 
     }
 
-    //DoorLocation 속성이 들어갈 자리
-    //읽기 전용 DoorDescription 속성이 들어갈 자리
-    public string doorDescription
+    private string doorDescription;
+    public string DoorDescription
     {
         get
         {
-            throw new NotImplementedException();
+            return doorDescription;
         }
     }
 
-    public string doorLocation
+    private string doorLocation;
+    public string DoorLocation
     {
         get
         {
-            throw new NotImplementedException();
+            return doorLocation;
+        }
+        set
+        {
+            doorLocation = value;
+        }
+    }
+
+    public override string Description
+    {
+        get
+        {
+            return base.Description + " You see " + doorDescription + ".";
         }
     }
 }

@@ -5,26 +5,31 @@ using UnityEngine;
 
 public class RoomWithDoor : Room, IHasExteriorDoor
 {
-    public RoomWithDoor(string name) : base(name)
+    public RoomWithDoor(string name, string decoration, string doorDescription) : base(name, decoration)
     {
-
+        this.doorDescription = doorDescription;
     }
 
-    //DoorLocation 속성이 들어갈 자리
-    //읽기 전용 DoorDescription 속성이 들어갈 자리
-    public string doorDescription
+    private string doorDescription;
+    public string DoorDescription
     {
         get
         {
-            throw new NotImplementedException();
+            return doorDescription;
         }
     }
 
-    public string doorLocation
+    private string doorLocation;
+    public string DoorLocation
     {
         get
         {
-            throw new NotImplementedException();
+            return doorLocation;
+        }
+
+        set
+        {
+            doorLocation = value;
         }
     }
 }

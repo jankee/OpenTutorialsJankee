@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IHasExteriorDoor
 {
-    string doorDescription { get; }
+    string DoorDescription { get; }
 
-    string doorLocation { get; }
+    string DoorLocation { get; set; }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class OutSide : Location
 {
-    private float hot;
-    public float Hot
+    private bool hot;
+    public bool Hot
     {
         get
         {
@@ -13,15 +13,22 @@ public class OutSide : Location
         }
     }
 
-    public OutSide(string name) : base(name)
+    public OutSide(string name, bool hot) : base(name)
     {
+        this.hot = hot;
     }
 
     public override string Description
     {
         get
         {
-            return base.Description;
+            string newDescription = base.Description;
+
+            if (hot)
+            {
+                newDescription += " It's very hot.";
+            }
+            return newDescription;
         }
     }
 }
