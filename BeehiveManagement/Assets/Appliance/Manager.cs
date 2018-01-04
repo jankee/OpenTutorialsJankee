@@ -17,7 +17,7 @@ public class Manager : MonoBehaviour
 
     private Location currentLocatin;
 
-    private List<Exit> exits = new List<Exit>();
+    private List<string> exits;
 
     RoomWithDoor livingRoom;
     RoomWithDoor kitchen;
@@ -45,8 +45,8 @@ public class Manager : MonoBehaviour
         diningRoom.Exits = new Location[] { livingRoom, kitchen };
         kitchen.Exits = new Location[] { diningRoom };
 
-        frontYard.Exits = new Location[] { livingRoom, garden };
-        backYard.Exits = new Location[] { kitchen, garden };
+        frontYard.Exits = new Location[] { garden };
+        backYard.Exits = new Location[] { garden };
         garden.Exits = new Location[] { backYard, frontYard };
 
         livingRoom.DoorLocation = "frontYard";
@@ -61,7 +61,7 @@ public class Manager : MonoBehaviour
 
         dropdownButton.AddOptions(dropdownButtonList);
 
-
+        exits = new List<string>();
     }
 
     public void Update()
@@ -78,16 +78,24 @@ public class Manager : MonoBehaviour
             {
                 print(diningRoom.Exits[i].RoomName);
             }
-            
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            MoveToNewLocation(frontYard);
 
         }
     }
 
     public void GetIndex(int index)
     {
-        print(dropdownButtonList[index]);
+        if (exits != null)
+        {
+            print(exits[index]);
 
-        dropdownText = dropdownButtonList[index];
+            dropdownText = exits[index];
+        }
+        
     }
 
     public void GoHere()
@@ -105,14 +113,37 @@ public class Manager : MonoBehaviour
     {
         currentLocatin = newLocation;
 
-        
+        //exits리스트 초기화
+        //exits = null;
+        exits.Clear();
+
+        dropdownButton.ClearOptions();
 
         for (int i = 0; i < currentLocatin.Exits.Length; i++)
         {
-            //exits.Add(currentLocatin.Exits[i]);
+
+            exits.Add(currentLocatin.Exits[i].RoomName);
         }
 
-        
+        if (currentLocatin is RoomWithDoor)
+        {
+            RoomWithDoor tRoom = currentLocatin as RoomWithDoor;
 
+            exits.Add(tRoom.DoorLocation);
+
+            print("RoomWithDoor");
+        }
+        else if (currentLocatin is OutsideWithDoor)
+        {
+            OutsideWithDoor tRoom = currentLocatin as OutsideWithDoor;
+
+            exits.Add(tRoom.DoorLocation);
+
+            print("OutsideWithDoor");
+        }
+
+        dropdownButton.AddOptions(exits);
+
+        //print(exits);
     }
 }
