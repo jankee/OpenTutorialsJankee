@@ -9,6 +9,9 @@ NewProject001/Temp/
 NewProject001/Library/
 NewProject001/obj/
 
+BattleHeart/Temp/
+BattleHeart/Library/
+BattleHeart/obj/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -28,6 +31,15 @@ NewProject001/*.sln
 *.user
 *.unityproj
 *.booproj
+
+BattleHeart/*.csproj
+*.pidb
+*.suo
+BattleHeart/*.sln
+*.user
+*.unityproj
+*.booproj
+
 
 # ============ #
 # OS generated #

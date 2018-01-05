@@ -11,6 +11,9 @@ public class Manager : MonoBehaviour
     [SerializeField]
     private Dropdown dropdownButton;
 
+    [SerializeField]
+    private Button goThroughTheDoor;
+
     private string dropdownText;
 
     private List<string> dropdownButtonList;
@@ -143,6 +146,16 @@ public class Manager : MonoBehaviour
         }
 
         dropdownButton.AddOptions(exits);
+
+        if (currentLocatin is IHasExteriorDoor)
+        {
+            goThroughTheDoor.gameObject.SetActive(false);
+        }
+        else
+        {
+            goThroughTheDoor.gameObject.SetActive(true);
+
+        }
 
         //print(exits);
     }

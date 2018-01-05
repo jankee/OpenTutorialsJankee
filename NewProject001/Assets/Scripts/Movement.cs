@@ -4,29 +4,19 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    Transform tr;
+    public float speed;
 
-    public float rSpeed;
+    // protected : 자식 외에는 접근을 불허함
+    protected Vector3 direction;
 
-    // Use this for initialization
-    void Start()
-    {
-        tr = GetComponent<Transform>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        bool LRot = Input.GetKey(KeyCode.Z);
-        bool RRot = Input.GetKey(KeyCode.X);
+        Move();
+    }
 
-        if (LRot && !RRot)
-        {
-            tr.Rotate(Vector3.forward * rSpeed * Time.deltaTime);
-        }
-        else if (!LRot && RRot)
-        {
-            tr.Rotate(Vector3.forward * -rSpeed * Time.deltaTime);
-        }
+    // 자식이 Move 메소드를 오버라이드할 수 있음 (virtual)
+    public virtual void Move()
+    {
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 }
