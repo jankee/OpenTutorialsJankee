@@ -4,10 +4,26 @@ using UnityEngine;
 
 public class Player : Character
 {
+    [SerializeField]
+    private Stat health;
+
+    [SerializeField]
+    private Stat mana;
+
+    //[SerializeField]
+    //private float healthValue;
+
+    private float initHealth = 100;
+
+    private float initMana = 50;
 
     // Use this for initialization
     protected override void Start()
     {
+        health.Initialize(initHealth, initHealth);
+
+        mana.Initialize(initMana, initMana);
+
         base.Start();
     }
 
@@ -22,6 +38,19 @@ public class Player : Character
     public void GetInput()
     {
         direction = Vector3.zero;
+
+        //THIS IS USED FOR DEBUGGING ONLY
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            health.MyCurrentValue -= 10;
+            mana.MyCurrentValue -= 10;
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            health.MyCurrentValue += 10;
+            mana.MyCurrentValue += 10;
+        }
+        //--------------------------------
 
         if (Input.GetKey(KeyCode.W))
         {

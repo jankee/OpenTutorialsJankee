@@ -28,14 +28,23 @@ public abstract class Character : MonoBehaviour
     {
         this.transform.Translate(direction * speed * Time.deltaTime);
 
-        AnimateMovement(direction);
+        if (direction.x != 0 || direction.z != 0)
+        {
+            AnimateMovement(direction);
+        }
+        else
+        {
+            animator.SetLayerWeight(1, 0);
+        }
     }
 
     public void AnimateMovement(Vector3 direction)
     {
         print(direction);
 
-        animator.SetFloat("X", direction.x);
+        animator.SetLayerWeight(1, 1);
 
+        animator.SetFloat("X", direction.x);
+        animator.SetFloat("Z", direction.z);
     }
 }
