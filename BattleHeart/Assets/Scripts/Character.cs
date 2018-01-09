@@ -7,44 +7,90 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    private Animator animator;
+    protected Animator myAnimator;
 
+    private Rigidbody myRigibody;
 
     protected Vector3 direction;
+
+    protected Coroutine attackRoutine;
+
+    public bool IsMoving
+    {
+        get
+        {
+            return direction.x != 0 || direction.z != 0;
+        }
+    }
+
+    protected bool IsAttacking = false;
 
     // Use this for initialization
     protected virtual void Start()
     {
-        animator = this.GetComponent<Animator>();
+        myRigibody = this.GetComponent<Rigidbody>();
+        myAnimator = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     protected virtual void Update()
+    {
+        HandleLayer();
+    }
+
+    private void FixedUpdate()
     {
         Move();
     }
 
     public void Move()
     {
-        this.transform.Translate(direction * speed * Time.deltaTime);
+        myRigibody.velocity = direction.normalized * speed;
+    }
 
-        if (direction.x != 0 || direction.z != 0)
+    public void HandleLayer()
+    {
+        if (IsMoving)
         {
-            AnimateMovement(direction);
+            ActivateLayer("WalkLayer");
+
+            myAnimator.SetFloat("X", direction.x);
+            myAnimator.SetFloat("Z", direction.z);
+
+            StopAttack();
+        }
+        else if (IsAttacking)
+        {
+            ActivateLayer("AttackLayer");
         }
         else
         {
-            animator.SetLayerWeight(1, 0);
-        }
+            ActivateLayer("IdleLayer");
+        }       
     }
 
-    public void AnimateMovement(Vector3 direction)
+    public void ActivateLayer(string layerName)
     {
-        print(direction);
+        for (int i = 0; i < myAnimator.layerCount; i++)
+        {
+            myAnimator.SetLayerWeight(i, 0);
+        }
 
-        animator.SetLayerWeight(1, 1);
+        myAnimator.SetLayerWeight(myAnimator.GetLayerIndex(layerName), 1);
+    }
 
-        animator.SetFloat("X", direction.x);
-        animator.SetFloat("Z", direction.z);
+    public void StopAttack()
+    {
+        IsAttacking = false;
+
+        myAnimator.SetBool("Attack", IsAttacking);
+
+        if (attackRoutine != null)
+        {
+            //자식의 코루틴을 접근하기 위해서
+            StopCoroutine(attackRoutine);
+
+            print("Attack Stoped");
+        }
     }
 }
