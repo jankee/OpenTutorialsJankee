@@ -33,8 +33,6 @@ public class Spell : MonoBehaviour
 
         float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
 
-        print(angle);
-
         this.transform.eulerAngles = new Vector3(0, angle, 0);
     }
 

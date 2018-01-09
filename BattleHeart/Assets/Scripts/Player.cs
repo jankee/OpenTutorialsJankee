@@ -26,7 +26,7 @@ public class Player : Character
 
     private float initMana = 50;
 
-    private Transform target;
+    public Transform MyTarget { get; set; }
 
     private int exitIndex;
 
@@ -37,7 +37,7 @@ public class Player : Character
 
         mana.Initialize(initMana, initMana);
 
-        target = GameObject.Find("Enemy").transform;
+        MyTarget = GameObject.Find("Enemy").transform;
 
         base.Start();
     }
@@ -46,8 +46,6 @@ public class Player : Character
     protected override void Update()
     {
         GetInput();
-
-        InLineOfSight();
 
         base.Update();
     }
@@ -71,29 +69,29 @@ public class Player : Character
 
         if (Input.GetKey(KeyCode.W))
         {
-            exitIndex = 0;
+            exitIndex = 1;
             direction += Vector3.forward;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            exitIndex = 1;
+            exitIndex = 3;
             direction += Vector3.left;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            exitIndex = 2;
+            exitIndex = 0;
             direction += Vector3.back;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            exitIndex = 3;
+            exitIndex = 2;
             direction += Vector3.right;
         }
         if (Input.GetKey(KeyCode.Space))
         {
             Block();
 
-            if (!IsAttacking && !IsMoving)
+            if (!IsAttacking && !IsMoving && InLineOfSight())
             {
                 attackRoutine = StartCoroutine(Attack());
             }
@@ -123,10 +121,22 @@ public class Player : Character
 
     private bool InLineOfSight()
     {
-        Vector3 targetDirection = (target.position - exitPoint.position).normalized;
+        Vector3 targetDirection = new Vector3(MyTarget.position.x, 0.5f, MyTarget.position.z);
+
+        float distance = Vector3.Distance(exitPoint.position, MyTarget.transform.position);
 
         Debug.DrawLine(exitPoint.position, targetDirection, Color.red);
 
+        RaycastHit hit; 
+            
+        Physics.Raycast(exitPoint.position, targetDirection, out hit, distance, 256);
+
+        if (hit.collider == null)
+        {
+            return true;
+        }
+
+        print(hit.collider.name);
         return false;
     }
 
@@ -136,6 +146,8 @@ public class Player : Character
         {
             b.Deactivate();
         }
+
+        print("인덱스 : " + exitIndex + ", Block : " + blocks.Length);
 
         blocks[exitIndex].Activate();
     }

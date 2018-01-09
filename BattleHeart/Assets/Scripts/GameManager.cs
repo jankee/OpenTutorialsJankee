@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private Player player;
+
+
+    //----------------------------------------------
     public AnimationCurve curve;
 
     private Camera _mainCamera = null;
@@ -28,6 +33,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        print(LayerMask.GetMask("Clickable"));
+        //=================================================================================
         if (Input.GetMouseButtonDown(0))
         {
             //빛에 맞은 충돌체
@@ -158,6 +165,16 @@ public class GameManager : MonoBehaviour
         Gizmos.color = Color.yellow;
 
         Gizmos.DrawLine(ray.origin, ray.direction * 100);
+    }
+
+    private void ClickTarget()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 512);
+
+        }
     }
 
 
