@@ -91,7 +91,7 @@ public class Player : Character
         {
             Block();
 
-            if (!IsAttacking && !IsMoving && InLineOfSight())
+            if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight())
             {
                 attackRoutine = StartCoroutine(Attack());
             }

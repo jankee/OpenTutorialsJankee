@@ -7,173 +7,197 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Player player;
 
+    //============================================================
+    //강사님이 가르쳐준 애니메이션 커브
+    //public AnimationCurve curve;
 
-    //----------------------------------------------
-    public AnimationCurve curve;
+    //private Camera _mainCamera = null;
+    //private bool _mouseState;
+    //private GameObject target;
 
-    private Camera _mainCamera = null;
-    private bool _mouseState;
-    private GameObject target;
+    //private Vector3 originPos;
 
-    private Vector3 originPos;
+    //private Vector3 movePos;
 
-    private Vector3 movePos;
+    //private Ray ray;
 
-    private Ray ray;
+    //private Color originColor;
 
-    private Color originColor;
+    //[SerializeField]
+    //private GameObject testObj;
 
-    [SerializeField]
-    private GameObject testObj;
+    //void Awake()
+    //{
+    //    _mainCamera = Camera.main;
+    //}
 
-    void Awake()
+    private void Start()
     {
-        _mainCamera = Camera.main;
     }
 
     void Update()
     {
-        print(LayerMask.GetMask("Clickable"));
         //=================================================================================
-        if (Input.GetMouseButtonDown(0))
-        {
-            //빛에 맞은 충돌체
-            RaycastHit hitInfo;
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    //빛에 맞은 충돌체
+        //    RaycastHit hitInfo;
 
-            //카메라에서 빛을 쏜다.
-            ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+        //    //카메라에서 빛을 쏜다.
+        //    ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
-            Physics.Raycast(ray.origin, ray.direction * 100, out hitInfo);
+        //    Physics.Raycast(ray.origin, ray.direction * 100, out hitInfo);
 
-            print(hitInfo.transform.tag);
+        //    print(hitInfo.transform.tag);
 
-            if (hitInfo.transform.tag == "Ground")
-            {
+        //    if (hitInfo.transform.tag == "Ground")
+        //    {
 
-                if(target != null)
-                {
+        //        if(target != null)
+        //        {
 
-                    target.transform.Find("Cube").GetComponent<MeshRenderer>().material.color = originColor;
-                    target = null;
-                }
-            }
+        //            target.transform.Find("Cube").GetComponent<MeshRenderer>().material.color = originColor;
+        //            target = null;
+        //        }
+        //    }
 
-            if (hitInfo.transform.tag == "Player")
-            {
-                _mouseState = true;
+        //    if (hitInfo.transform.tag == "Player")
+        //    {
+        //        _mouseState = true;
 
-                //만약 타겟이 있는지 없는지
-                if (target != null)
-                {
-                    //만약 선택된 타겟이 있다면 기존 컬러로 돌린다
-                    if (target.name != hitInfo.transform.name)
-                    {
-                        var t = target.transform.Find("Cube");
-                        var mr = t.GetComponent<MeshRenderer>();
-                        mr.material.color = originColor;
+        //        //만약 타겟이 있는지 없는지
+        //        if (target != null)
+        //        {
+        //            //만약 선택된 타겟이 있다면 기존 컬러로 돌린다
+        //            if (target.name != hitInfo.transform.name)
+        //            {
+        //                var t = target.transform.Find("Cube");
+        //                var mr = t.GetComponent<MeshRenderer>();
+        //                mr.material.color = originColor;
 
-                        target = hitInfo.collider.gameObject;
-                        target.transform.Find("Cube").GetComponent<MeshRenderer>().material.color = Color.yellow;
+        //                target = hitInfo.collider.gameObject;
+        //                target.transform.Find("Cube").GetComponent<MeshRenderer>().material.color = Color.yellow;
 
-                        //originPos에 위치를 저장
-                        //originPos = target.transform.position;
-                    }
+        //                //originPos에 위치를 저장
+        //                //originPos = target.transform.position;
+        //            }
 
-                }
-                else
-                {
-                    target = hitInfo.collider.gameObject;
+        //        }
+        //        else
+        //        {
+        //            target = hitInfo.collider.gameObject;
 
-                    Transform t = target.transform.Find("Cube");
-                    MeshRenderer mr = t.GetComponent<MeshRenderer>();
-                    //기존컬러를 저장
-                    originColor = mr.material.color;
-                    //선택 후 노란색으로 지정 
-                    mr.material.color = Color.yellow;
+        //            Transform t = target.transform.Find("Cube");
+        //            MeshRenderer mr = t.GetComponent<MeshRenderer>();
+        //            //기존컬러를 저장
+        //            originColor = mr.material.color;
+        //            //선택 후 노란색으로 지정 
+        //            mr.material.color = Color.yellow;
 
-                    //originPos에 위치를 저장
-                    //originPos = target.transform.position;
-                }
+        //            //originPos에 위치를 저장
+        //            //originPos = target.transform.position;
+        //        }
 
-                //originPos에 위치를 저장
-                originPos = target.transform.position;
+        //        //originPos에 위치를 저장
+        //        originPos = target.transform.position;
 
-            }
-            else if (hitInfo.transform.tag == "Enemy")
-            {
-                //공격 할 것
-            }
+        //    }
+        //    else if (hitInfo.transform.tag == "Enemy")
+        //    {
+        //        //공격 할 것
+        //    }
 
-            
-        }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            _mouseState = false;
+        //}
 
-            StopAllCoroutines();
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    _mouseState = false;
 
-            StartCoroutine(GetMoveObject(originPos, movePos, target));
+        //    StopAllCoroutines();
 
-        }
+        //    StartCoroutine(GetMoveObject(originPos, movePos, target));
 
-        if (_mouseState)
-        {
-            RaycastHit hit;
+        //}
 
-            ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+        //if (_mouseState)
+        //{
+        //    RaycastHit hit;
 
-            Physics.Raycast(ray.origin, ray.direction * 100, out hit);
-            
-            movePos = hit.point;
-        }
+        //    ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+
+        //    Physics.Raycast(ray.origin, ray.direction * 100, out hit);
+
+        //    movePos = hit.point;
+        //}
+        //=========================================================================
+
+        ClickTarget();
     }
 
-    IEnumerator GetMoveObject(Vector3 origin, Vector3 move, GameObject target)
-    {
+    //IEnumerator GetMoveObject(Vector3 origin, Vector3 move, GameObject target)
+    //{
 
-        Vector3 originVec = new Vector3(origin.x, 0, origin.z);
-        Vector3 moveVec = new Vector3(move.x, 0, move.z);
+    //    Vector3 originVec = new Vector3(origin.x, 0, origin.z);
+    //    Vector3 moveVec = new Vector3(move.x, 0, move.z);
 
-        float distance = Vector3.Distance(originVec, moveVec);
-        float finishTime = 0;
+    //    float distance = Vector3.Distance(originVec, moveVec);
+    //    float finishTime = 0;
 
-        print(originVec +" : " + moveVec + " : " + distance);
+    //    print(originVec +" : " + moveVec + " : " + distance);
 
-        //거리가 0.5이상 떨어져 있다면 움직인다
-        while (distance >= 0.5)
-        {
-            //캐릭터의 이동속도를 받아야 함
-            finishTime += 0.5f * Time.deltaTime;
+    //    //거리가 0.5이상 떨어져 있다면 움직인다
+    //    while (distance >= 0.5)
+    //    {
+    //        //캐릭터의 이동속도를 받아야 함
+    //        finishTime += 0.5f * Time.deltaTime;
 
-            var c = curve.Evaluate(finishTime);
+    //        var c = curve.Evaluate(finishTime);
 
-            target.transform.position = Vector3.MoveTowards(originVec, moveVec, c);
+    //        target.transform.position = Vector3.MoveTowards(originVec, moveVec, c);
 
-            originVec = target.transform.position;
+    //        originVec = target.transform.position;
 
-            distance = Vector3.Distance(originVec, moveVec);
+    //        distance = Vector3.Distance(originVec, moveVec);
 
-            yield return null;
+    //        yield return null;
 
-        }
-        yield return null;
-    }
+    //    }
+    //    yield return null;
+    //}
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.yellow;
 
-        Gizmos.DrawLine(ray.origin, ray.direction * 100);
-    }
+    //    Gizmos.DrawLine(ray.origin, ray.direction * 100);
+    //}
 
     private void ClickTarget()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            Ray mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 512);
+            RaycastHit hitInfo;
 
+            Debug.DrawLine(mousePos.origin, mousePos.origin + mousePos.direction * 100f, Color.yellow);
+            Debug.Log(mousePos);
+
+            if (Physics.Raycast(mousePos, out hitInfo, Mathf.Infinity, 512))
+            {
+                if (hitInfo.collider != null)
+                {
+                    print(hitInfo.collider.name);
+
+
+                    player.MyTarget = hitInfo.collider.transform;
+                }
+                else
+                {
+                    player.MyTarget = null;
+                }
+            }
         }
     }
 
