@@ -11,16 +11,12 @@ public class Player : Character
     private Stat mana;
 
     [SerializeField]
-    private GameObject[] spellPrefabs;
-
-    [SerializeField]
     private Block[] blocks;
 
     [SerializeField]
     private Transform exitPoint;
 
-    //[SerializeField]
-    //private float healthValue;
+    private SpellBook spellBook;
 
     private float initHealth = 100;
 
@@ -37,7 +33,7 @@ public class Player : Character
 
         mana.Initialize(initMana, initMana);
 
-        MyTarget = GameObject.Find("Enemy").transform;
+        spellBook = this.GetComponent<SpellBook>();
 
         base.Start();
     }
@@ -87,36 +83,35 @@ public class Player : Character
             exitIndex = 2;
             direction += Vector3.right;
         }
-        if (Input.GetKey(KeyCode.Space))
-        {
-            Block();
-
-            if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight())
-            {
-                attackRoutine = StartCoroutine(Attack());
-            }
-        }
-
     }
 
-    private IEnumerator Attack()
+    private IEnumerator Attack(int spellIndex)
     {
+
+        Spell newSpell = spellBook.CastSpell(spellIndex);
 
         IsAttacking = true;
 
         myAnimator.SetBool("Attack", true);
 
-        yield return new WaitForSeconds(0.8f);
-        print("Attackt Done");
+        yield return new WaitForSeconds(newSpell.MyCastTime);
 
-        CastSpell();
+        SpellScript spell = Instantiate(newSpell.MySpellPrefab, exitPoint.position, Quaternion.identity).GetComponent<SpellScript>();
+
+        spell.MyTarget = MyTarget;
 
         StopAttack();
     }
 
-    public void CastSpell()
+    public void CastSpell(int spellIndex)
     {
-        Instantiate(spellPrefabs[0], exitPoint.position, Quaternion.identity);
+        Block();
+
+        if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight())
+        {
+            attackRoutine = StartCoroutine(Attack(spellIndex));
+        }
+
     }
 
     private bool InLineOfSight()
@@ -150,5 +145,12 @@ public class Player : Character
         print("인덱스 : " + exitIndex + ", Block : " + blocks.Length);
 
         blocks[exitIndex].Activate();
+    }
+
+    public override void StopAttack()
+    {
+        spellBook.StopCasting();
+
+        base.StopAttack();
     }
 }

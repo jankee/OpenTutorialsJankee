@@ -1,40 +1,86 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 
-public class Spell : MonoBehaviour
+[Serializable]
+public class Spell
 {
-    private Rigidbody myRigibody;
+    [SerializeField]
+    private string name;
+
+    [SerializeField]
+    private int damage;
+
+    [SerializeField]
+    private Sprite icon;
 
     [SerializeField]
     private float speed;
 
-    private Transform target;
+    [SerializeField]
+    private float castTime;
 
-    // Use this for initialization
-    void Start()
+    [SerializeField]
+    private GameObject spellPrefab;
+
+    [SerializeField]
+    private Color barColor;
+
+    public string MyName
     {
-        myRigibody = this.GetComponent<Rigidbody>();
-
-        target = GameObject.Find("Enemy").transform;
+        get
+        {
+            return name;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public int MyDamage
     {
-
+        get
+        {
+            return damage;
+        }
     }
 
-    private void FixedUpdate()
+    public Sprite MyIcon
     {
-        Vector3 direction = target.position - transform.position;
-
-        myRigibody.velocity = direction.normalized * speed;
-
-        float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
-
-        this.transform.eulerAngles = new Vector3(0, angle, 0);
+        get
+        {
+            return icon;
+        }
     }
 
-    
+    public float MySpeed
+    {
+        get
+        {
+            return speed;
+        }
+    }
+
+    public float MyCastTime
+    {
+        get
+        {
+            return castTime;
+        }
+    }
+
+    public GameObject MySpellPrefab
+    {
+        get
+        {
+            return spellPrefab;
+        }
+    }
+
+    public Color MyBarColor
+    {
+        get
+        {
+            return barColor;
+        }
+    }
 }

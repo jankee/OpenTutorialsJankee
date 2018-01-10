@@ -65,13 +65,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4704506834424598}
   - component: {fileID: 212353830314063504}
-  m_Layer: 0
+  - component: {fileID: 65996916017391904}
+  m_Layer: 8
   m_Name: BottomRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1153624906005668
 GameObject:
   m_ObjectHideFlags: 1
@@ -99,8 +100,9 @@ GameObject:
   - component: {fileID: 4589254839415512}
   - component: {fileID: 65684364098921900}
   - component: {fileID: 95835541818190018}
-  - component: {fileID: 114081653688144182}
   - component: {fileID: 54818911557362754}
+  - component: {fileID: 114081653688144182}
+  - component: {fileID: 114230358639332440}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -117,13 +119,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4531027779066598}
   - component: {fileID: 212540390464773124}
-  m_Layer: 0
+  - component: {fileID: 65584267660875254}
+  m_Layer: 8
   m_Name: TopLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1579402205690472
 GameObject:
   m_ObjectHideFlags: 1
@@ -201,13 +204,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4883400295827366}
   - component: {fileID: 212074812912273440}
-  m_Layer: 0
+  - component: {fileID: 65541699196821908}
+  m_Layer: 8
   m_Name: TopRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1817050791180312
 GameObject:
   m_ObjectHideFlags: 1
@@ -217,13 +221,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4134081970280044}
   - component: {fileID: 212533315397089406}
-  m_Layer: 0
+  - component: {fileID: 65819341251508896}
+  m_Layer: 8
   m_Name: BottomLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1863645369668408
 GameObject:
   m_ObjectHideFlags: 1
@@ -287,7 +292,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1901817673937140}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.058, y: 1.2, z: 0.427}
+  m_LocalPosition: {x: -0.058, y: 1, z: 0.427}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4883400295827366}
@@ -666,6 +671,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65541699196821908
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1785567750843448}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 4.0000043, z: 0.20000039}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65584267660875254
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1550176953251040}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 4.0000043, z: 0.20000039}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65684364098921900
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -678,6 +707,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!65 &65819341251508896
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1817050791180312}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 4.0000043, z: 0.20000039}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65996916017391904
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1116401302628308}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 4.0000043, z: 0.20000039}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95835541818190018
 Animator:
   serializedVersion: 3
@@ -709,11 +762,6 @@ MonoBehaviour:
   speed: 5
   health: {fileID: 0}
   mana: {fileID: 0}
-  spellPrefabs:
-  - {fileID: 1938750000505960, guid: f287c0ef167884744a828937ed136ee9, type: 2}
-  - {fileID: 1976733651188184, guid: 959ac3d6252b91d4ea9d8feaae94d12e, type: 2}
-  - {fileID: 1902166046666730, guid: 6911a75e86644274aacc852cc2a92e26, type: 2}
-  - {fileID: 1176597337697150, guid: c95fa2726f12db54c998c8fb75142aea, type: 2}
   blocks:
   - first: {fileID: 1785567750843448}
     second: {fileID: 1550176953251040}
@@ -724,6 +772,47 @@ MonoBehaviour:
   - first: {fileID: 1785567750843448}
     second: {fileID: 1116401302628308}
   exitPoint: {fileID: 4545403726590664}
+--- !u!114 &114230358639332440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167856677623204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 867e7aaa901a5b840a16f11fa9809ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castingBar: {fileID: 0}
+  spellName: {fileID: 0}
+  icon: {fileID: 0}
+  castTime: {fileID: 0}
+  spells:
+  - name: FireBall
+    damage: 2
+    icon: {fileID: 21300000, guid: ca936be2073a9e44f951ad1cf12680fd, type: 3}
+    speed: 10
+    castTime: 0.8
+    spellPrefab: {fileID: 1938750000505960, guid: f287c0ef167884744a828937ed136ee9,
+      type: 2}
+    barColor: {r: 1, g: 0, b: 0, a: 1}
+  - name: FrostBall
+    damage: 5
+    icon: {fileID: 21300000, guid: b33686e3386b5ec479d5ad5aec3949ed, type: 3}
+    speed: 10
+    castTime: 1.3
+    spellPrefab: {fileID: 1976733651188184, guid: 959ac3d6252b91d4ea9d8feaae94d12e,
+      type: 2}
+    barColor: {r: 0, g: 0.5448277, b: 1, a: 1}
+  - name: ThunderBall
+    damage: 7
+    icon: {fileID: 21300000, guid: 9b80f4827671b494f8626a5ef0acb462, type: 3}
+    speed: 10
+    castTime: 1.5
+    spellPrefab: {fileID: 1176597337697150, guid: c95fa2726f12db54c998c8fb75142aea,
+      type: 2}
+    barColor: {r: 1, g: 1, b: 1, a: 1}
+  canvasGroup: {fileID: 0}
 --- !u!212 &212074812912273440
 SpriteRenderer:
   m_ObjectHideFlags: 1

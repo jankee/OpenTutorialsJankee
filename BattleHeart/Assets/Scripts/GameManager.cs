@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -175,23 +176,22 @@ public class GameManager : MonoBehaviour
 
     private void ClickTarget()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hitInfo;
 
             Debug.DrawLine(mousePos.origin, mousePos.origin + mousePos.direction * 100f, Color.yellow);
-            Debug.Log(mousePos);
 
             if (Physics.Raycast(mousePos, out hitInfo, Mathf.Infinity, 512))
             {
                 if (hitInfo.collider != null)
                 {
-                    print(hitInfo.collider.name);
-
-
-                    player.MyTarget = hitInfo.collider.transform;
+                    if(hitInfo.collider.tag == "Enemy")
+                    {
+                        player.MyTarget = hitInfo.transform.GetChild(0);
+                    }
                 }
                 else
                 {
