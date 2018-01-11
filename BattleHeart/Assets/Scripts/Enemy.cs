@@ -18,23 +18,18 @@ public class Enemy : NPC
 
     public override void Deselect()
     {
-        healthCanvas.alpha = 0;
+        if (healthCanvas != null)
+        {
+            healthCanvas.alpha = 0;
 
-        this.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-
+            this.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+        }
         base.Deselect();
     }
 
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-
-        if (health.MyCurrentValue <= 0)
-        {
-            //this.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-
-            myAnimator.SetTrigger("Die");
-        }
 
         OnHealthChanged(health.MyCurrentValue);
     }

@@ -9,7 +9,9 @@ public class DeathBehaviour : StateMachineBehaviour {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Destroy(animator.transform.GetChild(0).GetChild(0).gameObject);
+        Destroy(animator.transform.GetChild(0).GetChild(0).GetComponent<Collider>());
+        Destroy(animator.transform.GetChild(0).GetChild(1).gameObject);
+        Destroy(animator.transform.GetChild(0).GetChild(2).gameObject);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -19,7 +21,7 @@ public class DeathBehaviour : StateMachineBehaviour {
 
         if (timePassed >= 5)
         {
-            Destroy(animator.gameObject);
+            animator.GetComponent<NPC>().OnCharacterRemoved();
         }
     }
 

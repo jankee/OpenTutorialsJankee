@@ -29,7 +29,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject targetFrame;
 
-    
+    [SerializeField]
+    private Image portraitFrame;
 
     // Use this for initialization
     void Start()
@@ -67,11 +68,13 @@ public class UIManager : MonoBehaviour
     {
         targetFrame.SetActive(true);
 
-        print(target.transform.name);
-
         healthStat.Initialize(target.MyHealth.MyCurrentValue, target.MyHealth.MyMaxValue);
 
+        portraitFrame.sprite = target.MyPortrait;
+
         target.healthChanged += new HealthChanged(UpdateTatgetFrame);
+
+        target.characterRemoved += new CharacterRemove(HideTargetFrame);
     }
 
     public void HideTargetFrame()

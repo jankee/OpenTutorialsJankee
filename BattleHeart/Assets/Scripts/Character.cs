@@ -42,8 +42,6 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    
-
     protected bool IsAttacking = false;
 
     // Use this for initialization
@@ -121,6 +119,9 @@ public abstract class Character : MonoBehaviour
     {
         health.MyCurrentValue -= damage;
 
-        
+        if (health.MyCurrentValue <= 0)
+        {
+            myAnimator.SetTrigger("Die");
+        }
     }
 }

@@ -66,8 +66,15 @@ public class Stat : MonoBehaviour
 
     public virtual void Initialize(float currentValue, float maxValue)
     {
+        if (content == null)
+        {
+            content = this.GetComponent<Image>();
+        }
+
         MyMaxValue = maxValue;
 
         MyCurrentValue = currentValue;
+
+        content.fillAmount = MyCurrentValue / MyMaxValue;
     }
 }
