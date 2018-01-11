@@ -42,7 +42,10 @@ public class Stat : MonoBehaviour
             }
             currentFill = currentValue / MyMaxValue;
 
-            statValue.text = currentValue + " / " + MyMaxValue;
+            if (statValue != null )
+            {
+                statValue.text = currentValue + " / " + MyMaxValue;
+            }
         }
     }
 

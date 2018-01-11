@@ -8,6 +8,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Player player;
 
+    private Dictionary<string, GameObject> enemyDic;
+
+    private GameObject enemyTarget = null;
+
+    private NPC currentTarget;
+
     //============================================================
     //강사님이 가르쳐준 애니메이션 커브
     //public AnimationCurve curve;
@@ -34,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        enemyDic = new Dictionary<string, GameObject>();
     }
 
     void Update()
@@ -186,20 +193,59 @@ public class GameManager : MonoBehaviour
 
             if (Physics.Raycast(mousePos, out hitInfo, Mathf.Infinity, 512))
             {
-                if (hitInfo.collider != null)
+                if (hitInfo.collider.tag == "Enemy" /*&& enemyTarget == null*/)
                 {
-                    if(hitInfo.collider.tag == "Enemy")
+                    if (currentTarget != null)
                     {
-                        player.MyTarget = hitInfo.transform.GetChild(0);
+                        currentTarget.Deselect();
                     }
+
+                    currentTarget = hitInfo.collider.GetComponent<NPC>();
+
+                    player.MyTarget = currentTarget.Select();
+
+                    UIManager.MyInstance.ShowTargetFrame(currentTarget);
+
+                    //GetEnemy(hitInfo);
                 }
                 else
                 {
+                    UIManager.MyInstance.HideTargetFrame();
+
+                    if (currentTarget != null)
+                    {
+                        currentTarget.Deselect();
+                    }
+
+                    currentTarget = null;
                     player.MyTarget = null;
                 }
+
+                //else if (hitInfo.collider != null && enemyTarget != null)
+                //{
+                //    enemyTarget.transform.GetChild(1).gameObject.SetActive(false);
+
+                //    GetEnemy(hitInfo);
+                //}
+                //else
+                //{
+                //    player.MyTarget = null;
+
+                //    enemyTarget = null;
+                //}
             }
         }
     }
 
+    private void GetEnemy(RaycastHit hitInfo)
+    {
+        if (hitInfo.collider.tag == "Enemy")
+        {
+            enemyTarget = hitInfo.collider.gameObject;
 
+            player.MyTarget = hitInfo.transform.GetChild(0);
+
+            hitInfo.transform.GetChild(1).gameObject.SetActive(true);
+        }
+    }
 }

@@ -23,8 +23,9 @@ public class SpellBook : MonoBehaviour
     [SerializeField]
     private CanvasGroup canvasGroup;
 
-    [SerializeField]
     private Coroutine spellRoutine;
+
+    private Coroutine fadeRoutine;
 
     // Use this for initialization
     void Start()
@@ -48,8 +49,8 @@ public class SpellBook : MonoBehaviour
 
         spellRoutine = StartCoroutine(Progress(index));
 
-        StartCoroutine(FadeBar());
-
+        //코루틴 저장
+        fadeRoutine = StartCoroutine(FadeBar());
         castTime.text = spells[index].MyCastTime.ToString();
 
         return spells[index];
@@ -114,6 +115,15 @@ public class SpellBook : MonoBehaviour
 
     public void StopCasting()
     {
+        if (fadeRoutine != null)
+        {
+            StopCoroutine(fadeRoutine);
+
+            canvasGroup.alpha = 0;
+
+            fadeRoutine = null;
+        }
+
         if (spellRoutine != null)
         {
             StopCoroutine(spellRoutine);

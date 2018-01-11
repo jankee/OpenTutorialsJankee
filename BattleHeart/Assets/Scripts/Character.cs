@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Animator))]
 public abstract class Character : MonoBehaviour
 {
     [SerializeField]
@@ -15,6 +17,23 @@ public abstract class Character : MonoBehaviour
 
     protected Coroutine attackRoutine;
 
+    [SerializeField]
+    protected Transform hitBox;
+
+    [SerializeField]
+    protected Stat health;
+
+    public Stat MyHealth
+    {
+        get
+        {
+            return health;
+        }
+    }
+
+    [SerializeField]
+    private float initHealth = 100;
+
     public bool IsMoving
     {
         get
@@ -23,11 +42,15 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    
+
     protected bool IsAttacking = false;
 
     // Use this for initialization
     protected virtual void Start()
     {
+        health.Initialize(initHealth, initHealth);
+
         myRigibody = this.GetComponent<Rigidbody>();
         myAnimator = this.GetComponent<Animator>();
     }
@@ -92,5 +115,12 @@ public abstract class Character : MonoBehaviour
 
             print("Attack Stoped");
         }
+    }
+
+    public virtual void TakeDamage(float damage)
+    {
+        health.MyCurrentValue -= damage;
+
+        
     }
 }

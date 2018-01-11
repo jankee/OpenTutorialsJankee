@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField]
-    private Stat health;
+    //[SerializeField]
+    //private Stat health;
 
     [SerializeField]
     private Stat mana;
@@ -18,7 +18,7 @@ public class Player : Character
 
     private SpellBook spellBook;
 
-    private float initHealth = 100;
+    
 
     private float initMana = 50;
 
@@ -29,7 +29,7 @@ public class Player : Character
     // Use this for initialization
     protected override void Start()
     {
-        health.Initialize(initHealth, initHealth);
+        
 
         mana.Initialize(initMana, initMana);
 
@@ -87,6 +87,7 @@ public class Player : Character
 
     private IEnumerator Attack(int spellIndex)
     {
+        Transform currentTarget = MyTarget;
 
         Spell newSpell = spellBook.CastSpell(spellIndex);
 
@@ -96,9 +97,12 @@ public class Player : Character
 
         yield return new WaitForSeconds(newSpell.MyCastTime);
 
-        SpellScript spell = Instantiate(newSpell.MySpellPrefab, exitPoint.position, Quaternion.identity).GetComponent<SpellScript>();
+        if (currentTarget != null && InLineOfSight())
+        {
+            SpellScript spell = Instantiate(newSpell.MySpellPrefab, exitPoint.position, Quaternion.identity).GetComponent<SpellScript>();
 
-        spell.MyTarget = MyTarget;
+            spell.Initialize(currentTarget, newSpell.MyDamage);
+        }
 
         StopAttack();
     }
@@ -114,24 +118,26 @@ public class Player : Character
 
     }
 
+    //눈앞에 적을 찾는다
     private bool InLineOfSight()
     {
-        Vector3 targetDirection = new Vector3(MyTarget.position.x, 0.5f, MyTarget.position.z);
-
-        float distance = Vector3.Distance(exitPoint.position, MyTarget.transform.position);
-
-        Debug.DrawLine(exitPoint.position, targetDirection, Color.red);
-
-        RaycastHit hit; 
-            
-        Physics.Raycast(exitPoint.position, targetDirection, out hit, distance, 256);
-
-        if (hit.collider == null)
+        if (MyTarget != null)
         {
-            return true;
-        }
+            Vector3 targetDirection = new Vector3(MyTarget.position.x, 0.5f, MyTarget.position.z);
 
-        print(hit.collider.name);
+            float distance = Vector3.Distance(exitPoint.position, MyTarget.position);
+
+            Debug.DrawLine(exitPoint.position, targetDirection, Color.red);
+
+            RaycastHit hit;
+
+            Physics.Raycast(exitPoint.position, targetDirection, out hit, distance, 256);
+
+            if (hit.collider == null)
+            {
+                return true;
+            }
+        }
         return false;
     }
 
