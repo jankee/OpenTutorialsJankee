@@ -5,14 +5,43 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager instance;
+
+    public static GameManager MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+            }
+            return instance;
+        }
+    }
+
     [SerializeField]
     private Player player;
 
-    private Dictionary<string, GameObject> enemyDic;
+    public Player MyPlayer
+    {
+        get
+        {
+            return player;
+        }
+
+        set
+        {
+            player = value;
+        }
+    }
+
+    //private Dictionary<string, GameObject> enemyDic;
 
     private GameObject enemyTarget = null;
 
     private NPC currentTarget;
+
+    
 
     //============================================================
     //강사님이 가르쳐준 애니메이션 커브
@@ -40,7 +69,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        enemyDic = new Dictionary<string, GameObject>();
+        //enemyDic = new Dictionary<string, GameObject>();
     }
 
     void Update()
@@ -202,7 +231,7 @@ public class GameManager : MonoBehaviour
 
                     currentTarget = hitInfo.collider.GetComponent<NPC>();
 
-                    player.MyTarget = currentTarget.Select();
+                    MyPlayer.MyTarget = currentTarget.Select();
 
                     UIManager.MyInstance.ShowTargetFrame(currentTarget);
 
@@ -218,7 +247,7 @@ public class GameManager : MonoBehaviour
                     }
 
                     currentTarget = null;
-                    player.MyTarget = null;
+                    MyPlayer.MyTarget = null;
                 }
 
                 //else if (hitInfo.collider != null && enemyTarget != null)
@@ -243,7 +272,7 @@ public class GameManager : MonoBehaviour
         {
             enemyTarget = hitInfo.collider.gameObject;
 
-            player.MyTarget = hitInfo.transform.GetChild(0);
+            MyPlayer.MyTarget = hitInfo.transform.GetChild(0);
 
             hitInfo.transform.GetChild(1).gameObject.SetActive(true);
         }

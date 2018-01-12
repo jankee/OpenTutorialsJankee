@@ -9,6 +9,8 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private float speed;
 
+    private Player player;
+
     protected Animator myAnimator;
 
     private Rigidbody myRigibody;
@@ -119,9 +121,13 @@ public abstract class Character : MonoBehaviour
     {
         health.MyCurrentValue -= damage;
 
+        print(GameManager.MyInstance.MyPlayer.MyTarget.name);
+
         if (health.MyCurrentValue <= 0)
         {
             myAnimator.SetTrigger("Die");
+
+            GameManager.MyInstance.MyPlayer.MyTarget = null;
         }
     }
 }
