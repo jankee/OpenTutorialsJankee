@@ -18,7 +18,7 @@ public class Player : Character
 
     private SpellBook spellBook;
 
-    
+    private Vector3 min, max;
 
     private float initMana = 50;
 
@@ -42,6 +42,8 @@ public class Player : Character
     protected override void Update()
     {
         GetInput();
+
+        //this.transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), transform.position.y, Mathf.Clamp(transform.position.z, min.z, max.z));
 
         base.Update();
     }
@@ -83,6 +85,12 @@ public class Player : Character
             exitIndex = 2;
             direction += Vector3.right;
         }
+    }
+
+    public void SetLimits(Vector3 min, Vector3 max)
+    {
+        this.min = min;
+        this.max = max;
     }
 
     private IEnumerator Attack(int spellIndex)

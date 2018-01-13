@@ -52,8 +52,6 @@ public class LevelManager : MonoBehaviour
                 {
                     Color colorData = mapData[i].GetPixel(x, y);
 
-                    print(colorData);
-
                     MapElement newElement = Array.Find(mapElements, e => e.MyColor == colorData);
 
                     if (newElement != null)
