@@ -100,7 +100,7 @@ public class Enemy : NPC
 
     public void SetTarget(Transform target)
     {
-        if (MyTarget == null)
+        if (MyTarget == null && !(currentState is EvadeState))
         {
             float distance = Vector3.Distance(this.transform.position, target.position);
 
