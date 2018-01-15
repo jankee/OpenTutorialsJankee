@@ -8,6 +8,8 @@ public class SpellScript : MonoBehaviour
 
     private Animator myAnimator;
 
+    private Transform source;
+
     [SerializeField]
     private float speed;
 
@@ -23,10 +25,11 @@ public class SpellScript : MonoBehaviour
         myAnimator = this.GetComponent<Animator>();
     }
 
-    public void Initialize(Transform target, float damage)
+    public void Initialize(Transform target, float damage, Transform source)
     {
         this.MyTarget = target;
         this.damage = damage;
+        this.source = source;
     }
 
     // Update is called once per frame
@@ -52,9 +55,13 @@ public class SpellScript : MonoBehaviour
     {
         if (other.tag == "HitBox" && other.transform == MyTarget)
         {
+            Character cha = other.GetComponentInParent<Character>();
+
             speed = 0;
 
-            other.GetComponentInParent<Enemy>().TakeDamage(damage);
+            cha.TakeDamage(damage, source);
+
+            //other.GetComponentInParent<Enemy>().TakeDamage(damage);
 
             myAnimator.SetTrigger("Effect");
 

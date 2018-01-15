@@ -7,15 +7,42 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     [SerializeField]
-    protected float speed;
+    private float speed;
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
+
+        set
+        {
+            speed = value;
+        }
+    }
 
     private Player player;
 
-    protected Animator myAnimator;
+    //protected Animator myAnimator;
+
+    public Animator MyAnimator { get; set; }
 
     private Rigidbody myRigibody;
 
-    protected Vector3 direction;
+    private Vector3 direction;
+
+    public Vector3 Direction
+    {
+        get
+        {
+            return direction;
+        }
+
+        set
+        {
+            direction = value;
+        }
+    }
 
     protected Coroutine attackRoutine;
 
@@ -33,6 +60,16 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    public bool IsAlive
+    {
+        get
+        {
+            return health.MyCurrentValue > 0;
+        }
+    }
+
+    public Transform MyTarget { get; set; }
+
     [SerializeField]
     private float initHealth = 100;
 
@@ -40,11 +77,11 @@ public abstract class Character : MonoBehaviour
     {
         get
         {
-            return direction.x != 0 || direction.z != 0;
+            return Direction.x != 0 || Direction.z != 0;
         }
     }
 
-    protected bool IsAttacking = false;
+    public bool IsAttacking { get; set; }
 
     // Use this for initialization
     protected virtual void Start()
@@ -52,7 +89,7 @@ public abstract class Character : MonoBehaviour
         health.Initialize(initHealth, initHealth);
 
         myRigibody = this.GetComponent<Rigidbody>();
-        myAnimator = this.GetComponent<Animator>();
+        MyAnimator = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -68,64 +105,80 @@ public abstract class Character : MonoBehaviour
 
     public void Move()
     {
-        myRigibody.velocity = direction.normalized * speed;
+        if (IsAlive)
+        {
+            myRigibody.velocity = Direction.normalized * Speed;
+        }
+
     }
 
     public void HandleLayer()
     {
-        if (IsMoving)
+        if (IsAlive)
         {
-            ActivateLayer("WalkLayer");
+            if (IsMoving)
+            {
+                ActivateLayer("WalkLayer");
 
-            myAnimator.SetFloat("X", direction.x);
-            myAnimator.SetFloat("Z", direction.z);
-
-            StopAttack();
-        }
-        else if (IsAttacking)
-        {
-            ActivateLayer("AttackLayer");
+                MyAnimator.SetFloat("X", Direction.x);
+                MyAnimator.SetFloat("Z", Direction.z);
+            }
+            else if (IsAttacking)
+            {
+                ActivateLayer("AttackLayer");
+            }
+            else
+            {
+                ActivateLayer("IdleLayer");
+            }
         }
         else
         {
-            ActivateLayer("IdleLayer");
-        }       
+            ActivateLayer("DeathLayer");
+        }
     }
 
     public void ActivateLayer(string layerName)
     {
-        for (int i = 0; i < myAnimator.layerCount; i++)
+        for (int i = 0; i < MyAnimator.layerCount; i++)
         {
-            myAnimator.SetLayerWeight(i, 0);
+            MyAnimator.SetLayerWeight(i, 0);
         }
 
-        myAnimator.SetLayerWeight(myAnimator.GetLayerIndex(layerName), 1);
+        MyAnimator.SetLayerWeight(MyAnimator.GetLayerIndex(layerName), 1);
     }
 
-    public virtual void StopAttack()
+    //public virtual void StopAttack()
+    //{
+    //    IsAttacking = false;
+
+    //    myAnimator.SetBool("Attack", IsAttacking);
+
+    //    if (attackRoutine != null)
+    //    {
+    //        //자식의 코루틴을 접근하기 위해서
+    //        StopCoroutine(attackRoutine);
+
+    //        print("Attack Stoped");
+    //    }
+    //}
+
+    public virtual void TakeDamage(float damage, Transform source)
     {
-        IsAttacking = false;
-
-        myAnimator.SetBool("Attack", IsAttacking);
-
-        if (attackRoutine != null)
-        {
-            //자식의 코루틴을 접근하기 위해서
-            StopCoroutine(attackRoutine);
-
-            print("Attack Stoped");
-        }
-    }
-
-    public virtual void TakeDamage(float damage)
-    {
+        //if (MyTarget == null)
+        //{
+        //    MyTarget = source;
+        //}
+         
         health.MyCurrentValue -= damage;
-
-        print(GameManager.MyInstance.MyPlayer.MyTarget.name);
 
         if (health.MyCurrentValue <= 0)
         {
-            myAnimator.SetTrigger("Die");
+            Vector3 direction = Vector3.zero;
+
+            myRigibody.velocity = direction;
+
+            MyAnimator.SetTrigger("Die");
 
             GameManager.MyInstance.MyPlayer.MyTarget = null;
         }

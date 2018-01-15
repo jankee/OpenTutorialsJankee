@@ -15,15 +15,8 @@ public class Range : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            parent.Target = other.transform;
+            parent.SetTarget(other.transform);
         }
     }
 
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            parent.Target = null;
-        }
-    }
 }

@@ -7,24 +7,49 @@ public class Enemy : NPC
     [SerializeField]
     private CanvasGroup healthCanvas;
 
-    private Transform target;
+    private IState currentState;
 
-    public Transform Target
+    public float MyAttackRange { get; set; }
+
+    public float MyAttackTime { get; set; }
+
+    public Vector3 MyStartPosition { get; set; }
+
+    [SerializeField]
+    private float initAggroRange;
+
+    public float MyAggroRange { get; set; }
+
+    public bool InRange
     {
         get
         {
-            return target;
+            return Vector3.Distance(this.transform.position, MyTarget.position) < MyAggroRange;
         }
+    }
 
-        set
-        {
-            target = value;
-        }
+    protected void Awake()
+    {
+        MyStartPosition = this.transform.position;
+
+        MyAggroRange = initAggroRange;
+
+        MyAttackRange = 2f;
+
+        ChangeState(new IdleState());
     }
 
     protected override void Update()
     {
-        FollowTarget();
+        if (IsAlive)
+        {
+            if (!IsAttacking)
+            {
+                MyAttackTime += Time.deltaTime;
+            }
+
+            currentState.Update();
+        }
 
         base.Update();
     }
@@ -49,24 +74,52 @@ public class Enemy : NPC
         base.Deselect();
     }
 
-    public override void TakeDamage(float damage)
+    public override void TakeDamage(float damage, Transform source)
     {
-        base.TakeDamage(damage);
+        if (!(currentState is EvadeState))
+        {
+            SetTarget(source);
 
-        OnHealthChanged(health.MyCurrentValue);
+            base.TakeDamage(damage, source);
+
+            OnHealthChanged(health.MyCurrentValue);
+        }
     }
 
-    private void FollowTarget()
+    public void ChangeState(IState newState)
     {
-        if (target != null)
+        if (currentState != null)
         {
-            direction = (target.transform.position - this.transform.position).normalized;
+            currentState.Exit();
+        }
 
-            this.transform.position = Vector3.MoveTowards(this.transform.position, target.position, speed * Time.deltaTime);
-        }
-        else
+        currentState = newState;
+
+        currentState.Enter(this);
+    }
+
+    public void SetTarget(Transform target)
+    {
+        if (MyTarget == null)
         {
-            direction = Vector3.zero;
+            float distance = Vector3.Distance(this.transform.position, target.position);
+
+            MyAggroRange = initAggroRange;
+
+            MyAggroRange += distance;
+
+            MyTarget = target;
         }
+    }
+
+    public void Reset()
+    {
+        this.MyTarget = null;
+
+        this.MyAggroRange = initAggroRange;
+
+        this.MyHealth.MyCurrentValue = MyHealth.MyMaxValue;
+
+        OnHealthChanged(health.MyCurrentValue);
     }
 }

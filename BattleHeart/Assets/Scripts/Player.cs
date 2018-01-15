@@ -50,7 +50,7 @@ public class Player : Character
 
     public void GetInput()
     {
-        direction = Vector3.zero;
+        Direction = Vector3.zero;
 
         //THIS IS USED FOR DEBUGGING ONLY
         if (Input.GetKeyDown(KeyCode.I))
@@ -68,23 +68,28 @@ public class Player : Character
         if (Input.GetKey(KeyCode.W))
         {
             exitIndex = 1;
-            direction += Vector3.forward;
+            Direction += Vector3.forward;
         }
         if (Input.GetKey(KeyCode.A))
         {
             exitIndex = 3;
-            direction += Vector3.left;
+            Direction += Vector3.left;
         }
         if (Input.GetKey(KeyCode.S))
         {
             exitIndex = 0;
-            direction += Vector3.back;
+            Direction += Vector3.back;
         }
         if (Input.GetKey(KeyCode.D))
         {
             exitIndex = 2;
-            direction += Vector3.right;
+            Direction += Vector3.right;
         }
+        if (IsMoving)
+        {
+            StopAttack();
+        }
+
     }
 
     public void SetLimits(Vector3 min, Vector3 max)
@@ -101,7 +106,7 @@ public class Player : Character
 
         IsAttacking = true;
 
-        myAnimator.SetBool("Attack", true);
+        MyAnimator.SetBool("Attack", true);
 
         yield return new WaitForSeconds(newSpell.MyCastTime);
 
@@ -109,7 +114,7 @@ public class Player : Character
         {
             SpellScript spell = Instantiate(newSpell.MySpellPrefab, exitPoint.position, Quaternion.identity).GetComponent<SpellScript>();
 
-            spell.Initialize(currentTarget, newSpell.MyDamage);
+            spell.Initialize(currentTarget, newSpell.MyDamage, this.transform);
         }
 
         StopAttack();
@@ -119,7 +124,7 @@ public class Player : Character
     {
         Block();
 
-        if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight())
+        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving && InLineOfSight())
         {
             attackRoutine = StartCoroutine(Attack(spellIndex));
         }
@@ -161,10 +166,17 @@ public class Player : Character
         blocks[exitIndex].Activate();
     }
 
-    public override void StopAttack()
+    public void StopAttack()
     {
         spellBook.StopCasting();
 
-        base.StopAttack();
+        IsAttacking = false;
+
+        MyAnimator.SetBool("Attack", false);
+
+        if (attackRoutine != null)
+        {
+            StopCoroutine(attackRoutine);
+        }
     }
 }

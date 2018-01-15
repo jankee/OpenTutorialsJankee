@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0cb8d6377e3dd4ab00f5940f065f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 1
   hitBox: {fileID: 1444964714}
   health: {fileID: 198262708}
   initHealth: 25
@@ -2272,6 +2272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1242851566}
   - component: {fileID: 1242851568}
+  - component: {fileID: 1242851567}
   m_Layer: 9
   m_Name: Range
   m_TagString: Untagged
@@ -2293,6 +2294,18 @@ Transform:
   m_Father: {fileID: 265696217}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1242851567
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1242851565}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1242851568
 MonoBehaviour:
   m_ObjectHideFlags: 0
