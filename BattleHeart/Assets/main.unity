@@ -264,19 +264,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: de786da9ca81d3f44b826e1253bf9ede, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -284,7 +284,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &17190354
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -834,7 +834,7 @@ GameObject:
   - component: {fileID: 242164630}
   - component: {fileID: 242164629}
   m_Layer: 5
-  m_Name: Down
+  m_Name: Parent_DOWN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1290,19 +1290,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: de786da9ca81d3f44b826e1253bf9ede, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -1310,7 +1310,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &370777995
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1543,6 +1543,7 @@ Transform:
   - {fileID: 1909379732}
   - {fileID: 1363841417}
   - {fileID: 394538442}
+  - {fileID: 1640806124}
   - {fileID: 2069291492}
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -1561,7 +1562,7 @@ GameObject:
   - component: {fileID: 440619376}
   - component: {fileID: 440619375}
   m_Layer: 5
-  m_Name: Right
+  m_Name: Parent_RIGHT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2044,6 +2045,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114230358639332440, guid: 4dc65f2fce2608e4b9da49169ea7d5ca,
+        type: 2}
+      propertyPath: castingBar
+      value: 
+      objectReference: {fileID: 39558419}
+    - target: {fileID: 114230358639332440, guid: 4dc65f2fce2608e4b9da49169ea7d5ca,
+        type: 2}
+      propertyPath: spellName
+      value: 
+      objectReference: {fileID: 1867278790}
+    - target: {fileID: 114230358639332440, guid: 4dc65f2fce2608e4b9da49169ea7d5ca,
+        type: 2}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 2138120777}
+    - target: {fileID: 114230358639332440, guid: 4dc65f2fce2608e4b9da49169ea7d5ca,
+        type: 2}
+      propertyPath: castTime
+      value: 
+      objectReference: {fileID: 1658464243}
     - target: {fileID: 114130497144691720, guid: 4dc65f2fce2608e4b9da49169ea7d5ca,
         type: 2}
       propertyPath: onTouch.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2109,19 +2130,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: de786da9ca81d3f44b826e1253bf9ede, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2129,7 +2150,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &647835163
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2150,7 +2171,7 @@ GameObject:
   - component: {fileID: 651549593}
   - component: {fileID: 651549592}
   m_Layer: 5
-  m_Name: Left
+  m_Name: Parent_LEFT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2415,19 +2436,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: de786da9ca81d3f44b826e1253bf9ede, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2435,7 +2456,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &670268469
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2545,63 +2566,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 713160663}
---- !u!1001 &779770854
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 6.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.86
-      objectReference: {fileID: 0}
-    - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0.81842923
-      objectReference: {fileID: 0}
-    - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.5746074
-      objectReference: {fileID: 0}
-    - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114130497144691720, guid: f1af50925fe9d324f849cc36e20ebfa2,
-        type: 2}
-      propertyPath: onTouch.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1363841416}
-    - target: {fileID: 114081653688144182, guid: f1af50925fe9d324f849cc36e20ebfa2,
-        type: 2}
-      propertyPath: health
-      value: 
-      objectReference: {fileID: 1517717933}
-    - target: {fileID: 114081653688144182, guid: f1af50925fe9d324f849cc36e20ebfa2,
-        type: 2}
-      propertyPath: mana
-      value: 
-      objectReference: {fileID: 844321137}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &823270323
 GameObject:
   m_ObjectHideFlags: 0
@@ -2758,8 +2722,8 @@ GameObject:
   - component: {fileID: 839039443}
   - component: {fileID: 839039442}
   m_Layer: 5
-  m_Name: Button
-  m_TagString: Untagged
+  m_Name: DOWN
+  m_TagString: Keybind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2952,8 +2916,8 @@ GameObject:
   - component: {fileID: 855990531}
   - component: {fileID: 855990530}
   m_Layer: 5
-  m_Name: Button
-  m_TagString: Untagged
+  m_Name: ACT2
+  m_TagString: Keybind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3442,8 +3406,8 @@ GameObject:
   - component: {fileID: 1034466100}
   - component: {fileID: 1034466099}
   m_Layer: 5
-  m_Name: Button
-  m_TagString: Untagged
+  m_Name: RIGHT
+  m_TagString: Keybind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3553,8 +3517,8 @@ GameObject:
   - component: {fileID: 1103085009}
   - component: {fileID: 1103085008}
   m_Layer: 5
-  m_Name: Button
-  m_TagString: Untagged
+  m_Name: ACT1
+  m_TagString: Keybind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4465,7 +4429,7 @@ GameObject:
   - component: {fileID: 1328397733}
   - component: {fileID: 1328397732}
   m_Layer: 5
-  m_Name: Up
+  m_Name: Parent_UP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5252,8 +5216,8 @@ GameObject:
   - component: {fileID: 1578945122}
   - component: {fileID: 1578945121}
   m_Layer: 5
-  m_Name: Button
-  m_TagString: Untagged
+  m_Name: LEFT
+  m_TagString: Keybind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5434,6 +5398,46 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1597935289}
+--- !u!1 &1640806123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1640806124}
+  - component: {fileID: 1640806125}
+  m_Layer: 0
+  m_Name: KeybindManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1640806124
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1640806123}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 431062166}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1640806125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1640806123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b63cc951d7ac0dd469553207d800dd66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1654061551
 GameObject:
   m_ObjectHideFlags: 0
@@ -5811,19 +5815,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: de786da9ca81d3f44b826e1253bf9ede, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -5831,7 +5835,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &1765430899
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6099,19 +6103,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: de786da9ca81d3f44b826e1253bf9ede, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -6119,7 +6123,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &1833404944
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6382,8 +6386,8 @@ GameObject:
   - component: {fileID: 1895567449}
   - component: {fileID: 1895567448}
   m_Layer: 5
-  m_Name: Button
-  m_TagString: Untagged
+  m_Name: ACT3
+  m_TagString: Keybind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6540,8 +6544,8 @@ GameObject:
   - component: {fileID: 2002505511}
   - component: {fileID: 2002505510}
   m_Layer: 5
-  m_Name: Button
-  m_TagString: Untagged
+  m_Name: UP
+  m_TagString: Keybind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6836,19 +6840,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: de786da9ca81d3f44b826e1253bf9ede, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -6856,7 +6860,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &2056121660
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6890,7 +6894,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 431062166}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2069291493
 MonoBehaviour:

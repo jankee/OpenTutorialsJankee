@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,6 +35,13 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private CanvasGroup keybindMenu;
+
+    private GameObject[] keybindButtons;
+
+    public void Awake()
+    {
+        keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
+    }
 
     // Use this for initialization
     void Start()
@@ -101,5 +109,11 @@ public class UIManager : MonoBehaviour
         keybindMenu.blocksRaycasts = keybindMenu.blocksRaycasts == true ? false : true;
 
         Time.timeScale = Time.timeScale > 0 ? 0 : 1;
+    }
+
+    public void UpdateKeyText(string key, KeyCode code)
+    {
+        Text tmp = Array.Find(keybindButtons, x => x.name == key).GetComponent<Text>();
+        tmp.text = code.ToString();
     }
 }

@@ -29,9 +29,7 @@ public class Player : Character
     // Use this for initialization
     protected override void Start()
     {
-        
-
-        mana.Initialize(initMana, initMana);
+        //mana.Initialize(initMana, initMana);
 
         spellBook = this.GetComponent<SpellBook>();
 
