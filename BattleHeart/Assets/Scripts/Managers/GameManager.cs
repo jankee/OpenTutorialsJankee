@@ -2,6 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using HedgehogTeam.EasyTouch;
+
+public enum ClassType
+{
+    CLERIC,
+    BARBARIAN,
+    KNIGHT,
+    WIZARD,
+    WITCH,
+    MONK,
+    ROGUE,
+    BARD,
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -35,13 +48,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //private Dictionary<string, GameObject> enemyDic;
+    
+
+    [SerializeField]
+    private GameObject dragPrefab;
 
     private GameObject enemyTarget = null;
 
     private NPC currentTarget;
-
-    
 
     //============================================================
     //강사님이 가르쳐준 애니메이션 커브
@@ -69,7 +83,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //enemyDic = new Dictionary<string, GameObject>();
     }
 
     void Update()
@@ -278,8 +291,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnFingerUp(GameObject one)
+    public void OnTouchStart(Gesture gesture)
     {
-        print("On Finger!! : " + one.name);
+
+        player = gesture.pickedObject.GetComponent<Player>();
+
+        print(player.name);
+
+        Vector3 startPos = gesture.pickedObject.transform.position;
+
+        Instantiate(dragPrefab, startPos, Quaternion.identity);
     }
+
 }

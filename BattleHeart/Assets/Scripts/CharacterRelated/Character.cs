@@ -83,6 +83,10 @@ public abstract class Character : MonoBehaviour
 
     public bool IsAttacking { get; set; }
 
+    public Vector3 MyStart { get; set; }
+
+    public Vector3 MyEnd { get; set; }
+
     // Use this for initialization
     protected virtual void Start()
     {
@@ -100,17 +104,17 @@ public abstract class Character : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        //Move(MyStart, MyEnd);
     }
 
-    public void Move()
-    {
-        if (IsAlive)
-        {
-            myRigibody.velocity = Direction.normalized * Speed;
-        }
+    //public virtual void Move(Vector3 start, Vector3 end)
+    //{
+    //    if (IsAlive)
+    //    {
+    //        myRigibody.velocity = Direction.normalized * Speed;
+    //    }
 
-    }
+    //}
 
     public void HandleLayer()
     {

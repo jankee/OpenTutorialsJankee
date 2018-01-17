@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4545403726590664}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4659338156443586}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LLegLink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4692434112786024}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 4704506834424598}
   - component: {fileID: 212353830314063504}
   - component: {fileID: 65996916017391904}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: BottomRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,9 @@ GameObject:
   - component: {fileID: 4341292971104738}
   - component: {fileID: 33612421516572546}
   - component: {fileID: 23818496777697540}
-  m_Layer: 0
+  - component: {fileID: 65683620896997244}
+  - component: {fileID: 65165540919729754}
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -103,7 +105,8 @@ GameObject:
   - component: {fileID: 54818911557362754}
   - component: {fileID: 114081653688144182}
   - component: {fileID: 114230358639332440}
-  m_Layer: 0
+  - component: {fileID: 114130497144691720}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -120,7 +123,7 @@ GameObject:
   - component: {fileID: 4531027779066598}
   - component: {fileID: 212540390464773124}
   - component: {fileID: 65584267660875254}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: TopLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +141,7 @@ GameObject:
   - component: {fileID: 33861008874025164}
   - component: {fileID: 65342455573230366}
   - component: {fileID: 23364168033222932}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +156,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4703372733164974}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ArmLink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +173,7 @@ GameObject:
   - component: {fileID: 4453342034279628}
   - component: {fileID: 33407175910224442}
   - component: {fileID: 23018648371031114}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -188,7 +191,7 @@ GameObject:
   - component: {fileID: 33447547410299040}
   - component: {fileID: 65446012264962106}
   - component: {fileID: 23790322736056844}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +208,7 @@ GameObject:
   - component: {fileID: 4883400295827366}
   - component: {fileID: 212074812912273440}
   - component: {fileID: 65541699196821908}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: TopRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +225,7 @@ GameObject:
   - component: {fileID: 4134081970280044}
   - component: {fileID: 212533315397089406}
   - component: {fileID: 65819341251508896}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: BottomLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +240,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4672449401164750}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RLegLink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +255,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4159498436013438}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Blocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,6 +650,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!65 &65165540919729754
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1153624906005668}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 0.1, z: 1.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65342455573230366
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -695,6 +710,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 4.0000043, z: 0.20000039}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65683620896997244
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1153624906005668}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 0.1, z: 1.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65684364098921900
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -702,7 +729,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167856677623204}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
@@ -760,7 +787,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  hitBox: {fileID: 4341292971104738}
   health: {fileID: 0}
+  initHealth: 100
   mana: {fileID: 0}
   blocks:
   - first: {fileID: 1785567750843448}
@@ -772,6 +801,50 @@ MonoBehaviour:
   - first: {fileID: 1785567750843448}
     second: {fileID: 1116401302628308}
   exitPoint: {fileID: 4545403726590664}
+--- !u!114 &114130497144691720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167856677623204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5145c5785e18ed6459cb766ecf988d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quickActionName: QuickTouch2564147
+  isMultiTouch: 0
+  is2Finger: 0
+  isOnTouch: 0
+  enablePickOverUI: 0
+  resetPhysic: 0
+  directAction: 0
+  axesAction: 0
+  sensibility: 1
+  directCharacterController: {fileID: 0}
+  inverseAxisValue: 0
+  onTouch:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OnTouchStart
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: HedgehogTeam.EasyTouch.QuickTouch+OnTouch, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTouchNotOverMe:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: HedgehogTeam.EasyTouch.QuickTouch+OnTouchNotOverMe, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  actionTriggering: 0
 --- !u!114 &114230358639332440
 MonoBehaviour:
   m_ObjectHideFlags: 1

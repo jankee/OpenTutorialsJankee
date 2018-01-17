@@ -180,8 +180,38 @@ public class Player : Character
         }
     }
 
-    public void OnFingerUp()
+    public void Move(Vector3 start, Vector3 end)
     {
-        print("Finger Check!!");
+        EndMove();
+        StartCoroutine(MoveRoutine(start, end));
+
+    }
+    private IEnumerator MoveRoutine(Vector3 start, Vector3 end)
+    {
+
+        Vector3 startVec = new Vector3(start.x, 0, start.z);
+        Vector3 endVec = new Vector3(end.x, 0, end.z);
+
+        float distance = Vector3.Distance(startVec, endVec);
+
+        float finishTime = 0;
+
+        while (distance >= 0.1f)
+        {
+            finishTime += Speed * Time.deltaTime;
+
+            this.transform.position = Vector3.MoveTowards(this.transform.position, endVec, finishTime);
+
+            distance = Vector3.Distance(this.transform.position, endVec);
+
+            yield return null;
+        }
+
+        EndMove();
+    }
+
+    public void EndMove()
+    {
+        StopAllCoroutines();
     }
 }
