@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class Player : Character
 {
-    //[SerializeField]
-    //private Stat health;
+    private static Player instance;
+
+    public static Player MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<Player>();
+            }
+            return instance;
+        }
+    }
 
     [SerializeField]
     private Stat mana;
@@ -15,8 +26,6 @@ public class Player : Character
 
     [SerializeField]
     private Transform exitPoint;
-
-    private SpellBook spellBook;
 
     private Vector3 min, max;
 
@@ -30,8 +39,6 @@ public class Player : Character
     protected override void Start()
     {
         //mana.Initialize(initMana, initMana);
-
-        spellBook = this.GetComponent<SpellBook>();
 
         base.Start();
     }
@@ -63,22 +70,22 @@ public class Player : Character
         }
         //--------------------------------
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyBinedManager.MyInstance.keybinds["UP"]))
         {
             exitIndex = 1;
             Direction += Vector3.forward;
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyBinedManager.MyInstance.keybinds["LEFT"]))
         {
             exitIndex = 3;
             Direction += Vector3.left;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyBinedManager.MyInstance.keybinds["DOWN"]))
         {
             exitIndex = 0;
             Direction += Vector3.back;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyBinedManager.MyInstance.keybinds["RIGHT"]))
         {
             exitIndex = 2;
             Direction += Vector3.right;
@@ -86,6 +93,14 @@ public class Player : Character
         if (IsMoving)
         {
             StopAttack();
+        }
+
+        foreach (string action in KeyBinedManager.MyInstance.actionBinds.Keys)
+        {
+            if (Input.GetKeyDown(KeyBinedManager.MyInstance.actionBinds[action]))
+            {
+                UIManager.MyInstance.ClickActionButton(action);
+            }
         }
 
     }
@@ -96,11 +111,11 @@ public class Player : Character
         this.max = max;
     }
 
-    private IEnumerator Attack(int spellIndex)
+    private IEnumerator Attack(string spellName)
     {
         Transform currentTarget = MyTarget;
 
-        Spell newSpell = spellBook.CastSpell(spellIndex);
+        Spell newSpell = SpellBook.MyInstance.CastSpell(spellName);
 
         IsAttacking = true;
 
@@ -118,13 +133,13 @@ public class Player : Character
         StopAttack();
     }
 
-    public void CastSpell(int spellIndex)
+    public void CastSpell(string spellName)
     {
         Block();
 
         if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving && InLineOfSight())
         {
-            attackRoutine = StartCoroutine(Attack(spellIndex));
+            attackRoutine = StartCoroutine(Attack(spellName));
         }
 
     }
@@ -166,7 +181,7 @@ public class Player : Character
 
     public void StopAttack()
     {
-        spellBook.StopCasting();
+        SpellBook.MyInstance.StopCasting();
 
         IsAttacking = false;
 

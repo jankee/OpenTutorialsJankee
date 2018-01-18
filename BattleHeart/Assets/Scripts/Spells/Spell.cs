@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 
 [Serializable]
-public class Spell
+public class Spell : IUseable, IMoveable
 {
     [SerializeField]
     private string name;
@@ -82,5 +82,10 @@ public class Spell
         {
             return barColor;
         }
+    }
+
+    public void Use()
+    {
+        Player.MyInstance.CastSpell(MyName);
     }
 }

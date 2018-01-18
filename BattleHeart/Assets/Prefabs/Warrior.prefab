@@ -104,7 +104,6 @@ GameObject:
   - component: {fileID: 95835541818190018}
   - component: {fileID: 54818911557362754}
   - component: {fileID: 114081653688144182}
-  - component: {fileID: 114230358639332440}
   - component: {fileID: 114130497144691720}
   m_Layer: 9
   m_Name: Warrior
@@ -845,47 +844,6 @@ MonoBehaviour:
     m_TypeName: HedgehogTeam.EasyTouch.QuickTouch+OnTouchNotOverMe, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   actionTriggering: 0
---- !u!114 &114230358639332440
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1167856677623204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 867e7aaa901a5b840a16f11fa9809ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  castingBar: {fileID: 0}
-  spellName: {fileID: 0}
-  icon: {fileID: 0}
-  castTime: {fileID: 0}
-  spells:
-  - name: FireBall
-    damage: 2
-    icon: {fileID: 21300000, guid: ca936be2073a9e44f951ad1cf12680fd, type: 3}
-    speed: 10
-    castTime: 0.8
-    spellPrefab: {fileID: 1938750000505960, guid: f287c0ef167884744a828937ed136ee9,
-      type: 2}
-    barColor: {r: 1, g: 0, b: 0, a: 1}
-  - name: FrostBall
-    damage: 5
-    icon: {fileID: 21300000, guid: b33686e3386b5ec479d5ad5aec3949ed, type: 3}
-    speed: 10
-    castTime: 1.3
-    spellPrefab: {fileID: 1976733651188184, guid: 959ac3d6252b91d4ea9d8feaae94d12e,
-      type: 2}
-    barColor: {r: 0, g: 0.5448277, b: 1, a: 1}
-  - name: ThunderBall
-    damage: 7
-    icon: {fileID: 21300000, guid: 9b80f4827671b494f8626a5ef0acb462, type: 3}
-    speed: 10
-    castTime: 1.5
-    spellPrefab: {fileID: 1176597337697150, guid: c95fa2726f12db54c998c8fb75142aea,
-      type: 2}
-    barColor: {r: 1, g: 1, b: 1, a: 1}
-  canvasGroup: {fileID: 0}
 --- !u!212 &212074812912273440
 SpriteRenderer:
   m_ObjectHideFlags: 1

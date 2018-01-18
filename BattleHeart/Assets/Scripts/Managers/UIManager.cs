@@ -23,9 +23,7 @@ public class UIManager : MonoBehaviour
     private Stat healthStat;
 
     [SerializeField]
-    private Button[] actionButtons;
-
-    private KeyCode action1, action2, action3;
+    private ActionButton[] actionButtons;
 
     [SerializeField]
     private GameObject targetFrame;
@@ -35,6 +33,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private CanvasGroup keybindMenu;
+
+    [SerializeField]
+    private CanvasGroup spellBook;
 
     private GameObject[] keybindButtons;
 
@@ -47,37 +48,37 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         healthStat = targetFrame.GetComponentInChildren<Stat>();
-
-        action1 = KeyCode.Alpha1;
-        action2 = KeyCode.Alpha2;
-        action3 = KeyCode.Alpha3;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(action1))
+        //if (Input.GetKeyDown(action1))
+        //{
+        //    ActionButtonOnClick(0);
+        //}
+        //else if (Input.GetKeyDown(action2))
+        //{
+        //    ActionButtonOnClick(1);
+        //}
+        //else if (Input.GetKeyDown(action3))
+        //{
+        //    ActionButtonOnClick(2);
+        //}
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ActionButtonOnClick(0);
+            OpenClose(keybindMenu);
         }
-        else if (Input.GetKeyDown(action2))
+        else if (Input.GetKeyDown(KeyCode.P))
         {
-            ActionButtonOnClick(1);
-        }
-        else if (Input.GetKeyDown(action3))
-        {
-            ActionButtonOnClick(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            OpenCloseMenu();
+            OpenClose(spellBook);
         }
     }
 
-    private void ActionButtonOnClick(int btnIndex)
-    {
-        actionButtons[btnIndex].onClick.Invoke();
-    }
+    //private void ActionButtonOnClick(int btnIndex)
+    //{
+    //    actionButtons[btnIndex].onClick.Invoke();
+    //}
 
     public void ShowTargetFrame(NPC target)
     {
@@ -102,18 +103,30 @@ public class UIManager : MonoBehaviour
         healthStat.MyCurrentValue = health;
     }
 
-    public void OpenCloseMenu()
-    {
-        keybindMenu.alpha = keybindMenu.alpha > 0 ? 0 : 1;
-
-        keybindMenu.blocksRaycasts = keybindMenu.blocksRaycasts == true ? false : true;
-
-        Time.timeScale = Time.timeScale > 0 ? 0 : 1;
-    }
-
     public void UpdateKeyText(string key, KeyCode code)
     {
         Text tmp = Array.Find(keybindButtons, x => x.name == key).GetComponent<Text>();
         tmp.text = code.ToString();
+    }
+
+    public void ClickActionButton(string buttonName)
+    {
+        Array.Find(actionButtons, x => x.gameObject.name == buttonName).MyButton.onClick.Invoke();
+    }
+
+    //public void SetUseable(ActionButton btn, IUseable useable)
+    //{
+    //    btn.MyIcon.sprite = useable.MyIcon;
+    //    btn.MyIcon.color = Color.white;
+    //    btn.MyUseable = useable;
+    //}
+
+    public void OpenClose(CanvasGroup canvasGroup)
+    {
+        canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
+
+        canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
+
+        //Time.timeScale = Time.timeScale > 0 ? 0 : 1;
     }
 }

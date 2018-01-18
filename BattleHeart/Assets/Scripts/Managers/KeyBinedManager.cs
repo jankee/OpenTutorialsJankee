@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class KeyBinedManager : MonoBehaviour
 {
-    private KeyBinedManager instance;
+    private static KeyBinedManager instance;
 
-    public KeyBinedManager MyInstance
+    public static KeyBinedManager MyInstance
     {
         get
         {
@@ -42,12 +42,6 @@ public class KeyBinedManager : MonoBehaviour
         BindKey("ACT3", KeyCode.Alpha3);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void BindKey(string key, KeyCode keyBind)
     {
         Dictionary<string, KeyCode> currentDictinary = keybinds;
@@ -57,7 +51,7 @@ public class KeyBinedManager : MonoBehaviour
             currentDictinary = actionBinds;
         }
 
-        if (!currentDictinary.ContainsValue(keyBind))
+        if (!currentDictinary.ContainsKey(key))
         {
             currentDictinary.Add(key, keyBind);
             UIManager.MyInstance.UpdateKeyText(key, keyBind);
@@ -73,5 +67,23 @@ public class KeyBinedManager : MonoBehaviour
         currentDictinary[key] = keyBind;
         UIManager.MyInstance.UpdateKeyText(key, keyBind);
         bindName = string.Empty;
+    }
+
+    public void KeyBindOnClick(string bindName)
+    {
+        this.bindName = bindName;
+    }
+
+    public void OnGUI()
+    {
+        if (bindName != string.Empty)
+        {
+            Event e = Event.current;
+
+            if (e.isKey)
+            {
+                BindKey(bindName, e.keyCode);
+            }
+        }
     }
 }
