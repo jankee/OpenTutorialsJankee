@@ -4,43 +4,4 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Toolbox/Toolbox-DragDrop.unity
-    guid: 647a42d640deb45479295a7042907d46
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Toolbox/Toolbox-DragOrbitCamera.unity
-    guid: 01a878ebe3d0b4e43b22860a0a1891e6
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Toolbox/Toolbox-FingerEvents.unity
-    guid: f2546e002ad68ea4a891c33dae81c58c
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Toolbox/Toolbox-OneFingerGestures.unity
-    guid: 571d9f732c0732346a4d851671ee8822
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Toolbox/Toolbox-PinchZoomCamera.unity
-    guid: fd3a14491f49648419005beb0638c9f7
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Misc/MoveToFinger.unity
-    guid: 0ba7d9e51a37f7f4ab94b417c1c837fb
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Advanced Mode/Advanced PinchRotation.unity
-    guid: edd20b5b8265f924a968fa9ed86f77d2
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Advanced Mode/Multi-Finger Swipe.unity
-    guid: 8a3cd373dc27dcf47a0d8b56d9372743
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Basic Mode/FingerEventsPart1.unity
-    guid: 96c92f48165a2fc46bdb086542e4b3f4
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Basic Mode/FingerEventsPart2.unity
-    guid: 79f9aaca6c4c8c94b9199979671be2bb
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Basic Mode/OneFingerGestures.unity
-    guid: cde0fdabb45cf124689121bcdba996b9
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Basic Mode/PinchRotation.unity
-    guid: 278c85493d63a0d469176cb8e57712f1
-  - enabled: 1
-    path: Assets/FingerGestures/Samples/Scenes/Basic Mode/TwoFingerGestures.unity
-    guid: dee0ba237b22a1941aac13b4eb68ce1b
+  m_Scenes: []

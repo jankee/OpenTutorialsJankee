@@ -22,8 +22,6 @@ GameObject:
   - component: {fileID: 33319521845224852}
   - component: {fileID: 136459581023886074}
   - component: {fileID: 23076847716451418}
-  - component: {fileID: 114965310505590588}
-  - component: {fileID: 114938680421421166}
   m_Layer: 0
   m_Name: DragObjec
   m_TagString: Untagged
@@ -85,78 +83,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1561290175840212}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114938680421421166
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1561290175840212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7961076ef9aef0341b2c9f8a38bfbc71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  quickActionName: QuickDragac7347c
-  isMultiTouch: 0
-  is2Finger: 0
-  isOnTouch: 0
-  enablePickOverUI: 0
-  resetPhysic: 0
-  directAction: 0
-  axesAction: 4
-  sensibility: 1
-  directCharacterController: {fileID: 0}
-  inverseAxisValue: 0
-  onDragStart:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114965310505590588}
-        m_MethodName: OnDragStart
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: HedgehogTeam.EasyTouch.QuickDrag+OnDragStart, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onDrag:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: HedgehogTeam.EasyTouch.QuickDrag+OnDrag, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onDragEnd:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114965310505590588}
-        m_MethodName: OnDragEnd
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: HedgehogTeam.EasyTouch.QuickDrag+OnDragEnd, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  isStopOncollisionEnter: 0
---- !u!114 &114965310505590588
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1561290175840212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1732896784c77ee4eaeb5e8f20e0a75f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!136 &136459581023886074
 CapsuleCollider:
   m_ObjectHideFlags: 1

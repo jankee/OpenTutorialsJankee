@@ -1088,8 +1088,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376bd60a3c9c82e4dac1ebbe257b8bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statValue: {fileID: 0}
-  lerpSpeed: 8
 --- !u!1 &242164627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,13 +1316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0cb8d6377e3dd4ab00f5940f065f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  hitBox: {fileID: 1444964714}
-  health: {fileID: 198262708}
-  initHealth: 25
-  portrait: {fileID: 21300000, guid: af044beef863ace44821442a379f0888, type: 3}
-  healthCanvas: {fileID: 1507615926}
-  initAggroRange: 2
 --- !u!95 &265696214
 Animator:
   serializedVersion: 3
@@ -1652,7 +1643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9957ec24ec07248ad22beed7facc20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellName: ThunderBall
 --- !u!1 &370777992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1824,7 +1814,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 394538442}
-  - component: {fileID: 394538443}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -1845,35 +1834,6 @@ Transform:
   m_Father: {fileID: 431062166}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &394538443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 394538441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0d7bb417347d064a87d3d369df43340, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  map: {fileID: 0}
-  mapData:
-  - {fileID: 2800000, guid: a24f01a9850813e4a8d8e4b017486f32, type: 3}
-  - {fileID: 2800000, guid: 74e466884e5ab2f48b3c61f72312d68a, type: 3}
-  mapElements:
-  - tileTag: Grass01
-    color: {r: 0, g: 0.7058824, b: 0.039215688, a: 1}
-    elementPrefab: {fileID: 1635459019076520, guid: 36be8868946074e4c82ab2e02a6a482e,
-      type: 2}
-  - tileTag: Sand01
-    color: {r: 1, g: 0, b: 0, a: 1}
-    elementPrefab: {fileID: 1473766803565244, guid: eb472fcb708ab9f4abbdaf10ddc25b02,
-      type: 2}
-  - tileTag: Tree01
-    color: {r: 0, g: 1, b: 0, a: 1}
-    elementPrefab: {fileID: 1461798931018868, guid: 43e4cd8ba7de9ae4c9033cd4f77c1a20,
-      type: 2}
-  defaultTile: {fileID: 21300000, guid: ff788333b3c0dad419c58e7ec4a6f022, type: 3}
 --- !u!1 &404748617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,6 +1918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 406907434}
   - component: {fileID: 406907435}
+  - component: {fileID: 406907436}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -1990,6 +1951,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 406907433}
+--- !u!225 &406907436
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 406907433}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &411291289
 GameObject:
   m_ObjectHideFlags: 0
@@ -2024,7 +1996,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000012828303, y: -123.605}
+  m_AnchoredPosition: {x: -0.0000035807536, y: -123.605}
   m_SizeDelta: {x: 406.9, y: 598.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &411291291
@@ -2084,7 +2056,6 @@ Transform:
   - {fileID: 1363841417}
   - {fileID: 394538442}
   - {fileID: 1640806124}
-  - {fileID: 2069291492}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2358,7 +2329,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc40f968b2cb9284f9b15d320d6021ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 477721089}
 --- !u!114 &477721088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2594,36 +2564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 867e7aaa901a5b840a16f11fa9809ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castingBar: {fileID: 39558419}
-  currentSpell: {fileID: 1867278790}
-  icon: {fileID: 2138120777}
-  castTime: {fileID: 1658464243}
-  spells:
-  - name: FireBall
-    damage: 2
-    icon: {fileID: 21300000, guid: ca936be2073a9e44f951ad1cf12680fd, type: 3}
-    speed: 10
-    castTime: 0.8
-    spellPrefab: {fileID: 1938750000505960, guid: f287c0ef167884744a828937ed136ee9,
-      type: 2}
-    barColor: {r: 1, g: 0, b: 0, a: 1}
-  - name: FrostBall
-    damage: 5
-    icon: {fileID: 21300000, guid: b33686e3386b5ec479d5ad5aec3949ed, type: 3}
-    speed: 10
-    castTime: 1.3
-    spellPrefab: {fileID: 1976733651188184, guid: 959ac3d6252b91d4ea9d8feaae94d12e,
-      type: 2}
-    barColor: {r: 0, g: 0.5448277, b: 1, a: 1}
-  - name: ThunderBall
-    damage: 7
-    icon: {fileID: 21300000, guid: 9b80f4827671b494f8626a5ef0acb462, type: 3}
-    speed: 10
-    castTime: 1.5
-    spellPrefab: {fileID: 1176597337697150, guid: c95fa2726f12db54c998c8fb75142aea,
-      type: 2}
-    barColor: {r: 1, g: 1, b: 1, a: 1}
-  canvasGroup: {fileID: 1032039057}
 --- !u!1 &546314512
 GameObject:
   m_ObjectHideFlags: 0
@@ -3032,7 +2972,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4589254839415512, guid: 4dc65f2fce2608e4b9da49169ea7d5ca, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.058
+      value: -0.65
       objectReference: {fileID: 0}
     - target: {fileID: 4589254839415512, guid: 4dc65f2fce2608e4b9da49169ea7d5ca, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3062,26 +3002,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 114081653688144182, guid: 4dc65f2fce2608e4b9da49169ea7d5ca,
+    - target: {fileID: 114941578760940288, guid: 4dc65f2fce2608e4b9da49169ea7d5ca,
         type: 2}
-      propertyPath: health
-      value: 
-      objectReference: {fileID: 1517717933}
-    - target: {fileID: 114081653688144182, guid: 4dc65f2fce2608e4b9da49169ea7d5ca,
-        type: 2}
-      propertyPath: mana
-      value: 
-      objectReference: {fileID: 844321137}
-    - target: {fileID: 114081653688144182, guid: 4dc65f2fce2608e4b9da49169ea7d5ca,
-        type: 2}
-      propertyPath: exitPoint
-      value: 
-      objectReference: {fileID: 844321136}
-    - target: {fileID: 114130497144691720, guid: 4dc65f2fce2608e4b9da49169ea7d5ca,
-        type: 2}
-      propertyPath: onTouch.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1363841416}
+      propertyPath: mSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4dc65f2fce2608e4b9da49169ea7d5ca, type: 2}
   m_IsPrefabParent: 0
@@ -3924,7 +3849,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1640806125}
+      - m_Target: {fileID: 0}
         m_MethodName: KeyBindOnClick
         m_Mode: 5
         m_Arguments:
@@ -4018,8 +3943,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376bd60a3c9c82e4dac1ebbe257b8bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statValue: {fileID: 95894412}
-  lerpSpeed: 8
 --- !u!114 &844321138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4129,7 +4052,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1640806125}
+      - m_Target: {fileID: 0}
         m_MethodName: KeyBindOnClick
         m_Mode: 5
         m_Arguments:
@@ -4340,6 +4263,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &985407764 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1167856677623204, guid: 4dc65f2fce2608e4b9da49169ea7d5ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 641775037}
+--- !u!114 &985407769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 985407764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0374fa01d32d07449d95d045798efd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1007936835
 GameObject:
   m_ObjectHideFlags: 0
@@ -4442,10 +4381,10 @@ RectTransform:
   m_Father: {fileID: 1777314398}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.0055884677}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -390.16}
-  m_SizeDelta: {x: 0, y: -780.43}
+  m_AnchoredPosition: {x: 0, y: -392.66}
+  m_SizeDelta: {x: 0, y: -775.43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1015704845
 MonoBehaviour:
@@ -4632,7 +4571,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1640806125}
+      - m_Target: {fileID: 0}
         m_MethodName: KeyBindOnClick
         m_Mode: 5
         m_Arguments:
@@ -4687,7 +4626,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 6.36
+      value: 4.41
       objectReference: {fileID: 0}
     - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
       propertyPath: m_LocalPosition.y
@@ -4695,7 +4634,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.86
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 4589254839415512, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
       propertyPath: m_LocalRotation.x
@@ -4717,21 +4656,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 114081653688144182, guid: f1af50925fe9d324f849cc36e20ebfa2,
+    - target: {fileID: 114762889037007658, guid: f1af50925fe9d324f849cc36e20ebfa2,
         type: 2}
-      propertyPath: hitBox
-      value: 
-      objectReference: {fileID: 1517717932}
-    - target: {fileID: 114081653688144182, guid: f1af50925fe9d324f849cc36e20ebfa2,
-        type: 2}
-      propertyPath: health
-      value: 
-      objectReference: {fileID: 1517717933}
-    - target: {fileID: 114081653688144182, guid: f1af50925fe9d324f849cc36e20ebfa2,
-        type: 2}
-      propertyPath: mana
-      value: 
-      objectReference: {fileID: 844321137}
+      propertyPath: mSpeed
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1af50925fe9d324f849cc36e20ebfa2, type: 2}
   m_IsPrefabParent: 0
@@ -4811,7 +4740,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1640806125}
+      - m_Target: {fileID: 0}
         m_MethodName: KeyBindOnClick
         m_Mode: 5
         m_Arguments:
@@ -5050,7 +4979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9957ec24ec07248ad22beed7facc20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellName: FrostBall
 --- !u!1 &1150594360
 GameObject:
   m_ObjectHideFlags: 0
@@ -5254,7 +5182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc40f968b2cb9284f9b15d320d6021ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 1171895035}
 --- !u!114 &1171895035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5672,7 +5599,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2fcd2ded625ad4598fc62998b1d03d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 25, z: 0}
 --- !u!1 &1242851565
 GameObject:
   m_ObjectHideFlags: 0
@@ -5986,8 +5912,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376bd60a3c9c82e4dac1ebbe257b8bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statValue: {fileID: 1654061555}
-  lerpSpeed: 8
 --- !u!114 &1334687680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6113,11 +6037,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1363841415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d64b3c7e48c4e0f4ab4d290e842b9f75, type: 3}
+  m_Script: {fileID: 11500000, guid: cd2b484e659a5b44d8a6bcee116c06d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  dragPrefab: {fileID: 1561290175840212, guid: df05b17da33d02d44b9e70aa0d14bf73, type: 2}
+  mTarget: {fileID: 1561290175840212, guid: df05b17da33d02d44b9e70aa0d14bf73, type: 2}
 --- !u!4 &1363841417
 Transform:
   m_ObjectHideFlags: 0
@@ -6721,8 +6644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376bd60a3c9c82e4dac1ebbe257b8bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statValue: {fileID: 1156597153}
-  lerpSpeed: 8
 --- !u!114 &1517717934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6880,7 +6801,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9957ec24ec07248ad22beed7facc20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellName: FireBall
 --- !u!1 &1578945119
 GameObject:
   m_ObjectHideFlags: 0
@@ -6957,7 +6877,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1640806125}
+      - m_Target: {fileID: 0}
         m_MethodName: KeyBindOnClick
         m_Mode: 5
         m_Arguments:
@@ -7140,8 +7060,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376bd60a3c9c82e4dac1ebbe257b8bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statValue: {fileID: 655447288}
-  lerpSpeed: 8
 --- !u!114 &1597935292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7183,7 +7101,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1640806124}
-  - component: {fileID: 1640806125}
   m_Layer: 0
   m_Name: KeybindManager
   m_TagString: Untagged
@@ -7204,17 +7121,6 @@ Transform:
   m_Father: {fileID: 431062166}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1640806125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1640806123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b63cc951d7ac0dd469553207d800dd66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1647612840
 GameObject:
   m_ObjectHideFlags: 0
@@ -7647,7 +7553,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc40f968b2cb9284f9b15d320d6021ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 1702442828}
 --- !u!114 &1702442831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8373,7 +8278,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1640806125}
+      - m_Target: {fileID: 0}
         m_MethodName: KeyBindOnClick
         m_Mode: 5
         m_Arguments:
@@ -8427,7 +8332,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1909379732}
-  - component: {fileID: 1909379731}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -8435,25 +8339,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1909379731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1909379730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b8326cbd044c646ad6f0a6c25caa27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionButtons:
-  - {fileID: 1702442830}
-  - {fileID: 477721087}
-  - {fileID: 1171895034}
-  targetFrame: {fileID: 178622525}
-  portraitFrame: {fileID: 91307885}
-  keybindMenu: {fileID: 2029585265}
-  spellBook: {fileID: 534071149}
 --- !u!4 &1909379732
 Transform:
   m_ObjectHideFlags: 0
@@ -8543,7 +8428,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1640806125}
+      - m_Target: {fileID: 0}
         m_MethodName: KeyBindOnClick
         m_Mode: 5
         m_Arguments:
@@ -8882,89 +8767,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2063361571}
---- !u!1 &2069291491
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 2069291492}
-  - component: {fileID: 2069291493}
-  m_Layer: 0
-  m_Name: Easytouch
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2069291492
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2069291491}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 431062166}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2069291493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2069291491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42241010c6f9ddc46b78abdc21d505c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enable: 1
-  enableRemote: 0
-  gesturePriority: 0
-  StationaryTolerance: 15
-  longTapTime: 1
-  swipeTolerance: 0.85
-  minPinchLength: 0
-  minTwistAngle: 0
-  doubleTapDetection: 0
-  doubleTapTime: 0.3
-  alwaysSendSwipe: 0
-  enable2FingersGesture: 1
-  enableTwist: 1
-  enablePinch: 1
-  enable2FingersSwipe: 1
-  twoFingerPickMethod: 0
-  touchCameras: []
-  autoSelect: 1
-  pickableLayers3D:
-    serializedVersion: 2
-    m_Bits: 1
-  enable2D: 0
-  pickableLayers2D:
-    serializedVersion: 2
-    m_Bits: 1
-  autoUpdatePickedObject: 0
-  allowUIDetection: 1
-  enableUIMode: 1
-  autoUpdatePickedUI: 0
-  enabledNGuiMode: 0
-  nGUILayers:
-    serializedVersion: 2
-    m_Bits: 0
-  nGUICameras: []
-  enableSimulation: 1
-  twistKey: 308
-  swipeKey: 306
-  showGuiInspector: 0
-  showSelectInspector: 0
-  showGestureInspector: 0
-  showTwoFingerInspector: 0
-  showSecondFingerInspector: 0
-  secondFingerTexture: {fileID: 0}
 --- !u!1 &2077981429
 GameObject:
   m_ObjectHideFlags: 0
