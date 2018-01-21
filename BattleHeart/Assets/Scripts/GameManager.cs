@@ -5,7 +5,10 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     //선택된 플레이어를 담기 위한 변수
-    private Player player;
+    private Player selectPlayer;
+
+    //이동할 플레이어를 담기 위한 변수
+    private Player movePlayer;
 
     //마우스 움직임 확인
     private bool bMove = false;
@@ -21,14 +24,11 @@ public class GameManager : Singleton<GameManager>
     // Use this for initialization
     private void Start()
     {
-        player = null;
-        moveRoutine = null;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        OnRayCaset();
     }
 
     //인풋 메소드
@@ -37,50 +37,56 @@ public class GameManager : Singleton<GameManager>
         //마우스 눌러졌을 때
         if (Input.GetMouseButtonDown(0))
         {
-            ///선택한 플레이어가 이미 선택 된 플레이어인지 확인
-            if (player != null && hitInfo.transform.name == player.name)
-            {
-                print("선택 되어있는것이랑 같다");
-                tmp = Instantiate(mTarget, hitInfo.transform.position, Quaternion.identity);
-            }
-            else if (player != null && hitInfo.transform.name != player.name)
-            {
-                print("선택 되어있는거랑 다르다");
-                player = hitInfo.transform.GetComponent<Player>();
+            ///플레이들만 선택할수 있다
+            ///기존 선택한 플레이어를 다시 선택을 했는가
+            ///플레이러를 드레그해서 무브를 하는지, 선택은 아니다.
+            ///
 
-                tmp = Instantiate(mTarget, hitInfo.transform.position, Quaternion.identity);
-            }
-            else
+            if (selectPlayer != null && hitInfo.transform.name == selectPlayer.name)
             {
-                print("선택 안되어 있다");
-                //플레이어를 선택했을때
-                if (hitInfo.transform.tag == "Player")
-                {
-                    player = hitInfo.transform.GetComponent<Player>();
 
-                    if (!player.MyMove)
-                    {
-                        tmp = Instantiate(mTarget, hitInfo.transform.position, Quaternion.identity);
-                    }
-                }
-                else if (hitInfo.transform.tag == "Enemy")
-                {
-                    print("Enemy");
-                }
-                else
-                {
-                    if (moveRoutine != null)
-                    {
-                        StopCoroutine(moveRoutine);
-                    }
-
-                    if (player != null)
-                    {
-                        player = null;
-                    }
-                    print("None");
-                }
             }
+
+            //if (player != null && hitInfo.transform.name == player.name)
+            //{
+            //    tmp = Instantiate(mTarget, hitInfo.transform.position, Quaternion.identity);
+            //}
+            //else if (player != null && hitInfo.transform.name != player.name)
+            //{
+            //    player = hitInfo.transform.GetComponent<Player>();
+
+            //    tmp = Instantiate(mTarget, hitInfo.transform.position, Quaternion.identity);
+            //}
+            //else
+            //{
+            //    //플레이어를 선택했을때
+            //    if (hitInfo.transform.tag == "Player")
+            //    {
+            //        player = hitInfo.transform.GetComponent<Player>();
+
+            //        if (!player.MyMove)
+            //        {
+            //            tmp = Instantiate(mTarget, hitInfo.transform.position, Quaternion.identity);
+            //        }
+            //    }
+            //    else if (hitInfo.transform.tag == "Enemy")
+            //    {
+            //        print("Enemy");
+            //    }
+            //    else
+            //    {
+            //        if (moveRoutine != null)
+            //        {
+            //            StopCoroutine(moveRoutine);
+            //        }
+
+            //        if (player != null)
+            //        {
+            //            player = null;
+            //        }
+            //        print("None");
+            //    }
+            //}
         }
         else if (Input.GetMouseButton(0))
         {
@@ -96,24 +102,24 @@ public class GameManager : Singleton<GameManager>
         else if (Input.GetMouseButtonUp(0))
         {
             ///선택한 플레이어가 이미 선택 된 플레이어인지 확인
-            if (player != null && hitInfo.transform.name == player.name)
+            if (selectPlayer != null && hitInfo.transform.name == selectPlayer.name)
             {
                 if (moveRoutine != null)
                 {
                     StopCoroutine(moveRoutine);
                 }
 
-                moveRoutine = StartCoroutine(player.Move(hitInfo.transform.position));
+                moveRoutine = StartCoroutine(selectPlayer.Move(hitInfo.transform.position));
 
                 Destroy(tmp.gameObject);
 
                 print("선택 되어있는것이랑 같다");
             }
-            else if (player != null && hitInfo.transform.name != player.name)
+            else if (selectPlayer != null && hitInfo.transform.name != selectPlayer.name)
             {
                 print("선택 되어있는거랑 다르다");
 
-                moveRoutine = StartCoroutine(player.Move(hitInfo.transform.position));
+                moveRoutine = StartCoroutine(selectPlayer.Move(hitInfo.transform.position));
 
                 Destroy(tmp.gameObject);
             }
