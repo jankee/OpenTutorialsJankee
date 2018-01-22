@@ -20,19 +20,25 @@ public class InputManager : MonoBehaviour
 
     private GameObject tmp;
 
-    private Coroutine moveRoutine;
+    [SerializeField]
+    private GameObject mSelect;
 
-    private bool mBool = false;
+    private GameObject tmpSelect;
+
+    private bool bDrag = false;
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         selectPlayer = null;
         movePlayer = null;
+
+        tmp = null;
+        tmpSelect = null;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         OnRayCaset();
     }
@@ -42,122 +48,89 @@ public class InputManager : MonoBehaviour
         //마우스 눌러졌을 때
         if (Input.GetMouseButtonDown(0))
         {
-            startPos = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
+            if (hitInfo.transform.tag == "Player")
+            {
+                movePlayer = hitInfo.transform.GetComponent<Player>();
+
+                //거리 측정을 위해 시작포인트를 알려 준다
+                startPos = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
+
+                //OnDrawGizmos(startPos, Color.red);
+            }
         }
         else if (Input.GetMouseButton(0))
         {
-
+            ///드레그인지 확인
             float distance = Vector3.Distance(startPos, new Vector3(hitInfo.point.x, 0, hitInfo.point.z));
 
             if (distance > 1f)
             {
-                //tmp가 없다면 
+                print("Drag");
+                //tmp가 없다면
                 if (tmp == null)
                 {
                     tmp = Instantiate(mTarget, hitInfo.point, Quaternion.identity);
                 }
                 else
                 {
-                    // y축을 0으로 바꾸어준다 
-                    Vector3 movePos = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
+                    //드레그
+                    Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
 
-                    Debug.DrawRay(ray.origin, movePos, Color.red);
-
-                    tmp.transform.position = movePos;
+                    tmp.transform.position = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
                 }
-                mBool = true;
+                bDrag = true;
             }
             else
             {
-                mBool = false;
+                print("None Drag");
+                bDrag = false;
             }
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if (mBool)
+            if (bDrag)
             {
-                if (selectPlayer == null)
+                endPos = hitInfo.point;
+
+                if (movePlayer.MyMoveRoutine != null)
                 {
-                    selectPlayer = hitInfo.transform.GetComponent<Player>();
+                    StopCoroutine(movePlayer.MyMoveRoutine);
 
-                    Destroy(tmp.gameObject);
-
-                    endPos = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
-
-                    moveRoutine = StartCoroutine(selectPlayer.Move(endPos));
-                    print("저장된 플레이어가 없다");
+                    movePlayer.MyMoveRoutine = null;
                 }
-                else
+
+                float rotate = Mathf.Atan2(endPos.z, endPos.x) * Mathf.Rad2Deg;
+
+                print("오일러 각도 : " + rotate);
+
+                movePlayer.MyMoveRoutine = StartCoroutine(movePlayer.MoveRoutine(hitInfo.point, rotate));
+
+                //만약 적이라면
+                if (hitInfo.transform.tag == "Enemy")
                 {
-                    if (selectPlayer.name != hitInfo.transform.name)
-                    {
-                        // movePlayer에 기존 플레이어를 넣는다
-                        movePlayer = selectPlayer;
-
-                        selectPlayer = hitInfo.transform.GetComponent<Player>();
-
-                        print("같지 않은 플레이어 선택");
-                        
-                    }
-                    else
-                    {
-                        movePlayer = null;
-                        print("같은 플레이어");
-                    }
-
-                    endPos = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
-
-                    StartCoroutine(selectPlayer.Move(endPos));
-
-                    Destroy(tmp.gameObject);
+                    //플레이어의 타겟에 에너미를 넘겨준다.
+                    print("I finde Enemy");
+                    movePlayer.MyTarget = hitInfo.transform.GetComponent<Enemy>();
                 }
+
+                Destroy(tmp.gameObject);
             }
             else
             {
-                if (selectPlayer == null)
+                if (tmpSelect != null)
                 {
-                    selectPlayer = hitInfo.transform.GetComponent<Player>();
+                    print(tmpSelect.name);
 
-                    print("저장된 플레이어가 없다");
-                }
-                else
-                {
-                    if (selectPlayer.name != hitInfo.transform.name)
-                    {
-                        movePlayer = selectPlayer;
-
-                        selectPlayer = hitInfo.transform.GetComponent<Player>();
-
-                        print("같지 않은 플레이어 선택");
-                    }
-                    else
-                    {
-                        movePlayer = null;
-                        print("같은 플레이어");
-                    }
+                    Destroy(tmpSelect.gameObject);
                 }
 
+                //movePlayer를 selectPlayer에 전달
+                selectPlayer = movePlayer;
+
+                //커서를 생성하여 플레이어 자식으로 만듬
+                tmpSelect = Instantiate(mSelect, selectPlayer.transform.position, Quaternion.identity);
+                tmpSelect.transform.SetParent(selectPlayer.transform);
             }
-
-            //if (mBool)
-            //{
-            //    if (moveRoutine != null)
-            //    {
-            //        StopCoroutine(moveRoutine);
-            //    }
-            //    else
-            //    {
-            //        moveRoutine = StartCoroutine(selectPlayer.Move(hitInfo.transform.position));
-
-            //        Destroy(tmp.gameObject);
-            //    }
-            //}
-            //else
-            //{
-            //    selectPlayer = hitInfo.transform.GetComponent<Player>();
-
-            //    print("선택");
-            //}
         }
     }
 

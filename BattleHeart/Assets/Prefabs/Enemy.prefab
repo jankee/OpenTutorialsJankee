@@ -55,9 +55,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4960285516221074}
-  - component: {fileID: 135215238138869794}
-  - component: {fileID: 114514182314192246}
-  m_Layer: 9
+  - component: {fileID: 135550546880468434}
+  m_Layer: 10
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +173,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1435137906948310}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.94, y: 0, z: 12.64}
+  m_LocalPosition: {x: -5.5, y: 0, z: 7.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4228419690752164}
@@ -395,17 +394,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114514182314192246
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1281390535297300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99cad8907f8bd6446a837afa9bc6f9e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114606631755118580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -470,27 +458,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1435137906948310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0cb8d6377e3dd4ab00f5940f065f48, type: 3}
+  m_Script: {fileID: 11500000, guid: 217f66b8ec17caf468e3e127451dbe26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hitBox: {fileID: 4617370861812814}
-  health: {fileID: 114760774803297684}
-  initHealth: 25
-  portrait: {fileID: 21300000, guid: af044beef863ace44821442a379f0888, type: 3}
-  healthCanvas: {fileID: 225029882384454850}
---- !u!135 &135215238138869794
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1281390535297300}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 4
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135468177220853064
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -503,6 +473,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!135 &135550546880468434
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1281390535297300}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!222 &222322050897562748
 CanvasRenderer:
   m_ObjectHideFlags: 1

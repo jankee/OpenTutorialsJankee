@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Player : Character
 {
-    //캐릭터 무브 스피드
-    [SerializeField]
-    private float mSpeed;
-
     private bool bMove = false;
 
     public bool MyMove
@@ -18,36 +14,23 @@ public class Player : Character
         }
     }
 
+    public Enemy MyTarget { get; set; }
+
+    public Coroutine MyMoveRoutine { get; set; }
+
     // Use this for initialization
-    private void Start()
+    protected override void Start()
     {
         bMove = false;
     }
 
     // Update is called once per frame
-    private void Update()
+    protected override void Update()
     {
     }
 
-    public IEnumerator Move(Vector3 moveEnd)
+    public override IEnumerator MoveRoutine(Vector3 moveEnd, float rotate)
     {
-        print("움직임");
-
-        float distance = Vector3.Distance(this.transform.position, moveEnd);
-
-        while (distance >= 0.5f)
-        {
-            //bMove = true;
-
-            this.transform.position = Vector3.MoveTowards(this.transform.position, moveEnd, mSpeed * Time.deltaTime);
-
-            yield return null;
-
-            distance = Vector3.Distance(this.transform.position, moveEnd);
-        }
-
-        //bMove = false;
-
-        print("움직임 끝");
+        return base.MoveRoutine(moveEnd, rotate);
     }
 }
