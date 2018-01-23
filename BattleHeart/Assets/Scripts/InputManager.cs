@@ -41,6 +41,28 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         OnRayCaset();
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (selectPlayer != null)
+            {
+                selectPlayer.MyHealth.MyCurrentValue += 10f;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (selectPlayer != null)
+            {
+                selectPlayer.MyHealth.MyCurrentValue -= 10f;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (selectPlayer != null)
+            {
+                StartCoroutine(selectPlayer.Attack());
+            }
+        }
     }
 
     public void HandleInput(Ray ray, RaycastHit hitInfo)
@@ -99,9 +121,7 @@ public class InputManager : MonoBehaviour
                     movePlayer.MyMoveRoutine = null;
                 }
 
-                float rotate = Mathf.Atan2(endPos.z, endPos.x) * Mathf.Rad2Deg;
-
-                print("오일러 각도 : " + rotate);
+                float rotate = (Mathf.Atan2(endPos.z, endPos.x) * Mathf.Rad2Deg) + 180;
 
                 movePlayer.MyMoveRoutine = StartCoroutine(movePlayer.MoveRoutine(hitInfo.point, rotate));
 

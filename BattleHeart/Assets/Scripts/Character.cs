@@ -8,12 +8,16 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    private Animator animator;
+    protected Animator animator;
+
+    private Rigidbody myRigidbody;
 
     // Use this for initialization
     protected virtual void Start()
     {
-        animator = this.GetComponent<Animator>();
+        animator = this.GetComponentInChildren<Animator>();
+
+        myRigidbody = this.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -23,25 +27,35 @@ public abstract class Character : MonoBehaviour
 
     public virtual IEnumerator MoveRoutine(Vector3 moveEnd, float rotate)
     {
+        //animator.SetLayerWeight(0, 0);
+        //animator.SetLayerWeight(1, 1);
+
         float distance = Vector3.Distance(this.transform.position, moveEnd);
 
-        print("움직임" + this.transform.localEulerAngles);
+        animator.SetBool("MOVE", true);
 
-        if (-45f <= rotate && rotate <= 45f)
+        print("움직임" + this.transform.localEulerAngles);
+        print("오일러 각도 : " + rotate);
+
+        if (315f <= rotate || rotate <= 45f)
         {
             this.transform.localEulerAngles = new Vector3(0, 0, 0);
+            print("왼쪽 : " + rotate);
         }
-        else if (46f <= rotate && rotate <= 135)
+        else if (45f <= rotate && rotate <= 135f)
         {
             this.transform.localEulerAngles = new Vector3(0, 90, 0);
+            print("아래 : " + rotate);
         }
-        else if (136f <= rotate && rotate <= -135f)
+        else if (135f <= rotate && rotate <= 225f)
         {
             this.transform.localEulerAngles = new Vector3(0, 180, 0);
+            print("오른쪽 : " + rotate);
         }
-        else if (226f <= rotate && rotate <= 315f)
+        else if (225f <= rotate && rotate <= 315f)
         {
-            this.transform.localEulerAngles = new Vector3(0, 0, 0);
+            this.transform.localEulerAngles = new Vector3(0, -90, 0);
+            print("위쪽 : " + rotate);
         }
 
         while (distance >= 0.5f)
@@ -52,6 +66,7 @@ public abstract class Character : MonoBehaviour
 
             distance = Vector3.Distance(this.transform.position, moveEnd);
         }
+        animator.SetBool("MOVE", false);
     }
 
     public virtual void AnimateMovement()
