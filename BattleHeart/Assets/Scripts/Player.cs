@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Character
@@ -27,6 +26,14 @@ public class Player : Character
 
     public Coroutine MyMoveRoutine { get; set; }
 
+    public bool IsMoving
+    {
+        get
+        {
+            return false;
+        }
+    }
+
     // Use this for initialization
     protected override void Start()
     {
@@ -48,10 +55,15 @@ public class Player : Character
 
     public IEnumerator Attack()
     {
-        animator.SetBool("ATTACK", true);
+        if (!isAttacking && i)
+        {
+        }
+        MyAnimator.SetBool("ATTACK", true);
+
+        isAttacking = true;
 
         yield return new WaitForSeconds(3);
 
-        print("Done Casting");
+        StopAttack();
     }
 }

@@ -8,14 +8,20 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    protected Animator animator;
+    public Animator MyAnimator { get; set; }
+
+    //public bool IsAttacking { get; set; }
 
     private Rigidbody myRigidbody;
+
+    protected bool isAttacking = false;
+
+    private bool isMoving;
 
     // Use this for initialization
     protected virtual void Start()
     {
-        animator = this.GetComponentInChildren<Animator>();
+        MyAnimator = this.GetComponentInChildren<Animator>();
 
         myRigidbody = this.GetComponent<Rigidbody>();
     }
@@ -23,6 +29,7 @@ public abstract class Character : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        HandleLayers();
     }
 
     public virtual IEnumerator MoveRoutine(Vector3 moveEnd, float rotate)
@@ -32,7 +39,7 @@ public abstract class Character : MonoBehaviour
 
         float distance = Vector3.Distance(this.transform.position, moveEnd);
 
-        animator.SetBool("MOVE", true);
+        MyAnimator.SetBool("MOVE", true);
 
         print("움직임" + this.transform.localEulerAngles);
         print("오일러 각도 : " + rotate);
@@ -66,12 +73,37 @@ public abstract class Character : MonoBehaviour
 
             distance = Vector3.Distance(this.transform.position, moveEnd);
         }
-        animator.SetBool("MOVE", false);
+        MyAnimator.SetBool("MOVE", false);
     }
 
-    public virtual void AnimateMovement()
+    public void HandleLayers()
     {
-        var r = Mathf.Atan2(1f, 0f);
-        var e = r * Mathf.Rad2Deg;
+        if (isAttacking)
+        {
+            ActivateLayer("AttackLayer");
+        }
+        else
+        {
+            ActivateLayer("IdleLayer");
+
+            StopAttack();
+        }
+    }
+
+    public void ActivateLayer(string layerName)
+    {
+        for (int i = 0; i < MyAnimator.layerCount; i++)
+        {
+            //모든 레이어 값을 0 만든다
+            MyAnimator.SetLayerWeight(i, 0);
+        }
+        //레이어를 활성화 한다
+        MyAnimator.SetLayerWeight(MyAnimator.GetLayerIndex(layerName), 1);
+    }
+
+    public void StopAttack()
+    {
+        isAttacking = false;
+        MyAnimator.SetBool("ATTACK", isAttacking);
     }
 }

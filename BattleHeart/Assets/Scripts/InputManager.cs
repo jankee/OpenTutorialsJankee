@@ -25,7 +25,9 @@ public class InputManager : MonoBehaviour
 
     private GameObject tmpSelect;
 
-    private bool bDrag = false;
+    private bool isDrag = false;
+
+    private bool isButtonDown = false;
 
     // Use this for initialization
     private void Start()
@@ -77,79 +79,87 @@ public class InputManager : MonoBehaviour
                 //거리 측정을 위해 시작포인트를 알려 준다
                 startPos = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
 
-                //OnDrawGizmos(startPos, Color.red);
+                isButtonDown = true;
             }
         }
         else if (Input.GetMouseButton(0))
         {
-            ///드레그인지 확인
-            float distance = Vector3.Distance(startPos, new Vector3(hitInfo.point.x, 0, hitInfo.point.z));
-
-            if (distance > 1f)
+            if (isButtonDown)
             {
-                print("Drag");
-                //tmp가 없다면
-                if (tmp == null)
+                ///드레그인지 확인
+                float distance = Vector3.Distance(startPos, new Vector3(hitInfo.point.x, 0, hitInfo.point.z));
+
+                if (distance > 1f)
                 {
-                    tmp = Instantiate(mTarget, hitInfo.point, Quaternion.identity);
+                    print("Drag");
+                    //tmp가 없다면
+                    if (tmp == null)
+                    {
+                        tmp = Instantiate(mTarget, hitInfo.point, Quaternion.identity);
+                    }
+                    else
+                    {
+                        //드레그
+                        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
+
+                        tmp.transform.position = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
+                    }
+                    isDrag = true;
                 }
                 else
                 {
-                    //드레그
-                    Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
-
-                    tmp.transform.position = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
+                    print("None Drag");
+                    isDrag = false;
                 }
-                bDrag = true;
-            }
-            else
-            {
-                print("None Drag");
-                bDrag = false;
             }
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if (bDrag)
+            if (isButtonDown)
             {
-                endPos = hitInfo.point;
-
-                if (movePlayer.MyMoveRoutine != null)
+                if (isDrag)
                 {
-                    StopCoroutine(movePlayer.MyMoveRoutine);
+                    endPos = hitInfo.point;
 
-                    movePlayer.MyMoveRoutine = null;
+                    if (movePlayer.MyMoveRoutine != null)
+                    {
+                        StopCoroutine(movePlayer.MyMoveRoutine);
+
+                        movePlayer.MyMoveRoutine = null;
+                    }
+
+                    float rotate = (Mathf.Atan2(endPos.z, endPos.x) * Mathf.Rad2Deg) + 180;
+
+                    movePlayer.MyMoveRoutine = StartCoroutine(movePlayer.MoveRoutine(hitInfo.point, rotate));
+
+                    //만약 적이라면
+                    if (hitInfo.transform.tag == "Enemy")
+                    {
+                        //플레이어의 타겟에 에너미를 넘겨준다.
+                        print("I finde Enemy");
+                        movePlayer.MyTarget = hitInfo.transform.GetComponent<Enemy>();
+                    }
+
+                    Destroy(tmp.gameObject);
+                }
+                else
+                {
+                    if (tmpSelect != null)
+                    {
+                        print(tmpSelect.name);
+
+                        Destroy(tmpSelect.gameObject);
+                    }
+
+                    //movePlayer를 selectPlayer에 전달
+                    selectPlayer = movePlayer;
+
+                    //커서를 생성하여 플레이어 자식으로 만듬
+                    tmpSelect = Instantiate(mSelect, selectPlayer.transform.position, Quaternion.identity);
+                    tmpSelect.transform.SetParent(selectPlayer.transform);
                 }
 
-                float rotate = (Mathf.Atan2(endPos.z, endPos.x) * Mathf.Rad2Deg) + 180;
-
-                movePlayer.MyMoveRoutine = StartCoroutine(movePlayer.MoveRoutine(hitInfo.point, rotate));
-
-                //만약 적이라면
-                if (hitInfo.transform.tag == "Enemy")
-                {
-                    //플레이어의 타겟에 에너미를 넘겨준다.
-                    print("I finde Enemy");
-                    movePlayer.MyTarget = hitInfo.transform.GetComponent<Enemy>();
-                }
-
-                Destroy(tmp.gameObject);
-            }
-            else
-            {
-                if (tmpSelect != null)
-                {
-                    print(tmpSelect.name);
-
-                    Destroy(tmpSelect.gameObject);
-                }
-
-                //movePlayer를 selectPlayer에 전달
-                selectPlayer = movePlayer;
-
-                //커서를 생성하여 플레이어 자식으로 만듬
-                tmpSelect = Instantiate(mSelect, selectPlayer.transform.position, Quaternion.identity);
-                tmpSelect.transform.SetParent(selectPlayer.transform);
+                isButtonDown = false;
             }
         }
     }
