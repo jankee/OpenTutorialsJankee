@@ -22,8 +22,7 @@ GameObject:
   - component: {fileID: 212619750541004442}
   - component: {fileID: 54312150565163170}
   - component: {fileID: 65826771055680684}
-  - component: {fileID: 114669232316381122}
-  - component: {fileID: 95417743623164630}
+  - component: {fileID: 114690935082088844}
   m_Layer: 0
   m_Name: FireProjectile
   m_TagString: Untagged
@@ -39,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1938750000505960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,24 +70,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.4, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &95417743623164630
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1938750000505960}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: df5e244a51f959d4491247532f834697, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114669232316381122
+--- !u!114 &114690935082088844
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,10 +78,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1938750000505960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff16bc55e647ed42bbf912209b2fbaf, type: 3}
+  m_Script: {fileID: 11500000, guid: 323c898e7cd97cd4b928660981fd401b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 15
 --- !u!212 &212619750541004442
 SpriteRenderer:
   m_ObjectHideFlags: 1

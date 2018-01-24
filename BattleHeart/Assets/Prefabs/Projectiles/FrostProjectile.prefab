@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 54189243248106164}
   - component: {fileID: 65760196820236772}
   - component: {fileID: 95674403867658538}
-  - component: {fileID: 114431503090301728}
+  - component: {fileID: 114259988142255216}
   m_Layer: 0
   m_Name: FrostProjectile
   m_TagString: Untagged
@@ -88,7 +88,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114431503090301728
+--- !u!114 &114259988142255216
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,10 +96,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1976733651188184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff16bc55e647ed42bbf912209b2fbaf, type: 3}
+  m_Script: {fileID: 11500000, guid: 323c898e7cd97cd4b928660981fd401b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 3
 --- !u!212 &212118842530307780
 SpriteRenderer:
   m_ObjectHideFlags: 1

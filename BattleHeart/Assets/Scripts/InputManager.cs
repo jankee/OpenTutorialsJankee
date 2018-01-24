@@ -2,13 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singleton<InputManager>
 {
     //선택된 플레이어를 담기 위한 변수
     private Player selectPlayer;
 
     //이동할 플레이어를 담기 위한 변수
     private Player movePlayer;
+
+    public Player MyMovePlayer
+    {
+        get
+        {
+            return movePlayer;
+        }
+
+        set
+        {
+            movePlayer = value;
+        }
+    }
 
     private Vector3 startPos;
 
@@ -60,9 +73,14 @@ public class InputManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            print("OnOff : " + selectPlayer.InLineOfSight());
+
             if (selectPlayer != null)
             {
-                StartCoroutine(selectPlayer.Attack());
+                if (!selectPlayer.MyIsAttacking && !selectPlayer.IsMoving && selectPlayer.InLineOfSight())
+                {
+                    selectPlayer.MyAttackRoutine = StartCoroutine(selectPlayer.Attack());
+                }
             }
         }
     }
@@ -91,7 +109,6 @@ public class InputManager : MonoBehaviour
 
                 if (distance > 1f)
                 {
-                    print("Drag");
                     //tmp가 없다면
                     if (tmp == null)
                     {
@@ -108,7 +125,6 @@ public class InputManager : MonoBehaviour
                 }
                 else
                 {
-                    print("None Drag");
                     isDrag = false;
                 }
             }
@@ -129,15 +145,16 @@ public class InputManager : MonoBehaviour
                     }
 
                     float rotate = (Mathf.Atan2(endPos.z, endPos.x) * Mathf.Rad2Deg) + 180;
-
+                    print("Rotate : " + rotate);
                     movePlayer.MyMoveRoutine = StartCoroutine(movePlayer.MoveRoutine(hitInfo.point, rotate));
 
                     //만약 적이라면
                     if (hitInfo.transform.tag == "Enemy")
                     {
                         //플레이어의 타겟에 에너미를 넘겨준다.
-                        print("I finde Enemy");
                         movePlayer.MyTarget = hitInfo.transform.GetComponent<Enemy>();
+
+                        print("I finde Enemy" + movePlayer.MyTarget.name);
                     }
 
                     Destroy(tmp.gameObject);

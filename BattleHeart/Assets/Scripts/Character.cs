@@ -14,9 +14,21 @@ public abstract class Character : MonoBehaviour
 
     private Rigidbody myRigidbody;
 
-    protected bool isAttacking = false;
+    public bool MyIsAttacking { get; set; }
+
+    public Coroutine MyAttackRoutine { get; set; }
+
+    public int MyExitIndex { get; set; }
 
     private bool isMoving;
+
+    public bool IsMoving
+    {
+        get
+        {
+            return isMoving;
+        }
+    }
 
     // Use this for initialization
     protected virtual void Start()
@@ -24,6 +36,8 @@ public abstract class Character : MonoBehaviour
         MyAnimator = this.GetComponentInChildren<Animator>();
 
         myRigidbody = this.GetComponent<Rigidbody>();
+
+        MyIsAttacking = false;
     }
 
     // Update is called once per frame
@@ -39,46 +53,60 @@ public abstract class Character : MonoBehaviour
 
         float distance = Vector3.Distance(this.transform.position, moveEnd);
 
+        Rotation(rotate);
+
         MyAnimator.SetBool("MOVE", true);
-
-        print("움직임" + this.transform.localEulerAngles);
-        print("오일러 각도 : " + rotate);
-
-        if (315f <= rotate || rotate <= 45f)
-        {
-            this.transform.localEulerAngles = new Vector3(0, 0, 0);
-            print("왼쪽 : " + rotate);
-        }
-        else if (45f <= rotate && rotate <= 135f)
-        {
-            this.transform.localEulerAngles = new Vector3(0, 90, 0);
-            print("아래 : " + rotate);
-        }
-        else if (135f <= rotate && rotate <= 225f)
-        {
-            this.transform.localEulerAngles = new Vector3(0, 180, 0);
-            print("오른쪽 : " + rotate);
-        }
-        else if (225f <= rotate && rotate <= 315f)
-        {
-            this.transform.localEulerAngles = new Vector3(0, -90, 0);
-            print("위쪽 : " + rotate);
-        }
 
         while (distance >= 0.5f)
         {
+            isMoving = true;
+
             this.transform.position = Vector3.MoveTowards(this.transform.position, moveEnd, speed * Time.deltaTime);
 
             yield return null;
 
             distance = Vector3.Distance(this.transform.position, moveEnd);
         }
+
+        isMoving = false;
+
         MyAnimator.SetBool("MOVE", false);
+    }
+
+    private void Rotation(float rotate)
+    {
+        print("움직임" + this.transform.localEulerAngles);
+        print("오일러 각도 : " + rotate);
+
+        if (315f <= rotate || rotate <= 45f)
+        {
+            this.transform.localEulerAngles = new Vector3(0, -90, 0);
+            MyExitIndex = 0;
+            print("왼쪽 : " + rotate);
+        }
+        else if (45f <= rotate && rotate <= 135f)
+        {
+            this.transform.localEulerAngles = new Vector3(0, 180, 0);
+            MyExitIndex = 0;
+            print("아래 : " + rotate);
+        }
+        else if (135f <= rotate && rotate <= 225f)
+        {
+            this.transform.localEulerAngles = new Vector3(0, 90, 0);
+            MyExitIndex = 0;
+            print("오른쪽 : " + rotate);
+        }
+        else if (225f <= rotate && rotate <= 315f)
+        {
+            this.transform.localEulerAngles = new Vector3(0, 0, 0);
+            MyExitIndex = 0;
+            print("위쪽 : " + rotate);
+        }
     }
 
     public void HandleLayers()
     {
-        if (isAttacking)
+        if (MyIsAttacking)
         {
             ActivateLayer("AttackLayer");
         }
@@ -103,7 +131,12 @@ public abstract class Character : MonoBehaviour
 
     public void StopAttack()
     {
-        isAttacking = false;
-        MyAnimator.SetBool("ATTACK", isAttacking);
+        if (MyAttackRoutine != null)
+        {
+            //코루틴을 꺼준다
+            StopCoroutine(MyAttackRoutine);
+            MyIsAttacking = false;
+            MyAnimator.SetBool("ATTACK", MyIsAttacking);
+        }
     }
 }

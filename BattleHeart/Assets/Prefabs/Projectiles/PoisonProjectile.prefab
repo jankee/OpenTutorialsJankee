@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 212972184431047656}
   - component: {fileID: 65570765370248040}
   - component: {fileID: 54297668000473822}
-  - component: {fileID: 114338132986346642}
   - component: {fileID: 95712309160720664}
+  - component: {fileID: 114100723236607480}
   m_Layer: 0
   m_Name: PoisonProjectile
   m_TagString: Untagged
@@ -88,7 +88,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114338132986346642
+--- !u!114 &114100723236607480
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,10 +96,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1902166046666730}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff16bc55e647ed42bbf912209b2fbaf, type: 3}
+  m_Script: {fileID: 11500000, guid: 323c898e7cd97cd4b928660981fd401b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 3
 --- !u!212 &212972184431047656
 SpriteRenderer:
   m_ObjectHideFlags: 1
