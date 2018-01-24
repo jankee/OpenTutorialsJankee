@@ -73,15 +73,6 @@ public class InputManager : Singleton<InputManager>
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            print("OnOff : " + selectPlayer.InLineOfSight());
-
-            if (selectPlayer != null)
-            {
-                if (!selectPlayer.MyIsAttacking && !selectPlayer.IsMoving && selectPlayer.InLineOfSight())
-                {
-                    selectPlayer.MyAttackRoutine = StartCoroutine(selectPlayer.Attack());
-                }
-            }
         }
     }
 
@@ -191,6 +182,17 @@ public class InputManager : Singleton<InputManager>
         if (Physics.Raycast(ray, out hitInfo, 255))
         {
             HandleInput(ray, hitInfo);
+        }
+    }
+
+    public void CallCastSpell(int spellIndex)
+    {
+        print("Spell : " + spellIndex);
+
+        if (selectPlayer != null)
+        {
+            selectPlayer.MyExitIndex = 0;
+            selectPlayer.CastSpell(spellIndex);
         }
     }
 }

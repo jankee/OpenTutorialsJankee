@@ -46,13 +46,6 @@ public class Player : Character
     // Update is called once per frame
     protected override void Update()
     {
-        //if (MyTarget != null)
-        //{
-        //    InLineOfSight();
-        //}
-
-        print(LayerMask.GetMask("Block"));
-
         base.Update();
     }
 
@@ -61,30 +54,37 @@ public class Player : Character
         return base.MoveRoutine(moveEnd, rotate);
     }
 
-    public IEnumerator Attack()
+    public IEnumerator Attack(int spellIndex)
     {
-        Block();
+        MyIsAttacking = true;
 
         MyAnimator.SetBool("ATTACK", true);
 
-        MyIsAttacking = true;
-
         yield return new WaitForSeconds(1);
 
-        print("Attack done");
-
-        CastSpell();
+        Instantiate(spellPrefabs[spellIndex], exitPoint.position, Quaternion.identity);
 
         StopAttack();
     }
 
-    public void CastSpell()
+    /// <summary>
+    /// 게임 매니저에서 연결을 할 메소드
+    /// </summary>
+    /// <param name="spellIndex"></param>
+    public void CastSpell(int spellIndex)
     {
-        Instantiate(spellPrefabs[0], exitPoint.position, Quaternion.identity);
+        Block();
+
+        if (!MyIsAttacking && !IsMoving && InLineOfSight())
+        {
+            MyMoveRoutine = StartCoroutine(Attack(spellIndex));
+        }
     }
 
+    //
     public bool InLineOfSight()
     {
+        //에너미의 자식 중에 데미지 콜리전을 찾는다
         Vector3 targetDirection = MyTarget.transform.GetChild(0).GetChild(0).transform.position;
 
         float distance = Vector3.Distance(exitPoint.position, targetDirection);
@@ -96,6 +96,7 @@ public class Player : Character
         Ray ray = new Ray(exitPoint.position, targetDirection);
         RaycastHit hitInfo;
 
+        //레이케스트가 블럭 레이어 붙이치면
         Physics.Raycast(ray, out hitInfo, distance, 256);
 
         if (hitInfo.collider == null)
@@ -103,18 +104,16 @@ public class Player : Character
             return true;
         }
 
-        print(hitInfo.transform.name);
-
         return false;
     }
 
-    private void Block()
+    public void Block()
     {
         foreach (Block block in blocks)
         {
             block.Deactivate();
         }
-
+        print("Block");
         blocks[MyExitIndex].Activate();
     }
 }
