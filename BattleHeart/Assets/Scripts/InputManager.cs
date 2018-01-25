@@ -187,11 +187,14 @@ public class InputManager : Singleton<InputManager>
 
     public void CallCastSpell(int spellIndex)
     {
-        print("Spell : " + spellIndex);
+        print("Spell : " + spellIndex + " : " + selectPlayer.name);
 
-        if (selectPlayer != null)
+        if (selectPlayer != null && selectPlayer.MyTarget != null)
         {
+            print(selectPlayer.MyTarget.name);
+
             selectPlayer.MyExitIndex = 0;
+            //셀렉트플레이어에 케스팅스펠
             selectPlayer.CastSpell(spellIndex);
         }
     }

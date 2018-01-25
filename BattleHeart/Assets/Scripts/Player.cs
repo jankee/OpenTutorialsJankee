@@ -38,6 +38,8 @@ public class Player : Character
     // Use this for initialization
     protected override void Start()
     {
+        MyMoveRoutine = null;
+
         MyHealth.Initalize(initHealth, initHealth);
 
         base.Start();
@@ -62,19 +64,18 @@ public class Player : Character
 
         yield return new WaitForSeconds(1);
 
-        Instantiate(spellPrefabs[spellIndex], exitPoint.position, Quaternion.identity);
+        Spell spell = Instantiate(spellPrefabs[spellIndex], exitPoint.position, Quaternion.identity).GetComponent<Spell>();
+
+        spell.MyTarget = MyTarget.GetComponent<Transform>();
 
         StopAttack();
     }
 
-    /// <summary>
-    /// 게임 매니저에서 연결을 할 메소드
-    /// </summary>
-    /// <param name="spellIndex"></param>
     public void CastSpell(int spellIndex)
     {
         Block();
 
+        //공격, 움직임이 아니고 시야에 가리는게 없다면
         if (!MyIsAttacking && !IsMoving && InLineOfSight())
         {
             MyMoveRoutine = StartCoroutine(Attack(spellIndex));
@@ -88,8 +89,6 @@ public class Player : Character
         Vector3 targetDirection = MyTarget.transform.GetChild(0).GetChild(0).transform.position;
 
         float distance = Vector3.Distance(exitPoint.position, targetDirection);
-
-        print("Target : " + targetDirection + " : " + MyTarget.transform.position + " : " + MyTarget.name);
 
         Debug.DrawLine(exitPoint.position, targetDirection, Color.yellow);
 

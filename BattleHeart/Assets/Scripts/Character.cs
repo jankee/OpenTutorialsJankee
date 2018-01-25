@@ -75,9 +75,6 @@ public abstract class Character : MonoBehaviour
 
     private void Rotation(float rotate)
     {
-        print("움직임" + this.transform.localEulerAngles);
-        print("오일러 각도 : " + rotate);
-
         if (315f <= rotate || rotate <= 45f)
         {
             this.transform.localEulerAngles = new Vector3(0, -90, 0);
@@ -131,12 +128,13 @@ public abstract class Character : MonoBehaviour
 
     public void StopAttack()
     {
+        //코루틴이 아직 실행 중이면 꺼준다
         if (MyAttackRoutine != null)
         {
-            //코루틴을 꺼준다
             StopCoroutine(MyAttackRoutine);
-            MyIsAttacking = false;
-            MyAnimator.SetBool("ATTACK", MyIsAttacking);
         }
+        //어택 리셋
+        MyIsAttacking = false;
+        MyAnimator.SetBool("ATTACK", MyIsAttacking);
     }
 }
