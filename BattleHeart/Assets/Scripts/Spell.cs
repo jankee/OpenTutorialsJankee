@@ -25,22 +25,27 @@ public class Spell : MonoBehaviour
     // Update is called once per frame
     private IEnumerator CastingSpell()
     {
-        Vector3 direction = MyTarget.position - this.transform.position;
-
-        float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
-
-        transform.rotation = Quaternion.Euler(90f, 0f, angle);
-
-        float distance = Vector3.Distance(transform.position, MyTarget.position);
-
-        while (distance > 0.5f)
+        if (MyTarget != null)
         {
-            //타겟의 자식 콜라이더를 찾아 줘야 한다
-            transform.position = Vector3.MoveTowards(transform.position, MyTarget.position, speed * Time.deltaTime);
+            //타겟의 자식 콜라이더를 찾는다
+            Vector3 tmpTarget = MyTarget.GetChild(0).GetChild(0).transform.position;
+            //방향을 알기 위한 변수
+            Vector3 direction = tmpTarget - this.transform.position;
 
-            distance = Vector3.Distance(transform.position, MyTarget.position);
+            float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
 
-            yield return new WaitForSeconds(Time.deltaTime);
+            transform.rotation = Quaternion.Euler(90f, 0f, angle);
+
+            float distance = Vector3.Distance(transform.position, tmpTarget);
+
+            while (distance > 0.5f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, tmpTarget, speed * Time.deltaTime);
+
+                distance = Vector3.Distance(transform.position, tmpTarget);
+
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
         }
     }
 
@@ -49,6 +54,8 @@ public class Spell : MonoBehaviour
         if (other.tag == "Enemy")
         {
             GetComponent<Animator>().SetTrigger("Effect");
+
+            MyTarget = null;
         }
     }
 }
