@@ -9,7 +9,7 @@ public class Spell : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    public Transform MyTarget { get; set; }
+    public Enemy MyTarget { get; set; }
 
     // Use this for initialization
     private void Start()
@@ -27,8 +27,8 @@ public class Spell : MonoBehaviour
     {
         if (MyTarget != null)
         {
-            //타겟의 자식 콜라이더를 찾는다
-            Vector3 tmpTarget = MyTarget.GetChild(0).GetChild(0).transform.position;
+            //타겟의 HitBox 콜라이더를 찾는다
+            Vector3 tmpTarget = MyTarget.MyHitBox.transform.position;
             //방향을 알기 위한 변수
             Vector3 direction = tmpTarget - this.transform.position;
 
@@ -51,8 +51,10 @@ public class Spell : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "HitBox" && other.transform == MyTarget.MyHitBox.transform)
         {
+            print("HitBox");
+
             GetComponent<Animator>().SetTrigger("Effect");
 
             MyTarget = null;

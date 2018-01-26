@@ -66,7 +66,7 @@ public class Player : Character
 
         Spell spell = Instantiate(spellPrefabs[spellIndex], exitPoint.position, Quaternion.identity).GetComponent<Spell>();
 
-        spell.MyTarget = MyTarget.GetComponent<Transform>();
+        spell.MyTarget = MyTarget;
 
         StopAttack();
     }
