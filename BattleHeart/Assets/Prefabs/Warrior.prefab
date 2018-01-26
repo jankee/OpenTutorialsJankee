@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 223523380299699940}
   - component: {fileID: 114902529472937322}
   - component: {fileID: 114723871060933258}
+  - component: {fileID: 114833047561728568}
   m_Layer: 9
   m_Name: CharacterCanvas
   m_TagString: Untagged
@@ -121,6 +122,7 @@ GameObject:
   - component: {fileID: 65684364098921900}
   - component: {fileID: 54818911557362754}
   - component: {fileID: 114941578760940288}
+  - component: {fileID: 114652271909510468}
   m_Layer: 9
   m_Name: Warrior
   m_TagString: Player
@@ -853,6 +855,45 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 100 / 100
+--- !u!114 &114652271909510468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167856677623204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab33840aa976b54bb88806cf78fff0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spells:
+  - name: FireBall
+    damage: 5
+    icon: {fileID: 21300000, guid: ca936be2073a9e44f951ad1cf12680fd, type: 3}
+    speed: 15
+    castTime: 3
+    spellPrefab: {fileID: 1938750000505960, guid: f287c0ef167884744a828937ed136ee9,
+      type: 2}
+    barColor: {r: 1, g: 0.18620686, b: 0, a: 1}
+  - name: FrostBall
+    damage: 6
+    icon: {fileID: 21300000, guid: b33686e3386b5ec479d5ad5aec3949ed, type: 3}
+    speed: 19
+    castTime: 4
+    spellPrefab: {fileID: 1976733651188184, guid: 959ac3d6252b91d4ea9d8feaae94d12e,
+      type: 2}
+    barColor: {r: 0, g: 0.42068958, b: 1, a: 1}
+  - name: ThunderBall
+    damage: 7
+    icon: {fileID: 21300000, guid: 9b80f4827671b494f8626a5ef0acb462, type: 3}
+    speed: 25
+    castTime: 5
+    spellPrefab: {fileID: 1176597337697150, guid: c95fa2726f12db54c998c8fb75142aea,
+      type: 2}
+    barColor: {r: 0, g: 1, b: 0.42068982, a: 1}
+  castingBar: {fileID: 0}
+  castTimeTxt: {fileID: 0}
+  icon: {fileID: 0}
 --- !u!114 &114653334551551440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -936,6 +977,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114833047561728568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1158617987459568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6006ba54d1b121649924af295d7e0653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114902529472937322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -971,10 +1023,6 @@ MonoBehaviour:
   speed: 2
   health: {fileID: 114653334551551440}
   initHealth: 100
-  spellPrefabs:
-  - {fileID: 1938750000505960, guid: f287c0ef167884744a828937ed136ee9, type: 2}
-  - {fileID: 1976733651188184, guid: 959ac3d6252b91d4ea9d8feaae94d12e, type: 2}
-  - {fileID: 1176597337697150, guid: c95fa2726f12db54c998c8fb75142aea, type: 2}
   blocks:
   - first: {fileID: 1116401302628308}
     second: {fileID: 1817050791180312}

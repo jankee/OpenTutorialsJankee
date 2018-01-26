@@ -1,63 +1,86 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 
-public class Spell : MonoBehaviour
+[Serializable]
+public class Spell
 {
-    //private Rigidbody MyRigidbody;
+    [SerializeField]
+    private string name;
+
+    [SerializeField]
+    private float damage;
+
+    [SerializeField]
+    private Sprite icon;
 
     [SerializeField]
     private float speed;
 
-    public Enemy MyTarget { get; set; }
+    [SerializeField]
+    private float castTime;
 
-    // Use this for initialization
-    private void Start()
+    [SerializeField]
+    private GameObject spellPrefab;
+
+    [SerializeField]
+    private Color barColor;
+
+    public string MyName
     {
-        //MyRigidbody = this.GetComponent<Rigidbody>();
-
-        //target에 플레이어의 MyTarget에서 가져온다
-        //MyTarget = InputManager.Instance.MyMovePlayer.MyTarget.transform;
-
-        StartCoroutine(CastingSpell());
-    }
-
-    // Update is called once per frame
-    private IEnumerator CastingSpell()
-    {
-        if (MyTarget != null)
+        get
         {
-            //타겟의 HitBox 콜라이더를 찾는다
-            Vector3 tmpTarget = MyTarget.MyHitBox.transform.position;
-            //방향을 알기 위한 변수
-            Vector3 direction = tmpTarget - this.transform.position;
-
-            float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
-
-            transform.rotation = Quaternion.Euler(90f, 0f, angle);
-
-            float distance = Vector3.Distance(transform.position, tmpTarget);
-
-            while (distance > 0.5f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, tmpTarget, speed * Time.deltaTime);
-
-                distance = Vector3.Distance(transform.position, tmpTarget);
-
-                yield return new WaitForSeconds(Time.deltaTime);
-            }
+            return name;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public float MyDamage
     {
-        if (other.tag == "HitBox" && other.transform == MyTarget.MyHitBox.transform)
+        get
         {
-            print("HitBox");
+            return damage;
+        }
+    }
 
-            GetComponent<Animator>().SetTrigger("Effect");
+    public Sprite MyIcon
+    {
+        get
+        {
+            return icon;
+        }
+    }
 
-            MyTarget = null;
+    public float MySpeed
+    {
+        get
+        {
+            return speed;
+        }
+    }
+
+    public float MyCastTime
+    {
+        get
+        {
+            return castTime;
+        }
+    }
+
+    public GameObject MySpellPrefab
+    {
+        get
+        {
+            return spellPrefab;
+        }
+    }
+
+    public Color MyBarColor
+    {
+        get
+        {
+            return barColor;
         }
     }
 }

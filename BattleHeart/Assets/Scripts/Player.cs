@@ -27,17 +27,18 @@ public class Player : Character
     public Coroutine MyMoveRoutine { get; set; }
 
     [SerializeField]
-    private GameObject[] spellPrefabs;
-
-    [SerializeField]
     private Block[] blocks;
 
     [SerializeField]
     private Transform exitPoint;
 
+    private SpellBook spellBook;
+
     // Use this for initialization
     protected override void Start()
     {
+        spellBook = GetComponent<SpellBook>();
+
         MyMoveRoutine = null;
 
         MyHealth.Initalize(initHealth, initHealth);
@@ -58,15 +59,22 @@ public class Player : Character
 
     public IEnumerator Attack(int spellIndex)
     {
+        Enemy currentTarget = MyTarget;
+
+        Spell newSpell = spellBook.CastSpell(spellIndex);
+
         MyIsAttacking = true;
 
-        MyAnimator.SetBool("ATTACK", true);
+        MyAnimator.SetBool("ATTACK", MyIsAttacking);
 
-        yield return new WaitForSeconds(1);
+        if (currentTarget != null && InLineOfSight())
+        {
+            SpellScript spell = Instantiate(newSpell.MySpellPrefab, exitPoint.position, Quaternion.identity).GetComponent<SpellScript>();
 
-        Spell spell = Instantiate(spellPrefabs[spellIndex], exitPoint.position, Quaternion.identity).GetComponent<Spell>();
+            spell.MyTarget = MyTarget;
+        }
 
-        spell.MyTarget = MyTarget;
+        yield return new WaitForSeconds(newSpell.MyCastTime);
 
         StopAttack();
     }
@@ -114,5 +122,12 @@ public class Player : Character
         }
         print("Block");
         blocks[MyExitIndex].Activate();
+    }
+
+    public override void StopAttack()
+    {
+        spellBook.StopCasting();
+
+        base.StopAttack();
     }
 }

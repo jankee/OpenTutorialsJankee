@@ -126,7 +126,7 @@ public abstract class Character : MonoBehaviour
         MyAnimator.SetLayerWeight(MyAnimator.GetLayerIndex(layerName), 1);
     }
 
-    public void StopAttack()
+    public virtual void StopAttack()
     {
         //코루틴이 아직 실행 중이면 꺼준다
         if (MyAttackRoutine != null)
