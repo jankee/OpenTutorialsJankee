@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Enemy : NPC
 {
-    [SerializeField]
-    private Transform hitBox;
+    //[SerializeField]
+    //private Transform hitBox;
 
-    public Transform MyHitBox
-    {
-        get
-        {
-            return hitBox;
-        }
-    }
+    //public Transform MyHitBox
+    //{
+    //    get
+    //    {
+    //        return hitBox;
+    //    }
+    //}
 
     // Use this for initialization
     private void Start()

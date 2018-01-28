@@ -136,7 +136,6 @@ public class InputManager : Singleton<InputManager>
                     }
 
                     float rotate = (Mathf.Atan2(endPos.z, endPos.x) * Mathf.Rad2Deg) + 180;
-                    print("Rotate : " + rotate);
                     movePlayer.MyMoveRoutine = StartCoroutine(movePlayer.MoveRoutine(hitInfo.point, rotate));
 
                     //만약 적이라면

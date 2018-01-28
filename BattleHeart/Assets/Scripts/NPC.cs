@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class NPC : Character
 {
-    // Use this for initialization
-    private void Start()
+    public virtual void DeSelect()
     {
     }
 
-    // Update is called once per frame
-    private void Update()
+    public virtual Transform Select()
     {
+        return hitBox;
     }
 }

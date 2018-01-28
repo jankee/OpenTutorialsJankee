@@ -14,11 +14,6 @@ public class SpellScript : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        //MyRigidbody = this.GetComponent<Rigidbody>();
-
-        //target에 플레이어의 MyTarget에서 가져온다
-        //MyTarget = InputManager.Instance.MyMovePlayer.MyTarget.transform;
-
         StartCoroutine(CastingSpell());
     }
 
@@ -28,7 +23,7 @@ public class SpellScript : MonoBehaviour
         if (MyTarget != null)
         {
             //타겟의 HitBox 콜라이더를 찾는다
-            Vector3 tmpTarget = MyTarget.MyHitBox.transform.position;
+            Vector3 tmpTarget = MyTarget.Select().transform.position;
             //방향을 알기 위한 변수
             Vector3 direction = tmpTarget - this.transform.position;
 
@@ -51,7 +46,7 @@ public class SpellScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "HitBox" && other.transform == MyTarget.MyHitBox.transform)
+        if (other.tag == "HitBox" && other.transform == MyTarget.Select().transform)
         {
             print("HitBox");
 

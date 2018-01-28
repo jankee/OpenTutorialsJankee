@@ -20,6 +20,9 @@ public abstract class Character : MonoBehaviour
 
     public int MyExitIndex { get; set; }
 
+    [SerializeField]
+    protected Transform hitBox;
+
     private bool isMoving;
 
     public bool IsMoving
