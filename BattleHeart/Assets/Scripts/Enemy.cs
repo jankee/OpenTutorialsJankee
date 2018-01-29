@@ -4,16 +4,8 @@ using UnityEngine;
 
 public class Enemy : NPC
 {
-    //[SerializeField]
-    //private Transform hitBox;
-
-    //public Transform MyHitBox
-    //{
-    //    get
-    //    {
-    //        return hitBox;
-    //    }
-    //}
+    [SerializeField]
+    private CanvasGroup healGroup;
 
     // Use this for initialization
     private void Start()
@@ -23,5 +15,19 @@ public class Enemy : NPC
     // Update is called once per frame
     private void Update()
     {
+    }
+
+    public override Transform Select()
+    {
+        healGroup.alpha = 1f;
+
+        return base.Select();
+    }
+
+    public override void DeSelect()
+    {
+        healGroup.alpha = 0f;
+
+        base.DeSelect();
     }
 }

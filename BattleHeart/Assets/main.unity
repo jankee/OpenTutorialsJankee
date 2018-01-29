@@ -6841,7 +6841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   hitBox: {fileID: 1888297575}
-  hitBox: {fileID: 1888297575}
+  healGroup: {fileID: 2092846340}
 --- !u!95 &1482025199
 Animator:
   serializedVersion: 3
@@ -8214,7 +8214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   hitBox: {fileID: 129892122}
-  hitBox: {fileID: 129892122}
+  healGroup: {fileID: 1039673179}
 --- !u!95 &1748134579
 Animator:
   serializedVersion: 3
@@ -8428,7 +8428,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2050201108}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.58722657
+  m_Size: 0.5872266
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
