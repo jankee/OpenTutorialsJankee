@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
     [SerializeField]
     private Button[] actionButtons;
@@ -39,5 +39,16 @@ public class UIManager : MonoBehaviour
     private void ActionButtonOnClick(int btnIndex)
     {
         actionButtons[btnIndex].onClick.Invoke();
+    }
+
+    public void ShowTatgetFrame(Enemy target)
+    {
+        print(target.transform.name);
+        target.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+    }
+
+    public void HideTagetFrame(Enemy target)
+    {
+        target.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
     }
 }

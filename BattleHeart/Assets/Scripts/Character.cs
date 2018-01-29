@@ -23,6 +23,20 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     protected Transform hitBox;
 
+    [SerializeField]
+    private Stat health;
+
+    public Stat MyHealth
+    {
+        get
+        {
+            return health;
+        }
+    }
+
+    [SerializeField]
+    private float initHealth;
+
     private bool isMoving;
 
     public bool IsMoving
@@ -36,6 +50,8 @@ public abstract class Character : MonoBehaviour
     // Use this for initialization
     protected virtual void Start()
     {
+        MyHealth.Initalize(initHealth, initHealth);
+
         MyAnimator = this.GetComponentInChildren<Animator>();
 
         myRigidbody = this.GetComponent<Rigidbody>();
@@ -139,5 +155,23 @@ public abstract class Character : MonoBehaviour
         //어택 리셋
         MyIsAttacking = false;
         MyAnimator.SetBool("ATTACK", MyIsAttacking);
+    }
+
+    public virtual void TakeDamage(float damage)
+    {
+        health.MyCurrentValue -= damage;
+        print("Damage");
+
+        if (health.MyCurrentValue <= 0)
+        {
+            MyAnimator.SetLayerWeight(3, 1);
+
+            MyAnimator.SetTrigger("Die");
+
+            UIManager.Instance.HideTagetFrame(this.GetComponent<Enemy>());
+
+            print("Die");
+            //Die
+        }
     }
 }

@@ -3,24 +3,8 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField]
-    private Stat health;
-
-    public Stat MyHealth
-    {
-        get
-        {
-            return health;
-        }
-
-        set
-        {
-            health = value;
-        }
-    }
-
-    [SerializeField]
-    private float initHealth;
+    //[SerializeField]
+    //private float initHealth;
 
     public Enemy MyTarget { get; set; }
 
@@ -40,8 +24,6 @@ public class Player : Character
         spellBook = GetComponent<SpellBook>();
 
         MyMoveRoutine = null;
-
-        MyHealth.Initalize(initHealth, initHealth);
 
         base.Start();
     }
@@ -71,7 +53,7 @@ public class Player : Character
         {
             SpellScript spell = Instantiate(newSpell.MySpellPrefab, exitPoint.position, Quaternion.identity).GetComponent<SpellScript>();
 
-            spell.MyTarget = MyTarget;
+            spell.Initialized(currentTarget, newSpell.MyDamage);
         }
 
         yield return new WaitForSeconds(newSpell.MyCastTime);
@@ -93,24 +75,26 @@ public class Player : Character
     //
     public bool InLineOfSight()
     {
-        //에너미의 자식 중에 데미지 콜리전을 찾는다
-        Vector3 targetDirection = MyTarget.transform.GetChild(0).GetChild(0).transform.position;
-
-        float distance = Vector3.Distance(exitPoint.position, targetDirection);
-
-        Debug.DrawLine(exitPoint.position, targetDirection, Color.yellow);
-
-        Ray ray = new Ray(exitPoint.position, targetDirection);
-        RaycastHit hitInfo;
-
-        //레이케스트가 블럭 레이어 붙이치면
-        Physics.Raycast(ray, out hitInfo, distance, 256);
-
-        if (hitInfo.collider == null)
+        if (MyTarget != null)
         {
-            return true;
-        }
+            //에너미의 자식 중에 데미지 콜리전을 찾는다
+            Vector3 targetDirection = MyTarget.transform.GetChild(0).GetChild(0).transform.position;
 
+            float distance = Vector3.Distance(exitPoint.position, targetDirection);
+
+            Debug.DrawLine(exitPoint.position, targetDirection, Color.yellow);
+
+            Ray ray = new Ray(exitPoint.position, targetDirection);
+            RaycastHit hitInfo;
+
+            //레이케스트가 블럭 레이어 붙이치면
+            Physics.Raycast(ray, out hitInfo, distance, 256);
+
+            if (hitInfo.collider == null)
+            {
+                return true;
+            }
+        }
         return false;
     }
 

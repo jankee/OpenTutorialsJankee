@@ -8,8 +8,9 @@ public class Enemy : NPC
     private CanvasGroup healGroup;
 
     // Use this for initialization
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
     }
 
     // Update is called once per frame

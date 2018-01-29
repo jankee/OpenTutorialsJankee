@@ -141,10 +141,18 @@ public class InputManager : Singleton<InputManager>
                     //만약 적이라면
                     if (hitInfo.transform.tag == "Enemy")
                     {
+                        if (movePlayer.MyTarget != null)
+                        {
+                            UIManager.Instance.HideTagetFrame(movePlayer.MyTarget);
+
+                            //movePlayer.MyTarget.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+                        }
                         //플레이어의 타겟에 에너미를 넘겨준다.
                         movePlayer.MyTarget = hitInfo.transform.GetComponent<Enemy>();
 
-                        print("I finde Enemy" + movePlayer.MyTarget.name);
+                        UIManager.Instance.ShowTatgetFrame(movePlayer.MyTarget);
+
+                        //movePlayer.MyTarget.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
                     }
 
                     Destroy(tmp.gameObject);
