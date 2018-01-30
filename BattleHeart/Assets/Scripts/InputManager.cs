@@ -143,14 +143,18 @@ public class InputManager : Singleton<InputManager>
                     {
                         if (movePlayer.MyTarget != null)
                         {
-                            UIManager.Instance.HideTagetFrame(movePlayer.MyTarget);
+                            movePlayer.MyTarget.DisableTarget();
+
+                            //UIManager.Instance.HideTagetFrame(movePlayer.MyTarget);
 
                             //movePlayer.MyTarget.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
                         }
                         //플레이어의 타겟에 에너미를 넘겨준다.
                         movePlayer.MyTarget = hitInfo.transform.GetComponent<Enemy>();
 
-                        UIManager.Instance.ShowTatgetFrame(movePlayer.MyTarget);
+                        //UIManager.Instance.ShowTatgetFrame(movePlayer.MyTarget);
+
+                        movePlayer.MyTarget.ActivateTarget();
 
                         //movePlayer.MyTarget.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
                     }
@@ -168,6 +172,8 @@ public class InputManager : Singleton<InputManager>
 
                     //movePlayer를 selectPlayer에 전달
                     selectPlayer = movePlayer;
+
+                    selectPlayer.ActivateTarget();
 
                     //커서를 생성하여 플레이어 자식으로 만듬
                     tmpSelect = Instantiate(mSelect, selectPlayer.transform.position, Quaternion.identity);

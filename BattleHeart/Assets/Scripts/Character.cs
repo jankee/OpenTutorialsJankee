@@ -10,7 +10,8 @@ public abstract class Character : MonoBehaviour
 
     public Animator MyAnimator { get; set; }
 
-    //public bool IsAttacking { get; set; }
+    [SerializeField]
+    private GameObject selectObj;
 
     private Rigidbody myRigidbody;
 
@@ -168,10 +169,22 @@ public abstract class Character : MonoBehaviour
 
             MyAnimator.SetTrigger("Die");
 
-            UIManager.Instance.HideTagetFrame(this.GetComponent<Enemy>());
+            DisableTarget();
+
+            //UIManager.Instance.HideTagetFrame(this.GetComponent<Enemy>());
 
             print("Die");
             //Die
         }
+    }
+
+    public virtual void ActivateTarget()
+    {
+        selectObj.SetActive(true);
+    }
+
+    public virtual void DisableTarget()
+    {
+        selectObj.SetActive(false);
     }
 }

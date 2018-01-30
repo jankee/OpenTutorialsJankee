@@ -31,4 +31,8 @@ public class Enemy : NPC
 
         base.DeSelect();
     }
+
+    public void FindEnemy()
+    {
+    }
 }
