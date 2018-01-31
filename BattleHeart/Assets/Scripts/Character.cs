@@ -71,13 +71,15 @@ public abstract class Character : MonoBehaviour
         //animator.SetLayerWeight(0, 0);
         //animator.SetLayerWeight(1, 1);
 
-        float distance = Vector3.Distance(this.transform.position, moveEnd);
-
         Rotation(rotate);
 
-        MyAnimator.SetBool("MOVE", true);
+        if (MyAnimator != null)
+        {
+            MyAnimator.SetBool("MOVE", true);
+        }
 
-        while (distance >= 0.5f)
+        //거리가 3유닛일때까지 진행
+        while (Vector3.Distance(this.transform.position, moveEnd) >= 3f)
         {
             isMoving = true;
 
@@ -85,12 +87,15 @@ public abstract class Character : MonoBehaviour
 
             yield return null;
 
-            distance = Vector3.Distance(this.transform.position, moveEnd);
+            //distance = Vector3.Distance(this.transform.position, moveEnd);
         }
 
         isMoving = false;
 
-        MyAnimator.SetBool("MOVE", false);
+        if (MyAnimator != null)
+        {
+            MyAnimator.SetBool("MOVE", false);
+        }
     }
 
     private void Rotation(float rotate)
@@ -99,25 +104,25 @@ public abstract class Character : MonoBehaviour
         {
             this.transform.localEulerAngles = new Vector3(0, -90, 0);
             MyExitIndex = 0;
-            print("왼쪽 : " + rotate);
+            //print("왼쪽 : " + rotate);
         }
         else if (45f <= rotate && rotate <= 135f)
         {
             this.transform.localEulerAngles = new Vector3(0, 180, 0);
             MyExitIndex = 0;
-            print("아래 : " + rotate);
+            //print("아래 : " + rotate);
         }
         else if (135f <= rotate && rotate <= 225f)
         {
             this.transform.localEulerAngles = new Vector3(0, 90, 0);
             MyExitIndex = 0;
-            print("오른쪽 : " + rotate);
+            //print("오른쪽 : " + rotate);
         }
         else if (225f <= rotate && rotate <= 315f)
         {
             this.transform.localEulerAngles = new Vector3(0, 0, 0);
             MyExitIndex = 0;
-            print("위쪽 : " + rotate);
+            //print("위쪽 : " + rotate);
         }
     }
 

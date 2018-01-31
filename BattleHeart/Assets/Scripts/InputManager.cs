@@ -126,7 +126,7 @@ public class InputManager : Singleton<InputManager>
             {
                 if (isDrag)
                 {
-                    endPos = hitInfo.point;
+                    endPos = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
 
                     if (movePlayer.MyMoveRoutine != null)
                     {
@@ -135,7 +135,11 @@ public class InputManager : Singleton<InputManager>
                         movePlayer.MyMoveRoutine = null;
                     }
 
-                    float rotate = (Mathf.Atan2(endPos.z, endPos.x) * Mathf.Rad2Deg) + 180;
+                    //시작포인트 계산
+                    Vector3 rotPos = endPos - startPos;
+                    //로테이션 값을 계산
+                    float rotate = (Mathf.Atan2(rotPos.z, rotPos.x) * Mathf.Rad2Deg) + 180;
+                    //무브루틴을 시작
                     movePlayer.MyMoveRoutine = StartCoroutine(movePlayer.MoveRoutine(hitInfo.point, rotate));
 
                     //만약 적이라면

@@ -14,8 +14,16 @@ public class Enemy : NPC
     }
 
     // Update is called once per frame
-    private void Update()
+    protected override void Update()
     {
+        Collider[] coll = Physics.OverlapSphere(transform.position, 3f, 256);
+
+        if (coll.Length > 0)
+        {
+            print("Coll");
+        }
+
+        base.Update();
     }
 
     public override Transform Select()
@@ -32,7 +40,13 @@ public class Enemy : NPC
         base.DeSelect();
     }
 
-    public void FindEnemy()
+    private void OnTriggerEnter(Collider other)
     {
+        print("Trigger");
+
+        if (other.tag == "Player")
+        {
+            print(other.tag);
+        }
     }
 }
