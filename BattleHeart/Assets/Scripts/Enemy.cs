@@ -49,4 +49,8 @@ public class Enemy : NPC
             print(other.tag);
         }
     }
+
+    public void Attack()
+    {
+    }
 }

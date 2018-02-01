@@ -10,6 +10,8 @@ public class Player : Character
 
     public Coroutine MyMoveRoutine { get; set; }
 
+    private Coroutine attackRoutine;
+
     [SerializeField]
     private Block[] blocks;
 
@@ -68,7 +70,7 @@ public class Player : Character
         //공격, 움직임이 아니고 시야에 가리는게 없다면
         if (!MyIsAttacking && !IsMoving && InLineOfSight())
         {
-            MyMoveRoutine = StartCoroutine(Attack(spellIndex));
+            attackRoutine = StartCoroutine(Attack(spellIndex));
         }
     }
 

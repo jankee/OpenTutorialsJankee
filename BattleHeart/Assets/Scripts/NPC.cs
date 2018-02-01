@@ -6,7 +6,9 @@ public class NPC : Character
 {
     private Player[] players;
 
-    private Coroutine moveRoutine;
+    private Coroutine moveRoutine = null;
+
+    private bool isAttack = false;
 
     protected override void Start()
     {
@@ -21,7 +23,33 @@ public class NPC : Character
 
     private void FixedUpdate()
     {
-        //FindEnemy();
+        //멈추었다면
+        if (IsMoving == false)
+        {
+            //공격거리에 Player가 있는지 확인 한다
+            //없으면 다시 움직인다
+
+            if (Vector3.Distance(endPos, startPos) > 2.5f)
+            {
+                isAttack = true;
+
+                Attack();
+            }
+            else
+            {
+                FindEnemy();
+            }
+        }
+    }
+
+    public IEnumerator Attack()
+    {
+        //공격
+        print("공격");
+
+        while (true)
+        {
+        }
     }
 
     public virtual void DeSelect()
@@ -31,6 +59,17 @@ public class NPC : Character
     public virtual Transform Select()
     {
         return hitBox;
+    }
+
+    public void DistanceToEnemy()
+    {
+        Vector3 tmpPos = this.transform.position;
+
+        Vector3 startPos = new Vector3(tmpPos.x, 0, tmpPos.z);
+
+        Vector3 tmpEndPos = players[0].transform.position;
+
+        Vector3 endPos = new Vector3(tmpEndPos.x, 0, tmpEndPos.z);
     }
 
     public virtual void FindEnemy()
