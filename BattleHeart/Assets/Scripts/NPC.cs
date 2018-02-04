@@ -8,6 +8,8 @@ public class NPC : Character
 
     private Coroutine moveRoutine = null;
 
+    private Coroutine attackRoutine = null;
+
     private bool isAttack = false;
 
     private Vector3 startPos;
@@ -37,7 +39,13 @@ public class NPC : Character
             {
                 isAttack = true;
 
-                Attack();
+                if (attackRoutine != null)
+                {
+                    print("국제 : " + isAttack);
+                    StopCoroutine(attackRoutine);
+                }
+
+                attackRoutine = StartCoroutine(Attack());
             }
             else
             {
@@ -49,11 +57,19 @@ public class NPC : Character
     public IEnumerator Attack()
     {
         //공격
-        print("공격");
 
-        while (true)
+        float time = 0f;
+
+        while (time < 1f)
         {
+            print("공격 : " + isAttack);
+
+            yield return null;
+            time += Time.deltaTime;
         }
+        time = 0f;
+
+        isAttack = false;
     }
 
     public virtual void DeSelect()
