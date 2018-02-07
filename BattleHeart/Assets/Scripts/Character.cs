@@ -21,6 +21,8 @@ public abstract class Character : MonoBehaviour
 
     public int MyExitIndex { get; set; }
 
+    public bool isGround { get; set; }
+
     [SerializeField]
     protected Transform hitBox;
 
@@ -78,16 +80,27 @@ public abstract class Character : MonoBehaviour
             MyAnimator.SetBool("MOVE", true);
         }
 
-        //거리가 3유닛일때까지 진행
-        while (Vector3.Distance(this.transform.position, moveEnd) >= 3f)
+        if (/*지면과 캐릭터를 구분*/isGround)
         {
-            isMoving = true;
+            while (Vector3.Distance(this.transform.position, moveEnd) >= 0f)
+            {
+                isMoving = true;
 
-            this.transform.position = Vector3.MoveTowards(this.transform.position, moveEnd, speed * Time.deltaTime);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, moveEnd, speed * Time.deltaTime);
 
-            yield return null;
+                yield return null;
+            }
+        }
+        else
+        {
+            while (Vector3.Distance(this.transform.position, moveEnd) >= 0.6f)
+            {
+                isMoving = true;
 
-            //distance = Vector3.Distance(this.transform.position, moveEnd);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, moveEnd, speed * Time.deltaTime);
+
+                yield return null;
+            }
         }
 
         isMoving = false;
@@ -97,6 +110,38 @@ public abstract class Character : MonoBehaviour
             MyAnimator.SetBool("MOVE", false);
         }
     }
+
+    //public virtual IEnumerator MoveRoutine(Vector3 moveEnd, float rotate, float fff)
+    //{
+    //    //animator.SetLayerWeight(0, 0);
+    //    //animator.SetLayerWeight(1, 1);
+
+    //    Rotation(rotate);
+
+    //    if (MyAnimator != null)
+    //    {
+    //        MyAnimator.SetBool("MOVE", true);
+    //    }
+
+    //    //거리가 3유닛일때까지 진행
+    //    while (Vector3.Distance(this.transform.position, moveEnd) >= 0.6f)
+    //    {
+    //        isMoving = true;
+
+    //        this.transform.position = Vector3.MoveTowards(this.transform.position, moveEnd, speed * Time.deltaTime);
+
+    //        yield return null;
+
+    //        //distance = Vector3.Distance(this.transform.position, moveEnd);
+    //    }
+
+    //    isMoving = false;
+
+    //    if (MyAnimator != null)
+    //    {
+    //        MyAnimator.SetBool("MOVE", false);
+    //    }
+    //}
 
     private void Rotation(float rotate)
     {

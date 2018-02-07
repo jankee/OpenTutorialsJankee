@@ -14,7 +14,10 @@ public class NPC : Character
 
     private Vector3 startPos;
 
-    private Vector3 endPos;
+    private Vector3 endPos;                                         //클릭 후의 위치지점
+
+    [SerializeField]
+    private float disRange;                                            //캐릭터간의 거리 범위
 
     protected override void Start()
     {
@@ -35,7 +38,7 @@ public class NPC : Character
             //공격거리에 Player가 있는지 확인 한다
             //없으면 다시 움직인다
 
-            if (Vector3.Distance(endPos, startPos) > 2.5f)
+            if (Vector3.Distance(endPos, startPos) > disRange)
             {
                 isAttack = true;
 
@@ -52,6 +55,15 @@ public class NPC : Character
                 FindEnemy();
             }
         }
+    }
+
+    public IEnumerator MoveRoutine(Vector3 moveEnd, float rotate, float fff)
+    {
+        disRange = fff;
+
+        //yield return null;
+
+        return base.MoveRoutine(moveEnd, rotate);
     }
 
     public IEnumerator Attack()

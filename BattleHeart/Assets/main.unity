@@ -5001,6 +5001,11 @@ Prefab:
       propertyPath: speed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114896520200889070, guid: a09179d4c5d4db44a8fb8c173fa99119,
+        type: 2}
+      propertyPath: disRange
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a09179d4c5d4db44a8fb8c173fa99119, type: 2}
   m_IsPrefabParent: 0
@@ -5470,6 +5475,11 @@ Prefab:
     - target: {fileID: 1435137906948310, guid: a09179d4c5d4db44a8fb8c173fa99119, type: 2}
       propertyPath: m_Name
       value: Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114896520200889070, guid: a09179d4c5d4db44a8fb8c173fa99119,
+        type: 2}
+      propertyPath: disRange
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a09179d4c5d4db44a8fb8c173fa99119, type: 2}

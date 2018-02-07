@@ -156,6 +156,8 @@ public class InputManager : Singleton<InputManager>
                         //플레이어의 타겟에 에너미를 넘겨준다.
                         movePlayer.MyTarget = hitInfo.transform.GetComponent<Enemy>();
 
+                        movePlayer.isGround = false;
+
                         //UIManager.Instance.ShowTatgetFrame(movePlayer.MyTarget);
 
                         movePlayer.MyTarget.ActivateTarget();
@@ -173,6 +175,8 @@ public class InputManager : Singleton<InputManager>
 
                         Destroy(tmpSelect.gameObject);
                     }
+
+                    movePlayer.isGround = true;
 
                     //movePlayer를 selectPlayer에 전달
                     selectPlayer = movePlayer;
