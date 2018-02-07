@@ -13,6 +13,11 @@ BattleHeart/Temp/
 BattleHeart/Library/
 BattleHeart/obj/
 
+
+New Unity Project/Temp/
+New Unity Project/Library/
+New Unity Project/obj/
+
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -40,6 +45,13 @@ BattleHeart/*.sln
 *.unityproj
 *.booproj
 
+New Unity Project/*.csproj
+*.pidb
+*.suo
+New Unity Project/*.sln
+*.user
+*.unityproj
+*.booproj
 
 # ============ #
 # OS generated #
