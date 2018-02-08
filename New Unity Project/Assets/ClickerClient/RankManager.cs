@@ -10,6 +10,9 @@ public class RankManager : MonoBehaviour
     public GameObject rankInfoPanel;
 
     [SerializeField]
+    private Sprite[] sprite;
+
+    [SerializeField]
     private Transform contentTr;
 
     // Use this for initialization
@@ -26,7 +29,7 @@ public class RankManager : MonoBehaviour
     // Update is called once per frame
     private IEnumerator LoadRankRoutine()
     {
-        string url = "http://127.0.0.1/select_order_by.php";
+        string url = "http://127.0.0.1/ci/index.php/gamecontroller/rank_ctrl";
 
         WWW www = new WWW(url);
 
@@ -39,7 +42,7 @@ public class RankManager : MonoBehaviour
 
             string result = rankData["RESULT"].ToString();
 
-            if (result.Equals("ORDERBY_SUCCESS"))
+            if (result.Equals("ORDER_BY_SUCCESS"))
             {
                 List<object> rankList = rankData["USER_INFO"] as List<object>;
 
@@ -60,10 +63,11 @@ public class RankManager : MonoBehaviour
 
                     _row.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, posY);
                     _row.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                    _row.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = _data["nick_name"].ToString();
+                    _row.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = sprite[int.Parse(_data["charac_Select"].ToString())];
+                    _row.transform.GetChild(0).GetChild(1).GetComponent<Text>().text = _data["best_click_count"].ToString();
 
                     posY = posY - 40f;
-
-                    print(_row.GetComponent<RectTransform>().localPosition);
 
                     //row.transform.SetParent(content);
                     //row.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = _data["nick_name"].ToString();

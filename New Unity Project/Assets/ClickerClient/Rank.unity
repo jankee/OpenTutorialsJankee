@@ -155,6 +155,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rankInfoPanel: {fileID: 1025460114530316, guid: 51ca1fbe68cb92343af568a95903a271,
     type: 2}
+  sprite:
+  - {fileID: 21300000, guid: 793af4346ea483f4394620d73e92c9f7, type: 3}
+  - {fileID: 21300000, guid: 9cb66ede76e0c2f4eb5dec5a94872828, type: 3}
+  - {fileID: 21300000, guid: a4b4aac584268d648bfa4f3f879688d0, type: 3}
+  - {fileID: 21300000, guid: c003d027d85a4c64ab0e7329c5bb4ee3, type: 3}
+  - {fileID: 21300000, guid: 0480c579e80a2264fb9c6e2a07469552, type: 3}
   contentTr: {fileID: 82523250}
 --- !u!1 &82523249
 GameObject:
@@ -186,8 +192,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: 99.99997}
-  m_SizeDelta: {x: 200, y: 600}
+  m_AnchoredPosition: {x: -100, y: 100}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &153686206
 GameObject:
@@ -1129,7 +1135,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 255, y: 512}
+  m_ReferenceResolution: {x: 288, y: 512}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

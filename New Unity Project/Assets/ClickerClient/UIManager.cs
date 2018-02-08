@@ -9,6 +9,9 @@ public class UIManager : MonoBehaviour
 {
     public InputField _nickNameInputField;
 
+    [SerializeField]
+    private GameObject _msgBox;
+
     public Text _msgText;
 
     // Use this for initialization
@@ -29,16 +32,16 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator LoadAccountInfoRoutine()
     {
-        string url = "http://127.0.0.1/insertselect.php";
+        string url = "http://127.0.0.1/ci/index.php/gamecontroller/account_ctrl/?nick_name=";
 
         string nick_name = _nickNameInputField.text.Trim();
 
-        WWWForm form = new WWWForm();
+        url = url + nick_name;
 
-        form.AddField("nick_name", nick_name);
+        //form.AddField("nick_name", nick_name);
 
         //통신 요청
-        WWW www = new WWW(url, form);
+        WWW www = new WWW(url);
         //통신 요청 대기
         yield return www;
 
@@ -54,30 +57,34 @@ public class UIManager : MonoBehaviour
 
             string result = responseData["RESULT"].ToString();
 
-            if (result.Equals(nick_name + " IS ALLRADY"))
+            if (result.Equals("LOAD_SUCCESS"))
             {
                 string saveData = MiniJSON.jsonEncode(userInfo);
 
                 PlayerPrefs.SetString("USER_INFO", saveData);
                 PlayerPrefs.Save();
 
+                _msgBox.SetActive(true);
                 _msgText.text = "Joins User!";
 
                 yield return new WaitForSeconds(1.5f);
 
+                _msgBox.SetActive(false);
                 SceneManager.LoadScene("Main");
             }
-            else if (result.Equals("INSERT " + nick_name + " INFO"))
+            else if (result.Equals("INSERT_SUCCESS"))
             {
                 string saveData = MiniJSON.jsonEncode(userInfo);
 
                 PlayerPrefs.SetString("USER_INFO", saveData);
                 PlayerPrefs.Save();
 
+                _msgBox.SetActive(true);
                 _msgText.text = "Create new User!";
 
                 yield return new WaitForSeconds(1.5f);
 
+                _msgBox.SetActive(false);
                 SceneManager.LoadScene("Main");
             }
         }

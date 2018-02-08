@@ -300,7 +300,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 255, y: 512}
+  m_ReferenceResolution: {x: 288, y: 512}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -752,6 +752,20 @@ MonoBehaviour:
   _bestClickCountText: {fileID: 690712996}
   _nowClickCountText: {fileID: 1752133824}
   _timerProgress: {fileID: 1360487522}
+  sprites:
+  - {fileID: 21300000, guid: 9f973ef4c8af08d4a9ae7c710a5e420a, type: 3}
+  - {fileID: 21300000, guid: 46dd688786074684594e07169778b89a, type: 3}
+  - {fileID: 21300000, guid: 0a511b8bfa1c0d54ca46dfdb6c11aef0, type: 3}
+  - {fileID: 21300000, guid: dcdbc2ac6a70cf1478f32cb2ee313a1c, type: 3}
+  - {fileID: 21300000, guid: 523a6d7b8ea07ac42b1ec8cb5dcc58ef, type: 3}
+  portraySprites:
+  - {fileID: 21300000, guid: 793af4346ea483f4394620d73e92c9f7, type: 3}
+  - {fileID: 21300000, guid: 9cb66ede76e0c2f4eb5dec5a94872828, type: 3}
+  - {fileID: 21300000, guid: a4b4aac584268d648bfa4f3f879688d0, type: 3}
+  - {fileID: 21300000, guid: c003d027d85a4c64ab0e7329c5bb4ee3, type: 3}
+  - {fileID: 21300000, guid: 0480c579e80a2264fb9c6e2a07469552, type: 3}
+  characterSprite: {fileID: 1381493486}
+  portrayrSprite: {fileID: 853145431}
 --- !u!4 &1176105015
 Transform:
   m_ObjectHideFlags: 0

@@ -12,6 +12,18 @@ public class GameManager : MonoBehaviour
     public Text _nowClickCountText;
     public Image _timerProgress;
 
+    [SerializeField]
+    private Sprite[] sprites;
+
+    [SerializeField]
+    private Sprite[] portraySprites;
+
+    [SerializeField]
+    private Image characterSprite;
+
+    [SerializeField]
+    private Image portrayrSprite;
+
     private int totalCount = 0;
 
     // Use this for initialization
@@ -26,6 +38,10 @@ public class GameManager : MonoBehaviour
         _nickNameText.text = userInfo["nick_name"].ToString();
 
         totalCount = int.Parse(userInfo["total_click_count"].ToString());
+
+        characterSprite.sprite = sprites[int.Parse(userInfo["charac_Select"].ToString())];
+
+        portrayrSprite.sprite = portraySprites[int.Parse(userInfo["charac_Select"].ToString())];
 
         _bestClickCountText.text = userInfo["best_click_count"].ToString();
 
@@ -65,7 +81,7 @@ public class GameManager : MonoBehaviour
         offButton.GetComponent<Image>().color = Color.gray;
         offButton.transform.GetChild(0).GetComponent<Image>().color = Color.gray;
 
-        string url = "http://127.0.0.1/update.php";
+        string url = "http://127.0.0.1/ci/index.php/gamecontroller/update_ctrl";
 
         string nick_name = _nickNameText.text.Trim();
 
