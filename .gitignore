@@ -18,6 +18,15 @@ New Unity Project/Temp/
 New Unity Project/Library/
 New Unity Project/obj/
 
+Moving Training/Temp/
+Moving Training/Library/
+Moving Training/obj/
+
+PhotonGame/Temp/
+PhotonGame/Library/
+PhotonGame/obj/
+
+
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -52,6 +61,25 @@ New Unity Project/*.sln
 *.user
 *.unityproj
 *.booproj
+
+Moving Training/*.csproj
+*.pidb
+*.suo
+Moving Training/*.sln
+*.user
+*.unityproj
+*.booproj
+
+PhotonGame/*.csproj
+*.pidb
+*.suo
+PhotonGame/*.sln
+*.user
+*.unityproj
+*.booproj
+
+
+
 
 # ============ #
 # OS generated #
