@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator LoadAccountInfoRoutine()
     {
-        string url = "http://127.0.0.1/ci/index.php/gamecontroller/account_ctrl/?nick_name=";
+        string url = "http://13.125.175.104/ci/index.php/gamecontroller/account_ctrl/?nick_name=";
 
         string nick_name = _nickNameInputField.text.Trim();
 
